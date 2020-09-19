@@ -1,0 +1,57 @@
+.settings-tabs {
+    display: flex;
+}
+
+.settings-page .panel {
+    /* The idea is that we want the panel to show vertical scrollbar
+       if panel doesn't fit on window, and always display the buttons
+       for saving/reloading the settings.
+       The value we subtract is meant to represent header's (navigation bar)
+       and footer's (action buttons) heights. */
+    max-height: calc(100vh - 11rem);
+    overflow-y: auto;
+}
+
+.settings-page .sidebar {
+    flex: 0 0 20%;
+    list-style-type: none;
+    padding-left: 0px;
+
+    font-size: 1.1rem;
+    text-align: right;
+    margin-right: 3rem;
+
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.settings-page .sidebar li:not(:last-child) {
+    padding-bottom: 0.9rem;
+    margin-bottom: 0.9rem;
+    border-bottom: 1px solid #828282;
+}
+
+.sidebar-content--selected {
+    flex: 0 0 60%;
+}
+
+.sidebar-tab .icon {
+    margin-left: 1em;
+}
+
+.sidebar-tab:hover {
+    color: #e6e6e6;
+    cursor: pointer;
+}
+
+.sidebar-tab:active {
+    color: #828282;
+}
+
+.sidebar-tab {
+    color: #a0a0a0;
+}
+
+.sidebar-tab--selected {
+    color: #ffffff;
+}

@@ -1,0 +1,59 @@
+.field.alpha .label {
+    color: #ff4049;
+}
+
+.field.alpha .user-input .slider::-webkit-slider-thumb {
+    background-color: #ff4049;
+}
+
+.field.alpha .user-input .slider::-webkit-slider-thumb:hover {
+    background-color: #d12830;
+}
+
+
+
+.field.bravo .label {
+    color: #29abe2;
+}
+
+.field.bravo .user-input .slider::-webkit-slider-thumb {
+    background-color: #29abe2
+}
+
+.field.bravo .user-input .slider::-webkit-slider-thumb:hover {
+    background-color: #227da3;
+}
+
+
+
+.field.charlie .label {
+    color: #f7f148;
+}
+
+.field.charlie .user-input .slider::-webkit-slider-thumb {
+    background-color: #f7f148;
+}
+
+.field.charlie .user-input .slider::-webkit-slider-thumb:hover {
+    background-color: #c2bd36;
+}
+
+
+
+.field.delta .label {
+    color: #4ceb13;
+}
+
+.field.delta .user-input .slider::-webkit-slider-thumb {
+    background-color: #4ceb13;
+}
+
+.field.delta .user-input .slider::-webkit-slider-thumb:hover {
+    background-color: #41ba14;
+}
+
+
+
+.bots-count-error-message {
+    margin-bottom: 1em;
+}

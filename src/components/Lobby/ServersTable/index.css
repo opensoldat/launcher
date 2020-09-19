@@ -1,0 +1,108 @@
+.servers-table-container {
+    overflow: auto;
+    border: 1px solid #828282;
+
+    position: relative;
+    height: 100%;
+}
+
+.servers-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.servers-table td + td, .servers-table th + th {
+    border-left: 1px solid #828282;
+}
+
+.servers-table tbody tr, .servers-table thead tr {
+    border-bottom: 1px solid #828282;
+}
+
+.servers-table tbody tr {
+    cursor: pointer;
+}
+
+.servers-table th {
+    background-color: #495059;
+    height: 2em;
+    text-align: left;
+
+    /* We want table's header to be always visible when scrolling */
+    position: sticky;
+    top: 0;
+    box-shadow: 1px 1px #828282;
+}
+
+/* Allow text selections, as users might want to copy server's name/ip/port/info. */
+.servers-table td {
+    -webkit-user-select: text;
+}
+
+.servers-table th, .servers-table td img {
+    -webkit-user-select: none;
+}
+
+.servers-table th:hover {
+    background-color: #3e444d;
+}
+
+.servers-table th:active {
+    background-color: #3a3f47;
+}
+
+.servers-table th, .servers-table td {
+    padding: 10px;
+
+    /* We don't want any wrapping: display all as is, and expand columns
+    * when necessary; this seems like a cleaner approach than setting minimum
+    * width for each column. */
+    white-space: nowrap;
+}
+
+.servers-table .game-styles-header-cell {
+    display: inline-flex;
+    align-items: center;
+}
+
+.servers-table .game-styles-header-cell .icon {
+    margin-left: 1em;
+}
+
+.servers-table tbody tr.connected {
+    background-color: #316131;
+}
+
+.servers-table tbody tr.connected:hover {
+    background-color: #264d26;
+}
+
+.servers-table tbody tr.connected:active {
+    background-color: #204020;
+}
+
+.servers-table tbody tr {
+    background-color: #282828
+}
+
+.servers-table tbody tr:hover {
+    background-color: #363940;
+}
+
+.servers-table tbody tr:active {
+    background-color: #303238;
+}
+
+.servers-table-container .centered-container {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+}
+
+.servers-table-container .centered-content {
+    position: relative;
+
+    left: -50%;
+    top: -50%;
+}

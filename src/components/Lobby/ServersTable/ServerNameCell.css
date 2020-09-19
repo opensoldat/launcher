@@ -1,0 +1,21 @@
+.server-name-cell {
+    display: flex;
+    align-items: center;
+}
+
+.server-name-cell .flag-icon {
+    margin-right: 1em;
+}
+
+.server-name-cell .server-name {
+    margin-right: 2em;
+    min-width: 8em;
+}
+
+.server-name-cell .server-info-icons {
+    margin-left: auto;
+}
+
+.server-name-cell .server-info-icons .icon:not(:last-child) {
+    margin-right: 0.5em;
+}

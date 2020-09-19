@@ -1,0 +1,21 @@
+.game-styles-tooltip .list {
+    margin: 0;
+    padding-left: 1em;
+}
+
+.game-styles-tooltip .list .list-item:not(:last-child) {
+    margin-bottom: 1em;
+}
+   
+.game-styles-tooltip .list .list-item .content {
+    display: inline-flex;
+}
+
+.game-styles-tooltip .list .list-item .content .game-style-label {
+    min-width: 5em;
+}
+
+.game-styles-tooltip .list .list-item .content .game-style-description {
+    margin-left: 0.8em;
+    max-width: 15em;
+}

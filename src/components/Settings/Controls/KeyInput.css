@@ -1,0 +1,57 @@
+.key-input {
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+
+    color: #ffffff;
+    background-color: #828282;
+    box-sizing: border-box;
+
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0px 0.2em 0px 0.2em;
+}
+
+.key-input:hover {
+    background-color: #6e6e6e;
+}
+
+.key-input:active {
+    background-color: #575757;
+}
+
+.key-input .key {
+    flex: 1;
+    text-align: center;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* This is a workaround for the scenario where user clicks
+ * on .key-bind-input element while we are waiting for key:
+ * it assigns the mouse binding, but it starts waiting for
+ * new key right away. For detecting mouse clicks, we rely on
+ * "mousedown" event, and from the "mousedown" event handler we
+ * can't really cancel the following "click" event that will
+ * occur on same element. So, instead of implementing more logic
+ * with Javascript, we use this quick CSS trick. */
+.key-input.waiting-for-key {
+    pointer-events: none;
+
+    animation: blink 1s linear infinite;
+    border: 1px solid #fff;
+}
+
+/* Of course, we still want to allow clicking button for clearing binding. */
+.key-input.waiting-for-key .clear-button {
+    pointer-events: all;
+}
+
+@keyframes blink {
+    0% { background-color: #828282; }
+    50% { background-color: #555555; }
+    100% { background-color: #828282; }
+}

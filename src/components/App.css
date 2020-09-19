@@ -1,0 +1,87 @@
+@font-face {
+    font-family: play-regular;
+    src: url("../assets/play-regular.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+}
+
+body {
+    background-color: black;
+    color: #F0FFFF; /* Default text color */
+    font-family: play-regular, sans-serif;
+    /* Don't allow users to select text by default;
+    * It doesn't look great if you can highlight GUI elements. */
+    -webkit-user-select: none;
+}
+
+/* We want the app to have native feel, so we remove
+ * outlines from elements that have focus.
+ * Such approach is usually frowned upon in web dev
+ * because of its consequences on accessibility,
+ * but I think it's ok in this case. */
+:focus {
+    outline: none;
+}
+
+.background {
+    position: fixed;
+    left: 0;
+    right: 0;
+    background-image: url("../assets/background.png");
+    min-height: 100%;
+    min-width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    filter: blur(12px);
+    transform: scale(1.1);  /* Hide ugly edges of blurred image */
+}
+
+#app {
+    position: fixed;
+    left: 0;
+    right: 0;
+}
+
+button, input {
+    font-family: inherit;
+}
+
+.navigation-bar-container {
+    display: flex;
+    justify-content: center;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.navigation-bar {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+    padding-left: 0px;
+    max-width: 30em;
+    width: 100%;
+}
+
+.navigation-bar-tab {
+    font-size: x-large;
+}
+
+.navigation-bar-tab:hover {
+    filter: brightness(85%);
+    cursor: pointer;
+}
+
+.navigation-bar-tab:active {
+    filter: brightness(70%);
+}
+
+.navigation-bar-tab--selected {
+    color: #FFC76E;
+}
+
+.navigation-bar-content {
+    margin-left: 50px;
+    margin-right: 50px;
+}

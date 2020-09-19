@@ -1,0 +1,60 @@
+.bindings-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bindings-table th:not(.key-header) {
+    text-align: left;
+}
+
+.bindings-table tr {
+    border-bottom: 1px solid #828282;
+}
+
+.bindings-table td {
+    min-height: 1.7em;
+    padding: 0.5em 0.25em 0.5em 0.25em;
+}
+
+.bindings-table .command-cell {
+    width: 60%;
+}
+
+.bindings-table .command-cell input {
+    width: 100%;
+    font-size: 1em;
+    box-sizing: border-box;
+    min-height: inherit;
+
+    background-color: #eee;
+    border: 0;
+    padding-left: 6px;
+}
+
+.bindings-table .actions-cell {
+    width: 5%;
+    text-align: center;
+}
+
+.bindings-table .actions-cell .delete-button {
+    color: #ff5c5c;
+    cursor: pointer;
+
+    visibility: hidden;
+}
+
+.bindings-table tbody tr:hover .actions-cell .delete-button {
+    visibility: visible;
+}
+
+.bindings-table .actions-cell .delete-button:hover {
+    color: #de5050;
+}
+
+.bindings-table .actions-cell .delete-button:active {
+    color: #c24646;
+}
+
+.bindings-table .key-cell {
+    width: 35%;
+}

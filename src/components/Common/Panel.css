@@ -1,0 +1,5 @@
+.panel {
+    background-color: rgba(42, 45, 50, 0.8);
+    outline: 1px solid #E0E0E0;
+    padding: 15px;
+}

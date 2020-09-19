@@ -1,0 +1,55 @@
+.servers-table-actions {
+    display: flex;
+    margin-bottom: 1em;
+}
+
+.servers-table-actions .quick-search-container {
+    flex: 1;
+
+    display: inline-flex;
+    align-items: center;
+}
+
+.servers-table-actions .quick-search {
+    height: 2em;
+    width: 100%;
+    font-size: 1em;
+    box-sizing: border-box;
+    padding: 6px;
+    border-radius: 3px;
+    border: 1px;
+    margin-left: 0.8em;
+}
+
+.servers-table-actions .buttons-container {
+    margin-left: 1em;
+
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.servers-table-actions .buttons-container button {
+    display: inline-flex;
+    align-items: center;
+
+    height: 100%;
+    font-size: medium;
+}
+
+.servers-table-actions .buttons-container button:not(:last-child) {
+    margin-right: 1em;
+}
+
+.servers-table-actions .buttons-container button .icon {
+    margin-right: 0.5em;
+}
+
+.servers-table-actions .buttons-container .active-filters-count {
+    margin-left: 0.5em;
+    background-color: white;
+    color: black;
+    font-size: 0.9em;
+
+    padding: 0 0.3em;
+    border-radius: 1em;
+}

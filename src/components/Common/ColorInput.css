@@ -1,0 +1,39 @@
+.color-input-button {
+    border: 1px solid #828282;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+
+.color-input-text {
+    color: #ffffff;
+    font-size: 1.1em;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.color-picker {
+    color: black;
+
+    /* Note: width and height must be the same as in .color-picker-container.
+       We use static width and height to allow centering of color picker on screen. */
+    width: 530px;
+    height: 310px;
+}
+
+.color-picker-container {
+    width: 530px;
+    height: 310px;
+
+    left: 50%;
+    top: 50%;
+
+    margin-left: -265px;
+    margin-top: -155px;
+
+    position: fixed;
+    z-index: 1;
+}
+
+.photoshop-picker > div:first-child {
+    cursor: move;
+}

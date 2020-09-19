@@ -1,0 +1,40 @@
+.game-modes button {
+    width: 100%;
+    min-height: 2.5em;
+
+    overflow: hidden;
+
+    color: #999999;
+    background-color: #282828;
+    border: 1px solid #828282;
+
+    margin-bottom: -1px;
+
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.game-modes button:hover {
+    color: #e0e0e0;
+    background-color: #424954;
+}
+
+.game-modes button:active {
+    color: #ffffff;
+    background-color: #363c45;
+}
+
+.game-modes button.selected {
+    color: #ffffff;
+    background-color: #7d8796;
+}
+
+.game-modes button.selected:hover {
+    color: #ffffff;
+    background-color: #5d6570;
+}
+
+.game-modes button.selected:active {
+    color: #ffffff;
+    background-color: #4e555e;
+}

@@ -1,0 +1,120 @@
+{
+    "name": "soldat-launcher",
+    "productName": "soldat-launcher",
+    "version": "1.0.0",
+    "description": "Launcher for Soldat",
+    "main": ".webpack/main",
+    "scripts": {
+        "start": "electron-forge start",
+        "package": "electron-forge package",
+        "make": "electron-forge make",
+        "publish": "electron-forge publish",
+        "lint": "eslint --ext .ts,.tsx .",
+        "test": "jest"
+    },
+    "keywords": [],
+    "author": {
+        "name": "Jan Różański"
+    },
+    "license": "MIT",
+    "config": {
+        "forge": {
+            "packagerConfig": {},
+            "makers": [
+                {
+                    "name": "@electron-forge/maker-squirrel",
+                    "config": {
+                        "name": "soldat_launcher"
+                    }
+                },
+                {
+                    "name": "@electron-forge/maker-zip",
+                    "platforms": [
+                        "darwin"
+                    ]
+                },
+                {
+                    "name": "@electron-forge/maker-deb",
+                    "config": {}
+                }
+            ],
+            "plugins": [
+                [
+                    "@electron-forge/plugin-webpack",
+                    {
+                        "mainConfig": "./webpack.main.config.js",
+                        "renderer": {
+                            "config": "./webpack.renderer.config.js",
+                            "entryPoints": [
+                                {
+                                    "html": "./src/index.html",
+                                    "js": "./src/index.tsx",
+                                    "name": "main_window",
+                                    "preload": {
+                                        "js": "./src/preload.ts"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            ]
+        }
+    },
+    "devDependencies": {
+        "@electron-forge/cli": "^6.0.0-beta.53",
+        "@electron-forge/maker-deb": "^6.0.0-beta.53",
+        "@electron-forge/maker-rpm": "^6.0.0-beta.53",
+        "@electron-forge/maker-squirrel": "^6.0.0-beta.53",
+        "@electron-forge/maker-zip": "^6.0.0-beta.53",
+        "@electron-forge/plugin-webpack": "^6.0.0-beta.53",
+        "@fortawesome/fontawesome-svg-core": "^1.2.30",
+        "@fortawesome/free-solid-svg-icons": "^5.14.0",
+        "@fortawesome/react-fontawesome": "^0.1.11",
+        "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
+        "@types/enzyme": "^3.10.5",
+        "@types/enzyme-adapter-react-16": "^1.0.6",
+        "@types/jest": "^26.0.13",
+        "@types/lodash": "^4.14.161",
+        "@types/react": "^16.9.49",
+        "@types/react-color": "^3.0.4",
+        "@types/react-dom": "^16.9.8",
+        "@types/react-select": "^3.0.19",
+        "@types/react-tabs": "^2.3.2",
+        "@types/shortid": "0.0.29",
+        "@typescript-eslint/eslint-plugin": "^2.34.0",
+        "@typescript-eslint/parser": "^2.34.0",
+        "css-loader": "^3.6.0",
+        "electron": "9.0.5",
+        "enzyme": "^3.11.0",
+        "enzyme-adapter-react-16": "^1.15.4",
+        "eslint": "^6.8.0",
+        "eslint-plugin-import": "^2.22.0",
+        "eslint-plugin-react": "^7.20.6",
+        "file-loader": "^6.1.0",
+        "fork-ts-checker-webpack-plugin": "^3.1.1",
+        "jest": "^26.4.2",
+        "lodash": "^4.17.20",
+        "mobx": "^5.15.6",
+        "mobx-react": "^6.3.0",
+        "mobx-utils": "^5.6.1",
+        "node-loader": "^0.6.0",
+        "react": "^16.13.1",
+        "react-color": "^2.18.1",
+        "react-dom": "^16.13.1",
+        "react-draggable": "^4.4.3",
+        "react-flag-kit": "^0.3.1",
+        "react-select": "^3.1.0",
+        "react-tabs": "^3.1.1",
+        "react-toastify": "^6.0.8",
+        "react-tooltip": "^4.2.9",
+        "shortid": "^2.2.15",
+        "style-loader": "^0.23.1",
+        "ts-jest": "^26.3.0",
+        "ts-loader": "^6.2.2",
+        "typescript": "^3.9.7"
+    },
+    "dependencies": {
+        "electron-squirrel-startup": "^1.0.0"
+    }
+}

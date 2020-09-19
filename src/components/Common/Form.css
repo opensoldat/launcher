@@ -1,0 +1,64 @@
+.form .field {
+    width: 100%;
+    display: inline-flex;
+    align-items: flex-start;
+}
+
+.form .field .label {
+    flex: 0 0 55%;
+    background-color: #282828;
+    height: 1.7rem;
+    line-height: 1.7rem;
+    padding-left: 0.5rem;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.form .field .user-input {
+    margin-left: 1rem;
+    flex: 1;
+    min-height: 1.7rem;
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+}
+
+.form .field:not(:last-child) {
+    padding-bottom: 0.5em;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #828282; 
+}
+
+.form .user-input input, select, .color-input, .dropdown {
+    width: 100%;
+    /* Label's and input's height should match. */
+    height: 1.7rem;
+    box-sizing: border-box;
+}
+
+.form .user-input .full-width, .resolution-select {
+    width: 100%;
+}
+
+.form .user-input input {
+    text-align: center;
+}
+
+/* We don't want top margin when the fields group is
+ * first element inside form */
+.form .fields-group:not(:first-child) {
+    margin-top: 2.5rem;
+}
+
+.form .fields-group .title {
+    border-bottom: 1px solid #828282;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.form .error-message {
+    color: #ff5c5c;
+    font-size: 1rem;
+    margin-top: 3px;
+}

@@ -1,0 +1,25 @@
+.settings-panel-container .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1em;
+
+    white-space: nowrap;
+}
+
+.settings-panel-container .action-buttons .button {
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+/* Right-align if there is only one button. */
+.settings-panel-container .action-buttons .button:only-child {
+    margin-left: auto;
+}
+
+.settings-panel-container .action-buttons .button:not(:last-child) {
+    margin-right: 1em;
+}
+
+.settings-panel-container .centered-spinner {
+    text-align: center;
+}

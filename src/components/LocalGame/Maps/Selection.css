@@ -1,0 +1,35 @@
+.map-selection-container {
+    display: flex;
+}
+
+.map-selection-container .map-selection {
+    flex: 0 0 40%;
+}
+
+.map-selection-container .map-preview {
+    margin-left: 1em;
+    flex: 1;
+
+    overflow: auto;
+}
+
+.map-selection input {
+    width:100%;
+    box-sizing: border-box;
+
+    height: 2em;
+    font-size: 0.9em;
+    padding-left: 1.3em;
+}
+
+.map-selection .maps-list-container {
+    margin-top: 1em;
+}
+
+.maps-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 0.5em;
+}

@@ -1,0 +1,16 @@
+.sortable-column {
+    cursor: pointer;
+}
+
+.sortable-column .content {
+    display: flex;
+}
+
+.sortable-column .content .sort-icon {
+    margin-left: auto; /* Right-alignment */
+    align-self: center;
+    text-align: center;
+
+    /* Prevents columns from adjusting their width when sort icon appears */
+    min-width: 15px; 
+}

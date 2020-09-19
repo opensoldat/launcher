@@ -1,0 +1,21 @@
+.gameplay-form .field .user-input.game-styles {
+    height: 100%;
+}
+
+.gameplay-form .field .user-input .checkboxes-list .checkbox-container {
+    display: flex;
+}
+
+.gameplay-form .field .user-input.game-styles .checkbox-container {
+    /* Should match height of form field's label */
+    height: 1.7rem;
+}
+
+.gameplay-form .field .label-with-info {
+    display: inline-flex;
+    align-items: center;
+}
+
+.gameplay-form .field .label-with-info .info-icon {
+    margin-left: 1em;
+}

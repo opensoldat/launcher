@@ -1,0 +1,11 @@
+.players-cell {
+    display: flex;
+}
+
+.players-cell .players-count {
+    margin-right: 2em;
+}
+
+.players-cell .bots-count {
+    margin-left: auto;
+}
