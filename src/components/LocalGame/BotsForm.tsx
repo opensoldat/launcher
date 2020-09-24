@@ -5,56 +5,52 @@ import Checkbox from "../Common/Checkbox";
 import Select from "../Common/Select";
 import SliderNumberInput from "../Common/SliderNumberInput";
 
-import { GameModes, BotDifficulties, BotsSettings } from "../../types";
-import BotsValidationStore from "../../stores/server/botsValidation";
+import { GameModes } from "src/types";
+import ServerSettings, { BotDifficulties } from "src/settings/server";
 
 import "./BotsForm.css";
 
 type BotsFormProps = {
-    gameMode: GameModes;
-    botsSettings: BotsSettings;
-    botsValidationStore: BotsValidationStore;
+    serverSettings: ServerSettings;
 }
 
 const BotsForm: React.FC<BotsFormProps> = props => {
-    const isTeamGameMode =
-        props.gameMode === GameModes.CaptureTheFlag ||
-        props.gameMode === GameModes.HoldTheFlag ||
-        props.gameMode === GameModes.Infiltration ||
-        props.gameMode === GameModes.TeamDeathMatch;
+    const isTeamGameMode = props.serverSettings.isTeamGameMode;
     
     const displayAlphaField = isTeamGameMode;
     const displayBravoField = isTeamGameMode;
-    const displayCharlieField = props.gameMode === GameModes.TeamDeathMatch;
-    const displayDeltaField = props.gameMode === GameModes.TeamDeathMatch;
+    const displayCharlieField = props.serverSettings.gameplay.mode === GameModes.TeamDeathMatch;
+    const displayDeltaField = props.serverSettings.gameplay.mode === GameModes.TeamDeathMatch;
     const displayNoTeamField = !isTeamGameMode;
+
+    const bots = props.serverSettings.bots;
 
     const handleBotsCountChange = (newBotsCount: number, inputFieldName: string): void => {
         switch (inputFieldName) {
             case "alpha-bots":
-                props.botsSettings.alpha = newBotsCount;
+                bots.alpha = newBotsCount;
                 break;
             case "bravo-bots":
-                props.botsSettings.bravo = newBotsCount;
+                bots.bravo = newBotsCount;
                 break;
             case "charlie-bots":
-                props.botsSettings.charlie = newBotsCount;
+                bots.charlie = newBotsCount;
                 break;
             case "delta-bots":
-                props.botsSettings.delta = newBotsCount;
+                bots.delta = newBotsCount;
                 break;
             case "no-team-bots":
-                props.botsSettings.noTeam = newBotsCount;
+                bots.noTeam = newBotsCount;
                 break;
         }
     }
 
     const handleBotsChatToggle = (checked: boolean): void => {
-        props.botsSettings.chat = checked;
+        bots.chat = checked;
     }
 
     const handleBotsDifficultyChange = (newValue: string): void => {
-        props.botsSettings.difficulty = Number(newValue) as BotDifficulties;
+        bots.difficulty = Number(newValue) as BotDifficulties;
     }
 
     return (
@@ -68,7 +64,7 @@ const BotsForm: React.FC<BotsFormProps> = props => {
                     <SliderNumberInput
                         min={0}
                         max={30}
-                        value={props.botsSettings.alpha}
+                        value={bots.alpha}
                         onValueChange={handleBotsCountChange}
                         id="alpha-bots"
                         name="alpha-bots"/>
@@ -85,7 +81,7 @@ const BotsForm: React.FC<BotsFormProps> = props => {
                     <SliderNumberInput
                         min={0}
                         max={30}
-                        value={props.botsSettings.bravo}
+                        value={bots.bravo}
                         onValueChange={handleBotsCountChange}
                         id="bravo-bots"
                         name="bravo-bots"/>
@@ -102,7 +98,7 @@ const BotsForm: React.FC<BotsFormProps> = props => {
                     <SliderNumberInput
                         min={0}
                         max={30}
-                        value={props.botsSettings.charlie}
+                        value={bots.charlie}
                         onValueChange={handleBotsCountChange}
                         id="charlie-bots"
                         name="charlie-bots"/>
@@ -119,7 +115,7 @@ const BotsForm: React.FC<BotsFormProps> = props => {
                     <SliderNumberInput
                         min={0}
                         max={30}
-                        value={props.botsSettings.delta}
+                        value={bots.delta}
                         onValueChange={handleBotsCountChange}
                         id="delta-bots"
                         name="delta-bots"/>
@@ -136,7 +132,7 @@ const BotsForm: React.FC<BotsFormProps> = props => {
                     <SliderNumberInput
                         min={0}
                         max={30}
-                        value={props.botsSettings.noTeam}
+                        value={bots.noTeam}
                         onValueChange={handleBotsCountChange}
                         id="no-team-bots"
                         name="no-team-bots"/>
@@ -144,9 +140,9 @@ const BotsForm: React.FC<BotsFormProps> = props => {
             </div>
             }
 
-            {props.botsValidationStore.countError &&
+            {props.serverSettings.botsCountError &&
             <div className="bots-count-error-message error-message">
-                {props.botsValidationStore.countError}
+                {props.serverSettings.botsCountError}
             </div>
             }
 
@@ -155,16 +151,17 @@ const BotsForm: React.FC<BotsFormProps> = props => {
                     Difficulty
                 </label>
                 <div className="user-input">
-                    <Select options={[
-                                {value: BotDifficulties.Stupid.toString(), label: "Stupid"},
-                                {value: BotDifficulties.Poor.toString(), label: "Poor"},
-                                {value: BotDifficulties.Normal.toString(), label: "Normal"},
-                                {value: BotDifficulties.Hard.toString(), label: "Hard"},
-                                {value: BotDifficulties.Impossible.toString(), label: "Impossible"},
-                            ]}
-                            selectedValue={props.botsSettings.difficulty.toString()}
-                            onSelectedChange={handleBotsDifficultyChange}
-                            menuPosition="fixed" />
+                    <Select
+                        options={[
+                            {value: BotDifficulties.Stupid.toString(), label: "Stupid"},
+                            {value: BotDifficulties.Poor.toString(), label: "Poor"},
+                            {value: BotDifficulties.Normal.toString(), label: "Normal"},
+                            {value: BotDifficulties.Hard.toString(), label: "Hard"},
+                            {value: BotDifficulties.Impossible.toString(), label: "Impossible"},
+                        ]}
+                        selectedValue={bots.difficulty.toString()}
+                        onSelectedChange={handleBotsDifficultyChange}
+                        menuPosition="fixed" />
                 </div>
             </div>
 
@@ -176,7 +173,7 @@ const BotsForm: React.FC<BotsFormProps> = props => {
                     <Checkbox
                         id="bots-chat"
                         colorTheme="dark"    
-                        checked={props.botsSettings.chat}
+                        checked={bots.chat}
                         onToggle={handleBotsChatToggle} />
                 </div>
             </div>

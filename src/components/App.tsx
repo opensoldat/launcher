@@ -6,9 +6,10 @@ import LobbyPage from "./Lobby/Page";
 import LocalGamePage from "./LocalGame/Page";
 import SettingsPage from "./Settings/Page";
 
-import ClientSettingsStore from "../stores/client/settings";
+import ClientSettingsStore from "../stores/settings/client";
 import ConnectFormStore from "../stores/lobby/connectForm";
-import ServerSettingsStore from "../stores/server/settings";
+import ServerSettingsStore from "../stores/settings/server";
+import ServerMapsListStore from "src/stores/settings/server/mapsList";
 import LobbyServersStore from "../stores/lobby/servers";
 import LocalGameStore from "../stores/localGame";
 import MapsStore from "../stores/maps";
@@ -26,7 +27,9 @@ enum TabIndexes {
 
 const App: React.FC = () => {
     const [clientSettingsStore] = React.useState(() => new ClientSettingsStore());
+
     const [serverSettingsStore] = React.useState(() => new ServerSettingsStore());
+    const [serverMapsListStore] = React.useState(() => new ServerMapsListStore());
 
     /* We keep track of some UI-related states so that we can restore
      * pages when user navigates with tabs. We keep states in this root
@@ -89,6 +92,7 @@ const App: React.FC = () => {
                 <TabPanel className="navigation-bar-content">
                     <LocalGamePage
                         serverSettingsStore={serverSettingsStore}
+                        serverMapsListStore={serverMapsListStore}
                         localGameStore={localGameStore}
                         mapsStore={mapsStore}
                         uiState={uiStore.localGamePage}

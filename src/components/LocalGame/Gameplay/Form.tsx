@@ -1,51 +1,53 @@
 import React from "react";
 import { observer } from "mobx-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
+import { GameplaySettings } from "src/settings/server";
+
+import Checkbox from "../../Common/Checkbox";
 import GameStylesSelection from "./StylesSelection";
+import GameStylesTooltip from "../../Common/GameStylesTooltip";
 import PointsLimitField from "./PointsLimitField";
 import SliderNumberInput from "../../Common/SliderNumberInput";
-
-import { GameplaySettings } from "../../../types";
+import Tooltip from "../../Common/Tooltip";
 
 import "../../Common/Form.css";
 import "./Form.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import GameStylesTooltip from "../../Common/GameStylesTooltip";
-import Checkbox from "../../Common/Checkbox";
-import Tooltip from "../../Common/Tooltip";
 
 type GameplayFormProps = {
     gameplaySettings: GameplaySettings;
 }
 
 const GameplayForm: React.FC<GameplayFormProps> = props => {
+    const gameplay = props.gameplaySettings;
+
     const handleAdvanceAmountChange = (newValue: number): void => {
-        props.gameplaySettings.styles.advanceAmount = newValue;
+        gameplay.styles.advanceAmount = newValue;
     }
 
     const handleCheckboxToggle = (checked: boolean, fieldName?: string): void => {
         switch (fieldName) {
             case "bullet-time":
-                props.gameplaySettings.bulletTime = checked;
+                gameplay.bulletTime = checked;
                 break;
 
             case "friendly-fire":
-                props.gameplaySettings.friendlyFire = checked;
+                gameplay.friendlyFire = checked;
                 break;
 
             case "sniper-line":
-                props.gameplaySettings.sniperLine = checked;
+                gameplay.sniperLine = checked;
                 break;
 
             case "survival-destroy-weapons":
-                props.gameplaySettings.styles.survivalDestroyWeaponsAfterRound = checked;
+                gameplay.styles.survivalDestroyWeaponsAfterRound = checked;
                 break;
         }
     }
 
     const handleTimeLimitChange = (newTimeLimit: number): void => {
-        props.gameplaySettings.timeLimit = newTimeLimit;
+        gameplay.timeLimit = newTimeLimit;
     }
 
     return (
@@ -58,15 +60,15 @@ const GameplayForm: React.FC<GameplayFormProps> = props => {
                     <SliderNumberInput
                         min={1}
                         max={120}
-                        value={props.gameplaySettings.timeLimit}
+                        value={gameplay.timeLimit}
                         onValueChange={handleTimeLimitChange}
                         id="time-limit" />
                 </div>
             </div>
 
             <PointsLimitField
-                gameMode={props.gameplaySettings.mode}
-                pointsLimits={props.gameplaySettings.pointsLimits} />
+                gameMode={gameplay.mode}
+                pointsLimits={gameplay.pointsLimits} />
 
             <div className="field">
                 <label className="label label-with-info">
@@ -78,13 +80,13 @@ const GameplayForm: React.FC<GameplayFormProps> = props => {
                         icon={faInfoCircle} />
                 </label>
                 <div className="user-input game-styles">
-                    <GameStylesSelection gameStyles={props.gameplaySettings.styles} />
+                    <GameStylesSelection gameStyles={gameplay.styles} />
                 </div>
 
                 <GameStylesTooltip id="game-styles-tooltip" />
             </div>
 
-            {props.gameplaySettings.styles.survivalEnabled &&
+            {gameplay.styles.survivalEnabled &&
             <div className="field">
                 <label className="label">
                     Survival settings
@@ -94,13 +96,13 @@ const GameplayForm: React.FC<GameplayFormProps> = props => {
                         colorTheme="dark"
                         name="survival-destroy-weapons"
                         rightLabel="Destroy all weapons when round ends"
-                        checked={props.gameplaySettings.styles.survivalDestroyWeaponsAfterRound}
+                        checked={gameplay.styles.survivalDestroyWeaponsAfterRound}
                         onToggle={handleCheckboxToggle} />
                 </div>
             </div>
             }
 
-            {props.gameplaySettings.styles.advanceEnabled &&
+            {gameplay.styles.advanceEnabled &&
             <div className="field">
                 <label className="label" htmlFor="advance-amount">
                     Advance amount
@@ -110,7 +112,7 @@ const GameplayForm: React.FC<GameplayFormProps> = props => {
                         id="advance-amount"
                         min={1}
                         max={25}
-                        value={props.gameplaySettings.styles.advanceAmount}
+                        value={gameplay.styles.advanceAmount}
                         onValueChange={handleAdvanceAmountChange} />
                 </div>
             </div>
@@ -125,7 +127,7 @@ const GameplayForm: React.FC<GameplayFormProps> = props => {
                         colorTheme="dark"
                         id="friendly-fire"
                         name="friendly-fire"
-                        checked={props.gameplaySettings.friendlyFire}
+                        checked={gameplay.friendlyFire}
                         onToggle={handleCheckboxToggle} />
                 </div>
             </div>
@@ -144,7 +146,7 @@ const GameplayForm: React.FC<GameplayFormProps> = props => {
                         colorTheme="dark"
                         id="bullet-time"
                         name="bullet-time"
-                        checked={props.gameplaySettings.bulletTime}
+                        checked={gameplay.bulletTime}
                         onToggle={handleCheckboxToggle} />
                 </div>
 
@@ -162,7 +164,7 @@ const GameplayForm: React.FC<GameplayFormProps> = props => {
                         colorTheme="dark"
                         id="sniper-line"
                         name="sniper-line"
-                        checked={props.gameplaySettings.sniperLine}
+                        checked={gameplay.sniperLine}
                         onToggle={handleCheckboxToggle} />
                 </div>
             </div>

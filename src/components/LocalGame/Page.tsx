@@ -11,9 +11,10 @@ import GameModeSelection from "./GameModeSelection";
 import GameplayForm from "./Gameplay/Form";
 import MapsSelection from "./Maps/Selection";
 
-import LocalGameStore from "../../stores/localGame";
-import MapsStore from "../../stores/maps";
-import ServerSettingsStore from "../../stores/server/settings";
+import LocalGameStore from "src/stores/localGame";
+import MapsStore from "src/stores/maps";
+import ServerSettingsStore from "src/stores/settings/server";
+import ServerMapsListStore from "src/stores/settings/server/mapsList";
 
 import { GameModes } from "../../types";
 import { LocalGamePageUiState } from "../../types/ui";
@@ -23,6 +24,7 @@ import "../Common/Buttons.css";
 
 type LocalGamePageProps = {
     serverSettingsStore: ServerSettingsStore;
+    serverMapsListStore: ServerMapsListStore;
     localGameStore: LocalGameStore;
     mapsStore: MapsStore;
     uiState: LocalGamePageUiState;
@@ -163,7 +165,7 @@ const LocalGamePage: React.FunctionComponent<LocalGamePageProps> = props => {
                                 <div>
                                     <MapsSelection
                                         mapsStore={props.mapsStore}
-                                        selectedMaps={props.serverSettingsStore.settings.maps.selected}
+                                        serverMapsListStore={props.serverMapsListStore}
                                         uiState={props.uiState.mapsSelection} />
                                 </div>
                             </Collapsable>
@@ -176,10 +178,7 @@ const LocalGamePage: React.FunctionComponent<LocalGamePageProps> = props => {
                                     <span>BOTS</span>
                                 }>
                                 <div>
-                                    <BotsForm
-                                        gameMode={props.serverSettingsStore.settings.gameplay.mode}
-                                        botsSettings={props.serverSettingsStore.settings.bots}
-                                        botsValidationStore={props.serverSettingsStore.botsValidationStore} />
+                                    <BotsForm serverSettings={props.serverSettingsStore.settings} />
                                 </div>
                             </Collapsable>
                         </Panel>

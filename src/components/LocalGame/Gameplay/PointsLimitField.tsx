@@ -1,9 +1,10 @@
 import React from "react";
 import { observer } from "mobx-react";
 
-import SliderNumberInput from "../../Common/SliderNumberInput";
+import { GameModes } from "src/types";
+import { PointsLimits } from "src/settings/server";
 
-import { GameModes, PointsLimits } from "../../../types";
+import SliderNumberInput from "../../Common/SliderNumberInput";
 
 type PointsLimitFieldProps = {
     gameMode: GameModes;

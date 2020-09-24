@@ -9,7 +9,7 @@ import PlayerPanel from "./PlayerPanel";
 import GraphicsPanel from "./GraphicsPanel";
 import SoundPanel from "./SoundPanel";
 
-import ClientSettingsStore from "../../stores/client/settings";
+import ClientSettingsStore from "../../stores/settings/client";
 import { SettingsPageUiState } from "../../types/ui";
 
 import "./Page.css";
@@ -57,7 +57,7 @@ const SettingsPage: React.FC<SettingsPageProps> = props => {
                 </TabPanel>
 
                 <TabPanel>
-                    <ControlsPanel controlsSettingsStore={props.clientSettingsStore.controlsSettingsStore} />
+                    <ControlsPanel controlsWrapperStore={props.clientSettingsStore.controlsWrapperStore} />
                 </TabPanel>
 
                 <TabPanel>

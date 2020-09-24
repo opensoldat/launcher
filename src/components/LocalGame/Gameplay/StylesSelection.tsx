@@ -1,8 +1,8 @@
 import React from "react";
 import { observer } from "mobx-react";
 
+import { GameStylesSettings } from "src/settings/server";
 import Checkbox from "../../Common/Checkbox";
-import { GameStylesSettings } from "../../../types";
 
 type GameStylesSelectionProps = {
     gameStyles: GameStylesSettings;

@@ -3,31 +3,6 @@ import Adapter from "enzyme-adapter-react-16";
 import { useStaticRendering } from "mobx-react";
 
 import {
-    loadSettings as loadControlsSettings,
-    saveSettings as saveControlsSettings
-} from "../api/soldat/settings/client/controls";
-
-import {
-    loadSettings as loadPlayerSettings,
-    saveSettings as savePlayerSettings
-} from "../api/soldat/settings/client/player";
-
-import {
-    loadSettings as loadGraphicsSettings,
-    saveSettings as saveGraphicsSettings
-} from "../api/soldat/settings/client/graphics";
-
-import {
-    loadSettings as loadSoundSettings,
-    saveSettings as saveSoundSettings
-} from "../api/soldat/settings/client/sound";
-
-import {
-    loadSettings as loadServerSettings,
-    saveSettings as saveServerSettings
-} from "../api/soldat/settings/server";
-
-import {
     start as startServer,
     stop as stopServer
 } from "../api/soldat/server";
@@ -36,6 +11,27 @@ import {
     start as startClient,
     stop as stopClient
 } from "../api/soldat/client";
+import {
+    loadControlsConfig,
+    saveControlsConfig,
+
+    loadCustomBindingsConfig,
+    saveCustomBindingsConfig,
+
+    loadGraphicsConfig,
+    saveGraphicsConfig,
+
+    loadPlayerConfig,
+    savePlayerConfig,
+
+    loadSoundConfig,
+    saveSoundConfig,
+    
+    loadServerConfig,
+    saveServerConfig,
+    loadServerMapsList,
+    saveServerMapsList
+} from "src/api/soldat/configs";
  
 configure({ adapter: new Adapter() });
 useStaticRendering(true);
@@ -43,25 +39,30 @@ useStaticRendering(true);
 /* We provide the same apis that we have when running the app with Electron. */
 window.soldat = {
     client: {
-        loadControlsSettings,
-        saveControlsSettings,
+        loadControlsConfig,
+        saveControlsConfig,
 
-        loadGraphicsSettings,
-        saveGraphicsSettings,
+        loadCustomBindingsConfig,
+        saveCustomBindingsConfig,
 
-        loadPlayerSettings,
-        savePlayerSettings,
+        loadGraphicsConfig,
+        saveGraphicsConfig,
 
-        loadSoundSettings,
-        saveSoundSettings,
+        loadPlayerConfig,
+        savePlayerConfig,
+
+        loadSoundConfig,
+        saveSoundConfig,
 
         start: startClient,
         stop: stopClient
     },
 
     server: {
-        loadSettings: loadServerSettings,
-        saveSettings: saveServerSettings,
+        loadConfig: loadServerConfig,
+        saveConfig: saveServerConfig,
+        loadMapsList: loadServerMapsList,
+        saveMapsList: saveServerMapsList,
 
         start: startServer,
         stop: stopServer

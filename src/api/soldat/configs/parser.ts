@@ -1,14 +1,5 @@
-import { KeyBinding } from "src/types";
+import { ConfigKeyBinding, SoldatConfig } from "./types";
 import { addQuotes, splitQuotedStrings } from "./quoteUtils";
-
-type ConfigKeyBinding = Pick<KeyBinding, "key" | "command">;
-
-interface SoldatConfig {
-    bindings: ConfigKeyBinding[];
-    cvars: {
-        [key: string]: string;
-    };
-}
 
 const configToFileData = (config: SoldatConfig): string => {
     let result = "";

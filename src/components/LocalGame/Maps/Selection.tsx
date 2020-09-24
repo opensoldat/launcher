@@ -1,57 +1,53 @@
 import React from "react";
 import { observer } from "mobx-react";
-import shortid from "shortid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import MapPreview from "./Preview";
 import MapsList from "./List";
 import MapsListItem from "./ListItem";
+import Spinner from "src/components/Common/Spinner";
 
-import MapsStore from "../../../stores/maps";
+import ServerMapsListStore from "src/stores/settings/server/mapsList";
+import MapsStore from "src/stores/maps";
 
-import { Map } from "../../../types";
-import { MapsSelectionUiState } from "../../../types/ui";
+import { Map } from "src/types";
+import { MapsSelectionUiState } from "src/types/ui";
 
 import "./Selection.css";
 
 type MapsSelectionProps = {
+    serverMapsListStore: ServerMapsListStore;
     mapsStore: MapsStore;
     uiState: MapsSelectionUiState;
-
-    selectedMaps: Map[];
 };
 
 const MapsSelection: React.FC<MapsSelectionProps> = props => {
-    if (props.mapsStore &&
-        !props.mapsStore.maps) {
+    const { serverMapsList } = props.serverMapsListStore;
+
+    if (props.mapsStore && !props.mapsStore.maps) {
         props.mapsStore.loadMaps();
     }
 
-    // Highlight first map from selected maps' list.
-    if (!props.uiState.highlightedMap && props.selectedMaps.length > 0) {
-        props.uiState.highlightedMap = props.selectedMaps[0];
+    if (!props.serverMapsListStore.isLoading && !serverMapsList) {
+        props.serverMapsListStore.loadMapsList();
     }
 
-    const addMap = (mapName: string): void => {
-        props.selectedMaps.push({
-            id: shortid.generate(),
-            name: mapName
-        });
-
-        props.uiState.highlightedMap = props.selectedMaps[props.selectedMaps.length - 1];
+    // Highlight first map from server's maps' list.
+    // We rely on the fact that this component will rerender
+    // when we receive server's maps list. 
+    const firstMap = serverMapsList?.firstMap;
+    if (!props.uiState.highlightedMap && firstMap) {
+        props.uiState.highlightedMap = firstMap;
     }
 
-    const clearSelectedMapsList = (): void => {
-        props.selectedMaps.length = 0;
+    const handleAddButtonClick = (mapName: string): void => {
+        const newMap = serverMapsList.add(mapName);
+        props.uiState.highlightedMap = newMap;
     }
 
-    const getFilteredMaps = (): Map[] => {
-        if (!props.mapsStore) {
-            return [];
-        }
-
-        return props.mapsStore.getMapsByName(props.uiState.searchFilter);
+    const handleClearClick = (): void => {
+        serverMapsList.clear();
     }
 
     const handleMapClick = (map: Map): void => {
@@ -62,10 +58,19 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
         props.uiState.searchFilter = event.target.value;
     }
 
-    const removeMap = (mapId: string): void => {
-        const index = props.selectedMaps.findIndex(map => map.id === mapId);
-        props.selectedMaps.splice(index, 1);
+    const handleRemoveMap = (mapId: string): void => {
+        serverMapsList.remove(mapId);
     }
+
+    const getFilteredMaps = (): Map[] => {
+        if (!props.mapsStore) {
+            return [];
+        }
+
+        return props.mapsStore.getMapsByName(props.uiState.searchFilter);
+    }
+
+    const isLoadingServerMapsList = props.serverMapsListStore.isLoading || !serverMapsList;
 
     return (
         <div className="map-selection-container">
@@ -84,14 +89,14 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
                         {getFilteredMaps().map((map: Map) =>
                             <MapsListItem
                                 key={map.id}
-                                highlighted={props.uiState.highlightedMap.id === map.id}
+                                highlighted={props.uiState.highlightedMap?.id === map.id}
                                 map={map}
                                 onClick={handleMapClick}>
                                 <button
                                     className="button green-button"
                                     onClick={(event): void => {
                                         event.stopPropagation();
-                                        addMap(map.name)
+                                        handleAddButtonClick(map.name)
                                     }}>
                                     <FontAwesomeIcon icon={faPlus}/>
                                 </button>
@@ -105,23 +110,27 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
                         <div>Selected:</div>
                         <button
                             className="button red-button"
-                            onClick={clearSelectedMapsList}>
+                            onClick={handleClearClick}>
                             Clear
                         </button>
                     </div>
 
                     <MapsList emptyMessage="Empty">
-                        {props.selectedMaps.map((map: Map) =>
+                        {isLoadingServerMapsList
+                        ? <div className="spinner-container">
+                            <Spinner />
+                          </div>
+                        : serverMapsList.maps.map(map =>
                             <MapsListItem
                                 key={map.id}
-                                highlighted={props.uiState.highlightedMap.id === map.id}
+                                highlighted={props.uiState.highlightedMap?.id === map.id}
                                 map={map}
                                 onClick={handleMapClick}>
                                 <button
                                     className="button red-button"
                                     onClick={(event): void => {
                                         event.stopPropagation();
-                                        removeMap(map.id);
+                                        handleRemoveMap(map.id);
                                     }}>
                                     <FontAwesomeIcon icon={faTimes}/>
                                 </button>
@@ -131,7 +140,7 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
                 </div>
             </div>
             
-            <MapPreview mapName={props.uiState.highlightedMap.name} />
+            <MapPreview mapName={props.uiState.highlightedMap?.name} />
         </div>
     )
 }

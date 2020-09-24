@@ -2,13 +2,13 @@ import React from "react";
 import { observer } from "mobx-react";
 import { toast } from "react-toastify";
 
+import GraphicsSettingsStore from "src/stores/settings/client/graphics";
+import { DisplayModes } from "src/settings/client/graphics";
+
 import Panel from "../Common/Panel";
 import ResolutionSelect from "./ResolutionSelect";
 import Select from "../Common/Select";
 import Spinner from "../Common/Spinner";
-
-import GraphicsSettingsStore from "../../stores/client/graphicsSettings";
-import { DisplayModes } from "../../types";
 
 import SliderNumberInput from "../Common/SliderNumberInput";
 import Checkbox from "../Common/Checkbox";

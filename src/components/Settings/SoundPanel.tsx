@@ -7,7 +7,7 @@ import Panel from "../Common/Panel";
 import SliderNumberInput from "../Common/SliderNumberInput";
 import Spinner from "../Common/Spinner";
 
-import SoundSettingsStore from "../../stores/client/soundSettings";
+import SoundSettingsStore from "src/stores/settings/client/sound";
 
 import "./SettingsPanel.css";
 

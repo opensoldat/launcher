@@ -1,39 +1,6 @@
 import { contextBridge } from "electron";
 
 import {
-    ControlsSettings,
-    PlayerSettings,
-    GraphicsSettings,
-    SoundSettings,
-    ServerSettings,
-} from "./types";
-
-import {
-    loadSettings as loadControlsSettings,
-    saveSettings as saveControlsSettings
-} from "./api/soldat/settings/client/controls";
-
-import {
-    loadSettings as loadGraphicsSettings,
-    saveSettings as saveGraphicsSettings
-} from "./api/soldat/settings/client/graphics";
-
-import {
-    loadSettings as loadPlayerSettings,
-    saveSettings as savePlayerSettings
-} from "./api/soldat/settings/client/player";
-
-import {
-    loadSettings as loadSoundSettings,
-    saveSettings as saveSoundSettings
-} from "./api/soldat/settings/client/sound";
-
-import {
-    loadSettings as loadServerSettings,
-    saveSettings as saveServerSettings
-} from "./api/soldat/settings/server";
-
-import {
     start as startServer,
     stop as stopServer
 } from "./api/soldat/server";
@@ -43,27 +10,61 @@ import {
     stop as stopClient
 } from "./api/soldat/client";
 
+import {
+    ControlsConfig,
+    GraphicsConfig,
+    PlayerConfig,
+    ServerConfig,
+    SoldatConfig,
+    SoundConfig
+} from "./api/soldat/configs/types";
+
+import {
+    loadControlsConfig,
+    saveControlsConfig,
+
+    loadCustomBindingsConfig,
+    saveCustomBindingsConfig,
+
+    loadGraphicsConfig,
+    saveGraphicsConfig,
+
+    loadPlayerConfig,
+    savePlayerConfig,
+
+    loadSoundConfig,
+    saveSoundConfig,
+    
+    loadServerConfig,
+    saveServerConfig,
+    loadServerMapsList,
+    saveServerMapsList
+} from "./api/soldat/configs";
+
 declare global {
     interface Window {
         soldat: {
             client: {
-                loadControlsSettings: () => Promise<ControlsSettings>;
-                saveControlsSettings: (controlsSettings: ControlsSettings) => Promise<void>;
+                loadControlsConfig: () => Promise<ControlsConfig>;
+                saveControlsConfig: (config: ControlsConfig) => Promise<void>;
 
-                loadGraphicsSettings: () => Promise<GraphicsSettings>;
-                saveGraphicsSettings: (graphicsSettings: GraphicsSettings) => Promise<void>;
+                loadCustomBindingsConfig: () => Promise<SoldatConfig>;
+                saveCustomBindingsConfig: (config: SoldatConfig) => Promise<void>;
 
-                loadPlayerSettings: () => Promise<PlayerSettings>;
-                savePlayerSettings: (playerSettings: PlayerSettings) => Promise<void>;
+                loadGraphicsConfig: () => Promise<GraphicsConfig>;
+                saveGraphicsConfig: (config: GraphicsConfig) => Promise<void>;
 
-                loadSoundSettings: () => Promise<SoundSettings>;
-                saveSoundSettings: (soundSettings: SoundSettings) => Promise<void>;
+                loadPlayerConfig: () => Promise<PlayerConfig>;
+                savePlayerConfig: (config: PlayerConfig) => Promise<void>;
+
+                loadSoundConfig: () => Promise<SoundConfig>;
+                saveSoundConfig: (config: SoundConfig) => Promise<void>;
 
                 start: (
                     ip: string,
                     port: number,
                     password: string,
-                    onStartupFailed: (clientId: string, error: Error) => void,
+                    onFailed: (clientId: string, error: Error) => void,
                     onTerminated: (clientId: string) => void,
                     detachedProcess: boolean
                 ) => string;
@@ -71,13 +72,17 @@ declare global {
             };
 
             server: {
-                loadSettings: () => Promise<ServerSettings>;
-                saveSettings: (serverSettings: ServerSettings) => Promise<void>;
+                loadConfig: () => Promise<ServerConfig>;
+                saveConfig: (config: ServerConfig) => Promise<void>;
 
-                start: (port: number,
-                        onServerReady: (port: number) => void,
-                        onServerStartupFailed: (error: Error) => void,
-                        onServerTerminated: (exitCode: number, stderr: string) => void) => void;
+                loadMapsList: () => Promise<string[]>;
+                saveMapsList: (mapsNames: string[]) => Promise<void>;
+
+                start: (
+                    port: number,
+                    onReady: (port: number) => void,
+                    onFailed: (error: Error) => void,
+                    onTerminated: (exitCode: number, stderr: string) => void) => void;
                 stop: () => void;
             };
         };
@@ -88,25 +93,31 @@ contextBridge.exposeInMainWorld(
     "soldat",
     {
         "client": {
-            loadControlsSettings,
-            saveControlsSettings,
+            loadControlsConfig,
+            saveControlsConfig,
 
-            loadGraphicsSettings,
-            saveGraphicsSettings,
+            loadCustomBindingsConfig,
+            saveCustomBindingsConfig,
 
-            loadPlayerSettings,
-            savePlayerSettings,
+            loadGraphicsConfig,
+            saveGraphicsConfig,
 
-            loadSoundSettings,
-            saveSoundSettings,
+            loadPlayerConfig,
+            savePlayerConfig,
+
+            loadSoundConfig,
+            saveSoundConfig,
 
             start: startClient,
             stop: stopClient
         },
 
         "server": {
-            loadSettings: loadServerSettings,
-            saveSettings: saveServerSettings,
+            loadConfig: loadServerConfig,
+            saveConfig: saveServerConfig,
+
+            loadMapsList: loadServerMapsList,
+            saveMapsList: saveServerMapsList,
 
             start: startServer,
             stop: stopServer

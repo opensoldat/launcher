@@ -7,54 +7,52 @@ import Panel from "../Common/Panel";
 import Select from "../Common/Select";
 import Spinner from "../Common/Spinner";
 
-import PlayerSettingsStore from "../../stores/client/playerSettings";
-import { ChainStyles, HairStyles, HeadStyles, HexColor } from "../../types";
+import { HexColor } from "src/types";
+import { ChainStyles, HairStyles, HeadStyles } from "src/settings/client/player";
+
+import PlayerSettingsStore from "../../stores/settings/client/player";
 
 import "../Common/Form.css";
 import "./SettingsPanel.css";
 import "./PlayerPanel.css";
 
-type PlayerFormProps = {
+type PlayerPanelProps = {
     playerSettingsStore: PlayerSettingsStore;
 };
 
-const PlayerPanel: React.FC<PlayerFormProps> = props => {
-    if (!props.playerSettingsStore.isLoading && !props.playerSettingsStore.settings) {
+const PlayerPanel: React.FC<PlayerPanelProps> = props => {
+    const playerSettings = props.playerSettingsStore.settings;
+
+    if (!props.playerSettingsStore.isLoading && !playerSettings) {
         props.playerSettingsStore.loadSettings();
     }
 
     const handleColorChange = (color: HexColor, fieldName: string): void => {
         switch (fieldName) {
             case "hair-color":
-                props.playerSettingsStore.settings.hairColor = color;
+                playerSettings.hairColor = color;
                 break;
             
             case "shirt-color":
-                props.playerSettingsStore.settings.shirtColor = color;
+                playerSettings.shirtColor = color;
                 break;
             
             case "skin-color":
-                props.playerSettingsStore.settings.skinColor = color;
+                playerSettings.skinColor = color;
                 break;
             
             case "pants-color":
-                props.playerSettingsStore.settings.pantsColor = color;
+                playerSettings.pantsColor = color;
                 break;
 
             case "jet-color":
-                props.playerSettingsStore.settings.jetColor = color;
+                playerSettings.jetColor = color;
                 break;
         }
     }
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        const target = event.target;
-
-        switch (target.name) {
-            case "nickname":
-                props.playerSettingsStore.settings.nickname = target.value;
-                break;
-        }
+    const handleNicknameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        playerSettings.nickname = event.target.value;
     }
 
     const handleRestoreDefaults = (): void => {
@@ -64,15 +62,15 @@ const PlayerPanel: React.FC<PlayerFormProps> = props => {
     const handleSelectChange = (newValue: string, fieldName?: string): void => {
         switch (fieldName) {
             case "head-style":
-                props.playerSettingsStore.settings.headStyle = Number(newValue) as HeadStyles;
+                playerSettings.headStyle = Number(newValue) as HeadStyles;
                 break;
             
             case "hair-style":
-                props.playerSettingsStore.settings.hairStyle = Number(newValue) as HairStyles;
+                playerSettings.hairStyle = Number(newValue) as HairStyles;
                 break;
             
             case "chain-style":
-                props.playerSettingsStore.settings.chainStyle = Number(newValue) as ChainStyles;
+                playerSettings.chainStyle = Number(newValue) as ChainStyles;
                 break;
         }
     }
@@ -101,7 +99,6 @@ const PlayerPanel: React.FC<PlayerFormProps> = props => {
         });
     }
 
-    const playerSettings = props.playerSettingsStore.settings;
     const isLoading = props.playerSettingsStore.isLoading || !playerSettings;
 
     return (
@@ -120,19 +117,18 @@ const PlayerPanel: React.FC<PlayerFormProps> = props => {
                             <div className="full-width">
                                 <input
                                     id="nickname"
-                                    name="nickname"
                                     type="text"
                                     spellCheck="false"
                                     className="nickname"
                                     value={playerSettings.nickname}
-                                    onChange={handleInputChange}>
+                                    onChange={handleNicknameChange}>
                                 </input>
 
                                 {
-                                    (props.playerSettingsStore.nicknameError &&
-                                    props.playerSettingsStore.nicknameError.length > 0) &&
+                                    (props.playerSettingsStore.settings.nicknameError &&
+                                    props.playerSettingsStore.settings.nicknameError.length > 0) &&
                                     <div className="error-message">
-                                        {props.playerSettingsStore.nicknameError}
+                                        {props.playerSettingsStore.settings.nicknameError}
                                     </div>
                                 }
                             </div>

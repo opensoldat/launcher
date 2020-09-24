@@ -2,73 +2,75 @@ import React from "react";
 import { observer } from "mobx-react";
 import { toast } from "react-toastify";
 
+import { CommonGameCommands, CommonKeyBinding } from "src/types";
+import ControlsWrapperStore from "src/stores/settings/client/controlsWrapper";
+
 import CommonBindingField from "./CommonBindingField";
 import CustomBindingsTable from "./CustomBindingsTable";
 import Panel from "../../Common/Panel";
 import SliderNumberInput from "../../Common/SliderNumberInput";
 import Spinner from "../../Common/Spinner";
 
-import ControlsSettingsStore from "../../../stores/client/controlsSettings";
-import { CommonGameCommands, CommonKeyBinding } from "../../../types";
-
 import "../../Common/Form.css";
 import "../SettingsPanel.css";
 import "./Panel.css";
 
 type ControlsPanelProps = {
-    controlsSettingsStore: ControlsSettingsStore;
+    controlsWrapperStore: ControlsWrapperStore;
 }
 
 const ControlsPanel: React.FC<ControlsPanelProps> = props => {
-    if (!props.controlsSettingsStore.isLoading && !props.controlsSettingsStore.settings) {
-        props.controlsSettingsStore.loadSettings();
+    if (!props.controlsWrapperStore.isLoading && !props.controlsWrapperStore.gotData) {
+        props.controlsWrapperStore.loadAll();
     }
-
-    const getCommonBinding = (command: CommonGameCommands): CommonKeyBinding => {
-        return props.controlsSettingsStore.getCommonBinding(command);
-    }
+    const controlsSettings = props.controlsWrapperStore.controlsSettings;
+    const customBindings = props.controlsWrapperStore.customBindings;
 
     const handleCustomAdd = (): void => {
-        props.controlsSettingsStore.addCustomBinding();
+        customBindings.addEmpty();
     }
 
     const handleCustomCommandChange = React.useCallback(
         (bindingId: string, newCommand: string): void => {
-            props.controlsSettingsStore.setCustomBindingCommand(bindingId, newCommand);
+            customBindings.setCommand(bindingId, newCommand);
         },
-        [props.controlsSettingsStore]
+        [customBindings]
     )
 
     const handleCustomDelete = React.useCallback(
         (bindingId: string): void => {
-            props.controlsSettingsStore.deleteCustomBinding(bindingId);
+            customBindings.delete(bindingId);
         },
-        [props.controlsSettingsStore]
+        [customBindings]
     )
 
     const handleKeyChange = React.useCallback(
         (bindingId: string, newKey: string): void => {
-            props.controlsSettingsStore.setBindingKey(bindingId, newKey);
+            props.controlsWrapperStore.setBindingKey(bindingId, newKey);
         },
-        [props.controlsSettingsStore]
+        [props.controlsWrapperStore]
     )
 
     const handleMouseSensitivityChange = (newValue: number): void => {
-        props.controlsSettingsStore.settings.mouseSensitivity = newValue;
+        controlsSettings.mouseSensitivity = newValue;
     }
 
     const handleRestoreDefaults = (): void => {
-        props.controlsSettingsStore.restoreDefaultSettings();
+        props.controlsWrapperStore.restoreDefaults();
     }
 
     const handleSaveClick = (): void => {
-        props.controlsSettingsStore.saveSettings()
+        props.controlsWrapperStore.saveAll()
         .then(function () {
             toast.success("Controls settings saved", { autoClose: 2500 });
         })
         .catch(function (errorMessage: string) {
             toast.error("Could not save controls settings:\n" + errorMessage);
         });
+    }
+
+    const getCommonBinding = (command: CommonGameCommands): CommonKeyBinding => {
+        return controlsSettings.getBindingByCommand(command);
     }
 
     const renderCommonBindingField = (command: CommonGameCommands, label: string): JSX.Element => {
@@ -81,7 +83,7 @@ const ControlsPanel: React.FC<ControlsPanelProps> = props => {
         )
     }
 
-    const isLoading = props.controlsSettingsStore.isLoading || !props.controlsSettingsStore.settings;
+    const isLoading = props.controlsWrapperStore.isLoading;
     return (
         <div className="settings-panel-container">
             <Panel>
@@ -102,7 +104,7 @@ const ControlsPanel: React.FC<ControlsPanelProps> = props => {
                                     id="mouse-sensitivity"
                                     min={0}
                                     max={100}
-                                    value={props.controlsSettingsStore.settings.mouseSensitivity}
+                                    value={controlsSettings.mouseSensitivity}
                                     onValueChange={handleMouseSensitivityChange} />
                             </div>
                         </div>
@@ -160,7 +162,7 @@ const ControlsPanel: React.FC<ControlsPanelProps> = props => {
                         </div>
 
                         <CustomBindingsTable
-                            customBindings={props.controlsSettingsStore.settings.customBindings}
+                            customBindings={customBindings.bindings}
                             onCommandChange={handleCustomCommandChange}
                             onDelete={handleCustomDelete}
                             onKeyChange={handleKeyChange} />
@@ -186,7 +188,7 @@ const ControlsPanel: React.FC<ControlsPanelProps> = props => {
 
                     <button
                         className="button green-button save-button"
-                        disabled={props.controlsSettingsStore.isSaving}
+                        disabled={props.controlsWrapperStore.isSaving}
                         onClick={handleSaveClick}>
                         Save controls
                     </button>
