@@ -7,8 +7,9 @@
 
 .color-input-text {
     color: #ffffff;
-    font-size: 1.1em;
+    font-size: 1.2em;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    letter-spacing: 1px;
 }
 
 .color-picker {

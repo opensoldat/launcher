@@ -8,7 +8,7 @@
        for saving/reloading the settings.
        The value we subtract is meant to represent header's (navigation bar)
        and footer's (action buttons) heights. */
-    max-height: calc(100vh - 11rem);
+    max-height: calc(100vh - 12rem);
     overflow-y: auto;
 }
 

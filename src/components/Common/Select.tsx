@@ -55,9 +55,9 @@ const Select: React.FC<SelectProps> = props => {
         control: (defaultStyles) => ({
             ...defaultStyles,
             boxShadow: null,
-            minHeight: "1.7rem",
-            height: "1.7rem",
-            fontSize: "0.9em",
+            minHeight: "2rem",
+            height: "2rem",
+            fontSize: "1em",
             // For some reason, all transitions are set to 100ms by default,
             // which leads to laggy behavior when setting visibility to hidden...
             // The lag was noticeable with select fields inside tooltips.
@@ -65,7 +65,7 @@ const Select: React.FC<SelectProps> = props => {
         }),
         indicatorsContainer: (defaultStyles) => ({
             ...defaultStyles,
-            height: "1.7rem"
+            height: "2rem"
         }),
         indicatorSeparator: () => ({
             display: "none"
@@ -77,7 +77,7 @@ const Select: React.FC<SelectProps> = props => {
         }),
         menu: (defaultStyles) => ({
             ...defaultStyles,
-            fontSize: "0.9em",
+            fontSize: "1em",
             marginTop: 0,
             marginBottom: 0
         }),
@@ -89,17 +89,17 @@ const Select: React.FC<SelectProps> = props => {
         option: (defaultStyles) => ({
             ...defaultStyles,
             color: "black",
-            fontSize: "0.9em"
+            fontSize: "1em"
         }),
         singleValue: (defaultStyles) => ({
             ...defaultStyles,
             height: "100%",
-            lineHeight: "1.7rem",
+            lineHeight: "2rem",
             verticalAlign: "middle"
         }),
         valueContainer: (defaultStyles) => ({
             ...defaultStyles,
-            height: "1.7rem",
+            height: "2rem",
             padding: "0px 4px",
             justifyContent: "center"
         })
