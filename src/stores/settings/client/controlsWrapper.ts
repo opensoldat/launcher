@@ -47,7 +47,7 @@ class ControlsWrapperStore {
         const saveCustomBindings = window.soldat.client.saveCustomBindingsConfig(this.customBindings.toConfig())
 
         return Promise.all([saveSettings, saveCustomBindings])
-            .then(Promise.resolve)
+            .then(() => Promise.resolve())
             .finally(
                 action(() => this.isSaving = false)
             );

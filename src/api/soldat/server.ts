@@ -9,6 +9,12 @@ import { soldatPaths } from "./paths";
  * for example from task manager). Luckily for us, processes
  * that are started with spawn() will get killed once our app
  * closes, unless we pass "detached" option to spawn().
+ * 
+ * The above doesn't seem true for linux... closing the app's window
+ * doesn't close child processes, but CTRL+C from terminal seems to
+ * work fine... maybe it has to do with the fact that real parent is
+ * the terminal window, and not the electron app itself; I don't know...
+ * Might as well get more surprises on Mac :)
  */
 let serverProcess: ChildProcess = undefined;
 

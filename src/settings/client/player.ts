@@ -50,7 +50,7 @@ interface PlayerSettingsData {
 
 const defaultPlayerSettings: PlayerSettingsData = {
     nickname: "Major",
-    hairColor: "#8f8f8f",
+    hairColor: "#000000",
     shirtColor: "#8f8f8f",
     skinColor: "#8f8f8f",
     pantsColor: "#8f8f8f",

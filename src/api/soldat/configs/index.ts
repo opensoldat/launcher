@@ -14,8 +14,39 @@ const loadConfig = <T extends SoldatConfig>(configFilePath: string): Promise<T> 
         });
 }
 
+/* Soldat unpacks its configs automatically, but we need to handle this scenario
+ * if user wants to save some settings before launching Soldat for the first time.
+ * Before creating the configs directories, we make sure Soldat's executables
+ * are in place, so that we don't end up writing configs to random places on disk if
+ * paths are not configured properly. */
+const makeConfigsFolders = (): Promise<void> => {
+    const checkClientExe = fs.promises.stat(soldatPaths.clientExecutable);
+    const checkServerExe = fs.promises.stat(soldatPaths.serverExecutable);
+
+    return Promise.all([checkClientExe, checkServerExe])
+        .catch(() => {
+            return Promise.reject(
+                Error("Soldat was not found in target directory, skipping configs folder creation.")
+            )
+        })
+        .then(() => {
+            const makeClientConfigFolder = fs.promises.mkdir(
+                soldatPaths.clientConfigsDirectory, { recursive: true }
+            );
+            const makeServerConfigFolder = fs.promises.mkdir(
+                soldatPaths.serverConfigsDirectory, { recursive: true }
+            );
+
+            return Promise.all([makeClientConfigFolder, makeServerConfigFolder])
+                .then(() => Promise.resolve())
+        });
+}
+
 const saveConfig = (configFilePath: string, config: SoldatConfig): Promise<void> => {
-    return fs.promises.writeFile(configFilePath, configToFileData(config))
+    return makeConfigsFolders()
+        .then(() => {
+            return fs.promises.writeFile(configFilePath, configToFileData(config));
+        })
         .catch(error => Promise.reject(error.message));
 }
 
