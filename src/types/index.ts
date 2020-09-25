@@ -33,24 +33,38 @@ export enum CommonGameCommands {
     Jump = "+jump",
     Crouch = "+crouch",
     Prone = "+prone",
-    Fire = "+fire",
     Jet = "+jet",
+
+    Fire = "+fire",
     Reload = "+reload",
     ChangeWeapon = "+changeweapon",
     ThrowGrenade = "+throwgrenade",
     DropWeapon = "+dropweapon",
-    ThrowFlag = "+flagthrow",
+
+    Cmd = "+cmd",
+    Chat = "+chat",
+    TeamChat = "+teamchat",
+    Radio = "+radio",
+
     StatsMenu = "+statsmenu",
     GameStats = "+gamestats",
     MiniMap = "+minimap",
     FragsList = "+fragslist",
     SniperLine = "+sniperline",
-    Radio = "+radio",
     RecordDemo = "+recorddemo",
-    Cmd = "+cmd",
-    Chat = "+chat",
-    TeamChat = "+teamchat",
-    WeaponsMenu = "+weapons"
+    Screenshot = "screenshot",
+    ThrowFlag = "+flagthrow",
+    WeaponsMenu = "+weapons",
+
+    SwitchCameraToRedFlag = "switchcamflag 1",
+    SwitchCameraToBlueFlag = "switchcamflag 2",
+    SwitchCameraToYellowFlag = "switchcamflag 3",
+
+    SwitchCameraToPlayer1 = "switchcam 1",
+    SwitchCameraToPlayer2 = "switchcam 2",
+    SwitchCameraToPlayer3 = "switchcam 3",
+    SwitchCameraToPlayer4 = "switchcam 4",
+    SwitchCameraToPlayer5 = "switchcam 5",
 }
 
 export interface CommonKeyBinding extends KeyBinding {

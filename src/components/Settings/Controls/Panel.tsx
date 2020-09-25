@@ -141,6 +141,20 @@ const ControlsPanel: React.FC<ControlsPanelProps> = props => {
                     </div>
 
                     <div className="fields-group">
+                        <div className="title">SPECTATOR</div>
+
+                        {renderCommonBindingField(CommonGameCommands.SwitchCameraToRedFlag, "Switch camera to red flag")}
+                        {renderCommonBindingField(CommonGameCommands.SwitchCameraToBlueFlag, "Switch camera to blue flag")}
+                        {renderCommonBindingField(CommonGameCommands.SwitchCameraToYellowFlag, "Switch camera to yellow flag (point match)")}
+
+                        {renderCommonBindingField(CommonGameCommands.SwitchCameraToPlayer1, "Switch camera to player with ID 1")}
+                        {renderCommonBindingField(CommonGameCommands.SwitchCameraToPlayer2, "Switch camera to player with ID 2")}
+                        {renderCommonBindingField(CommonGameCommands.SwitchCameraToPlayer3, "Switch camera to player with ID 3")}
+                        {renderCommonBindingField(CommonGameCommands.SwitchCameraToPlayer4, "Switch camera to player with ID 4")}
+                        {renderCommonBindingField(CommonGameCommands.SwitchCameraToPlayer5, "Switch camera to player with ID 5")}
+                    </div>
+
+                    <div className="fields-group">
                         <div className="title">OTHER</div>
 
                         {renderCommonBindingField(CommonGameCommands.ThrowFlag, "Throw flag")}
@@ -149,6 +163,8 @@ const ControlsPanel: React.FC<ControlsPanelProps> = props => {
                         {renderCommonBindingField(CommonGameCommands.StatsMenu, "Stats menu")}
                         {renderCommonBindingField(CommonGameCommands.MiniMap, "Mini map")}
                         {renderCommonBindingField(CommonGameCommands.GameStats, "Game stats menu")}
+                        {renderCommonBindingField(CommonGameCommands.RecordDemo, "Record demo")}
+                        {renderCommonBindingField(CommonGameCommands.Screenshot, "Take screenshot")}
                     </div>
 
                     <div className="fields-group">

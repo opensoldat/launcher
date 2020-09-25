@@ -22,22 +22,39 @@ const defaultControls: ControlsSettingsData = {
         { key: "W", command: CommonGameCommands.Jump },
         { key: "S", command: CommonGameCommands.Crouch },
         { key: "X", command: CommonGameCommands.Prone },
-        { key: "MOUSE1", command: CommonGameCommands.Fire },
         { key: "MOUSE3", command: CommonGameCommands.Jet },
+
+        { key: "MOUSE1", command: CommonGameCommands.Fire },
         { key: "Q", command: CommonGameCommands.ChangeWeapon },
         { key: "R", command: CommonGameCommands.Reload },
         { key: "F", command: CommonGameCommands.DropWeapon },
         { key: "E", command: CommonGameCommands.ThrowGrenade },
-        { key: "Space", command: CommonGameCommands.ThrowFlag },
+
         { key: "T", command: CommonGameCommands.Chat },
         { key: "Y", command: CommonGameCommands.TeamChat },
         { key: "/", command: CommonGameCommands.Cmd },
         { key: "V", command: CommonGameCommands.Radio },
+
         { key: "Tab", command: CommonGameCommands.WeaponsMenu },
         { key: "F1", command: CommonGameCommands.FragsList },
         { key: "F2", command: CommonGameCommands.StatsMenu },
         { key: "F3", command: CommonGameCommands.MiniMap },
-        { key: "ALT+F3", command: CommonGameCommands.GameStats }
+        { key: "ALT+F3", command: CommonGameCommands.GameStats },
+
+        { key: "Space", command: CommonGameCommands.ThrowFlag },
+
+        { key: "F4", command: CommonGameCommands.Screenshot },
+        { key: "F5", command: CommonGameCommands.RecordDemo },
+
+        { key: "CTRL+Q", command: CommonGameCommands.SwitchCameraToRedFlag },
+        { key: "CTRL+W", command: CommonGameCommands.SwitchCameraToBlueFlag },
+        { key: "CTRL+E", command: CommonGameCommands.SwitchCameraToYellowFlag },
+
+        { key: "CTRL+1", command: CommonGameCommands.SwitchCameraToPlayer1 },
+        { key: "CTRL+2", command: CommonGameCommands.SwitchCameraToPlayer2 },
+        { key: "CTRL+3", command: CommonGameCommands.SwitchCameraToPlayer3 },
+        { key: "CTRL+4", command: CommonGameCommands.SwitchCameraToPlayer4 },
+        { key: "CTRL+5", command: CommonGameCommands.SwitchCameraToPlayer5 },
     ].map(binding => {
         return {
             id: shortid.generate(),
