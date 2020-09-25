@@ -43,6 +43,7 @@
 
 .form .user-input input {
     text-align: center;
+    font-size: 1em;
 }
 
 /* We don't want top margin when the fields group is
