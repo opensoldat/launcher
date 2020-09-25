@@ -38,9 +38,9 @@ class GameSettings implements GameSettingsData {
     constructor(config?: GameConfig) {
 //        this.language = config.cvars.cl_lang;
 //        this.actionSnap = toBool(config.cvars.cl_actionsnap);
-        this.allowServerMods = toBool(config.cvars.cl_servermods);
-        this.screenShake = toBool(config.cvars.cl_screenshake);
-        this.screenshotAfterRound = toBool(config.cvars.cl_endscreenshot);
+        this.allowServerMods = toBool(config?.cvars.cl_servermods);
+        this.screenShake = toBool(config?.cvars.cl_screenshake);
+        this.screenshotAfterRound = toBool(config?.cvars.cl_endscreenshot);
 
         defaults(this, defaultGameSettings);
     }

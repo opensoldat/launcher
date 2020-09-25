@@ -2,11 +2,12 @@ import * as React from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { observer } from "mobx-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faDesktop, faKeyboard, faMusic } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faDesktop, faKeyboard, faMusic, faGamepad } from "@fortawesome/free-solid-svg-icons";
 
 import ControlsPanel from "./Controls/Panel";
-import PlayerPanel from "./PlayerPanel";
+import GamePanel from "./GamePanel";
 import GraphicsPanel from "./GraphicsPanel";
+import PlayerPanel from "./PlayerPanel";
 import SoundPanel from "./SoundPanel";
 
 import ClientSettingsStore from "../../stores/settings/client";
@@ -39,6 +40,10 @@ const SettingsPage: React.FC<SettingsPageProps> = props => {
                         <FontAwesomeIcon icon={faUser} className="icon" />
                     </Tab>
                     <Tab className="sidebar-tab">
+                        GAME
+                        <FontAwesomeIcon icon={faGamepad} className="icon" />
+                    </Tab>
+                    <Tab className="sidebar-tab">
                         CONTROLS
                         <FontAwesomeIcon icon={faKeyboard} className="icon" />
                     </Tab>
@@ -54,6 +59,10 @@ const SettingsPage: React.FC<SettingsPageProps> = props => {
 
                 <TabPanel>
                     <PlayerPanel playerSettingsStore={props.clientSettingsStore.playerSettingsStore} />
+                </TabPanel>
+
+                <TabPanel>
+                    <GamePanel gameSettingsStore={props.clientSettingsStore.gameSettingsStore} />
                 </TabPanel>
 
                 <TabPanel>
