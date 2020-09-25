@@ -14,7 +14,6 @@ import MapsSelection from "./Maps/Selection";
 import LocalGameStore from "src/stores/localGame";
 import MapsStore from "src/stores/maps";
 import ServerSettingsStore from "src/stores/settings/server";
-import ServerMapsListStore from "src/stores/settings/server/mapsList";
 
 import { GameModes } from "../../types";
 import { LocalGamePageUiState } from "../../types/ui";
@@ -24,7 +23,6 @@ import "../Common/Buttons.css";
 
 type LocalGamePageProps = {
     serverSettingsStore: ServerSettingsStore;
-    serverMapsListStore: ServerMapsListStore;
     localGameStore: LocalGameStore;
     mapsStore: MapsStore;
     uiState: LocalGamePageUiState;
@@ -34,8 +32,8 @@ type LocalGamePageProps = {
 }
 
 const LocalGamePage: React.FunctionComponent<LocalGamePageProps> = props => {
-    if (!props.serverSettingsStore.isLoading && !props.serverSettingsStore.settings) {
-        props.serverSettingsStore.loadSettings();
+    if (!props.serverSettingsStore.isLoading && !props.serverSettingsStore.gotData) {
+        props.serverSettingsStore.loadAll();
     }
 
     /* Whenever game mode changes, we want to fill maps' search bar with
@@ -97,15 +95,17 @@ const LocalGamePage: React.FunctionComponent<LocalGamePageProps> = props => {
         props.uiState.mapsSettingsCollapsed = collapsed;
     }
 
-    const isStartingLocalGame = props.serverSettingsStore.isSaving ||
-                                props.localGameStore.isStarting;
+    const isStartingLocalGame = (
+        props.serverSettingsStore.isSaving ||
+        props.localGameStore.isStarting
+    );
 
     return (
         <div className="local-game-page">
             {
                 (
                     !props.serverSettingsStore.isLoading &&
-                    props.serverSettingsStore.settings
+                    props.serverSettingsStore.gotData
                 )
                 ?   <React.Fragment> 
                         <Panel className="sidebar">
@@ -165,7 +165,7 @@ const LocalGamePage: React.FunctionComponent<LocalGamePageProps> = props => {
                                 <div>
                                     <MapsSelection
                                         mapsStore={props.mapsStore}
-                                        serverMapsListStore={props.serverMapsListStore}
+                                        serverMapsList={props.serverSettingsStore.mapsList}
                                         uiState={props.uiState.mapsSelection} />
                                 </div>
                             </Collapsable>

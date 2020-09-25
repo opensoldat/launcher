@@ -8,8 +8,8 @@ import MapsList from "./List";
 import MapsListItem from "./ListItem";
 import Spinner from "src/components/Common/Spinner";
 
-import ServerMapsListStore from "src/stores/settings/server/mapsList";
 import MapsStore from "src/stores/maps";
+import ServerMapsList from "src/settings/server/mapsList";
 
 import { Map } from "src/types";
 import { MapsSelectionUiState } from "src/types/ui";
@@ -17,37 +17,31 @@ import { MapsSelectionUiState } from "src/types/ui";
 import "./Selection.css";
 
 type MapsSelectionProps = {
-    serverMapsListStore: ServerMapsListStore;
+    serverMapsList: ServerMapsList;
     mapsStore: MapsStore;
     uiState: MapsSelectionUiState;
 };
 
 const MapsSelection: React.FC<MapsSelectionProps> = props => {
-    const { serverMapsList } = props.serverMapsListStore;
-
     if (props.mapsStore && !props.mapsStore.maps) {
         props.mapsStore.loadMaps();
-    }
-
-    if (!props.serverMapsListStore.isLoading && !serverMapsList) {
-        props.serverMapsListStore.loadMapsList();
     }
 
     // Highlight first map from server's maps' list.
     // We rely on the fact that this component will rerender
     // when we receive server's maps list. 
-    const firstMap = serverMapsList?.firstMap;
+    const firstMap = props.serverMapsList?.firstMap;
     if (!props.uiState.highlightedMap && firstMap) {
         props.uiState.highlightedMap = firstMap;
     }
 
     const handleAddButtonClick = (mapName: string): void => {
-        const newMap = serverMapsList.add(mapName);
+        const newMap = props.serverMapsList.add(mapName);
         props.uiState.highlightedMap = newMap;
     }
 
     const handleClearClick = (): void => {
-        serverMapsList.clear();
+        props.serverMapsList.clear();
     }
 
     const handleMapClick = (map: Map): void => {
@@ -59,7 +53,7 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
     }
 
     const handleRemoveMap = (mapId: string): void => {
-        serverMapsList.remove(mapId);
+        props.serverMapsList.remove(mapId);
     }
 
     const getFilteredMaps = (): Map[] => {
@@ -69,8 +63,6 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
 
         return props.mapsStore.getMapsByName(props.uiState.searchFilter);
     }
-
-    const isLoadingServerMapsList = props.serverMapsListStore.isLoading || !serverMapsList;
 
     return (
         <div className="map-selection-container">
@@ -116,11 +108,7 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
                     </div>
 
                     <MapsList emptyMessage="Empty">
-                        {isLoadingServerMapsList
-                        ? <div className="spinner-container">
-                            <Spinner />
-                          </div>
-                        : serverMapsList.maps.map(map =>
+                        {props.serverMapsList.maps.map(map =>
                             <MapsListItem
                                 key={map.id}
                                 highlighted={props.uiState.highlightedMap?.id === map.id}

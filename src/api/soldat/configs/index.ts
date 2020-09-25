@@ -44,9 +44,7 @@ const makeConfigsFolders = (): Promise<void> => {
 
 const saveConfig = (configFilePath: string, config: SoldatConfig): Promise<void> => {
     return makeConfigsFolders()
-        .then(() => {
-            return fs.promises.writeFile(configFilePath, configToFileData(config));
-        })
+        .then(() => fs.promises.writeFile(configFilePath, configToFileData(config)))
         .catch(error => Promise.reject(error.message));
 }
 
@@ -109,7 +107,8 @@ const saveServerMapsList = (mapsNames: string[]): Promise<void> => {
         }
     });
 
-    return fs.promises.writeFile(soldatPaths.serverMapsList, fileData)
+    return makeConfigsFolders()
+        .then(() => fs.promises.writeFile(soldatPaths.serverMapsList, fileData))
         .catch(error => Promise.reject(error.message));
 }
 

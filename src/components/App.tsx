@@ -9,7 +9,6 @@ import SettingsPage from "./Settings/Page";
 import ClientSettingsStore from "../stores/settings/client";
 import ConnectFormStore from "../stores/lobby/connectForm";
 import ServerSettingsStore from "../stores/settings/server";
-import ServerMapsListStore from "src/stores/settings/server/mapsList";
 import LobbyServersStore from "../stores/lobby/servers";
 import LocalGameStore from "../stores/localGame";
 import MapsStore from "../stores/maps";
@@ -29,7 +28,6 @@ const App: React.FC = () => {
     const [clientSettingsStore] = React.useState(() => new ClientSettingsStore());
 
     const [serverSettingsStore] = React.useState(() => new ServerSettingsStore());
-    const [serverMapsListStore] = React.useState(() => new ServerMapsListStore());
 
     /* We keep track of some UI-related states so that we can restore
      * pages when user navigates with tabs. We keep states in this root
@@ -47,7 +45,7 @@ const App: React.FC = () => {
     const handleTabChange = (index: number, lastIndex: number): boolean => {
         if (lastIndex === TabIndexes.LocalGame) {
             // TODO: We might also want to save server settings when closing the app.
-            serverSettingsStore.saveSettings();
+            serverSettingsStore.saveAll();
         }
 
         return true;
@@ -58,7 +56,7 @@ const App: React.FC = () => {
     // props in child components after they are unmounted leads to memory leaks.
     // App component will always be mounted.
     const startLocalGame = (): void => {
-        serverSettingsStore.saveSettings()
+        serverSettingsStore.saveAll()
         .then(() => {
             localGameStore.startLocalGame(23073, (errorMessage: string) => {
                 toast.error("Local game failed:\n" + errorMessage);
@@ -92,7 +90,6 @@ const App: React.FC = () => {
                 <TabPanel className="navigation-bar-content">
                     <LocalGamePage
                         serverSettingsStore={serverSettingsStore}
-                        serverMapsListStore={serverMapsListStore}
                         localGameStore={localGameStore}
                         mapsStore={mapsStore}
                         uiState={uiStore.localGamePage}
