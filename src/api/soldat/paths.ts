@@ -25,6 +25,10 @@ const soldatPaths = {
         return path.join(this.clientConfigsDirectory, "bindings.cfg");
     },
 
+    get clientGameConfigFile(): string {
+        return path.join(this.clientConfigsDirectory, "game.cfg");
+    },
+
     get clientGraphicsConfigFile(): string {
         return path.join(this.clientConfigsDirectory, "graphics.cfg");
     },

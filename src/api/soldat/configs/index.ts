@@ -1,6 +1,6 @@
 import fs from "fs";
 import { soldatPaths } from "../paths";
-import { ControlsConfig, GraphicsConfig, PlayerConfig, ServerConfig, SoundConfig } from "./types";
+import { ControlsConfig, GameConfig, GraphicsConfig, PlayerConfig, ServerConfig, SoundConfig } from "./types";
 import { configToFileData, parseConfigFileData, SoldatConfig } from "./parser";
 
 const loadConfig = <T extends SoldatConfig>(configFilePath: string): Promise<T> => {
@@ -62,6 +62,13 @@ const saveCustomBindingsConfig = (config: SoldatConfig): Promise<void> => {
     return saveConfig(soldatPaths.clientCustomBindingsConfigFile, config);
 }
 
+const loadGameConfig = (): Promise<GameConfig> => {
+    return loadConfig<GameConfig>(soldatPaths.clientGameConfigFile);
+}
+const saveGameConfig = (config: GameConfig): Promise<void> => {
+    return saveConfig(soldatPaths.clientGameConfigFile, config);
+}
+
 const loadGraphicsConfig = (): Promise<GraphicsConfig> => {
     return loadConfig<GraphicsConfig>(soldatPaths.clientGraphicsConfigFile);
 }
@@ -118,6 +125,9 @@ export {
 
     loadCustomBindingsConfig,
     saveCustomBindingsConfig,
+
+    loadGameConfig,
+    saveGameConfig,
 
     loadGraphicsConfig,
     saveGraphicsConfig,

@@ -18,6 +18,9 @@ import {
     loadCustomBindingsConfig,
     saveCustomBindingsConfig,
 
+    loadGameConfig,
+    saveGameConfig,
+
     loadGraphicsConfig,
     saveGraphicsConfig,
 
@@ -44,6 +47,9 @@ window.soldat = {
 
         loadCustomBindingsConfig,
         saveCustomBindingsConfig,
+
+        loadGameConfig,
+        saveGameConfig,
 
         loadGraphicsConfig,
         saveGraphicsConfig,

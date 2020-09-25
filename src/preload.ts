@@ -12,6 +12,7 @@ import {
 
 import {
     ControlsConfig,
+    GameConfig,
     GraphicsConfig,
     PlayerConfig,
     ServerConfig,
@@ -25,6 +26,9 @@ import {
 
     loadCustomBindingsConfig,
     saveCustomBindingsConfig,
+
+    loadGameConfig,
+    saveGameConfig,
 
     loadGraphicsConfig,
     saveGraphicsConfig,
@@ -50,6 +54,9 @@ declare global {
 
                 loadCustomBindingsConfig: () => Promise<SoldatConfig>;
                 saveCustomBindingsConfig: (config: SoldatConfig) => Promise<void>;
+
+                loadGameConfig: () => Promise<GameConfig>;
+                saveGameConfig: (config: GameConfig) => Promise<void>;
 
                 loadGraphicsConfig: () => Promise<GraphicsConfig>;
                 saveGraphicsConfig: (config: GraphicsConfig) => Promise<void>;
@@ -98,6 +105,9 @@ contextBridge.exposeInMainWorld(
 
             loadCustomBindingsConfig,
             saveCustomBindingsConfig,
+
+            loadGameConfig,
+            saveGameConfig,
 
             loadGraphicsConfig,
             saveGraphicsConfig,

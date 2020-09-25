@@ -50,7 +50,7 @@ export enum CommonGameCommands {
     Cmd = "+cmd",
     Chat = "+chat",
     TeamChat = "+teamchat",
-    WeaponsMenu = "+weaponsmenu"
+    WeaponsMenu = "+weapons"
 }
 
 export interface CommonKeyBinding extends KeyBinding {

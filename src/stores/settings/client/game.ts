@@ -1,18 +1,18 @@
 import { action, observable } from "mobx";
-import GraphicsSettings from "src/settings/client/graphics";
+import GameSettings from "src/settings/client/game";
 
-class GraphicsSettingsStore {
-    @observable settings: GraphicsSettings;
+class GameSettingsStore {
+    @observable settings: GameSettings;
     @observable isLoading = false;
     @observable isSaving = false;
 
     @action loadSettings = (): void => {
         this.isLoading = true;
 
-        window.soldat.client.loadGraphicsConfig()
+        window.soldat.client.loadGameConfig()
         .then(
             action(config => {
-                this.settings = new GraphicsSettings(config);
+                this.settings = new GameSettings(config);
                 this.isLoading = false;
             })
         );
@@ -21,7 +21,7 @@ class GraphicsSettingsStore {
     @action saveSettings = (): Promise<void> => {
         this.isSaving = true;
 
-        return window.soldat.client.saveGraphicsConfig(this.settings.toConfig())
+        return window.soldat.client.saveGameConfig(this.settings.toConfig())
             .finally(
                 action(() => {
                     this.isSaving = false;
@@ -30,8 +30,8 @@ class GraphicsSettingsStore {
     }
 
     @action restoreDefaultSettings = (): void => {
-        this.settings = new GraphicsSettings();
+        this.settings = new GameSettings();
     }
 }
 
-export default GraphicsSettingsStore;
+export default GameSettingsStore;

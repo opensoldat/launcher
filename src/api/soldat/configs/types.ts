@@ -17,6 +17,16 @@ export interface ControlsConfig extends SoldatConfig {
     };
 }
 
+export interface GameConfig extends SoldatConfig {
+    cvars: {
+//        cl_lang: string;
+//        cl_actionsnap: string;
+        cl_endscreenshot: string;
+        cl_screenshake: string;
+        cl_servermods: string;
+    }
+}
+
 export interface GraphicsConfig extends SoldatConfig {
     cvars: {
         r_fullscreen: string;
