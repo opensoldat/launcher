@@ -94,8 +94,8 @@ const defaultServerSettings: ServerSettingsData = {
         noTeam: 4,
         alpha: 4,
         bravo: 4,
-        charlie: 4,
-        delta: 4,
+        charlie: 0,
+        delta: 0,
 
         difficulty: BotDifficulties.Normal,
         chat: true

@@ -15,7 +15,7 @@ npm install
 
 Afterwards, you can run following commands:
 ```sh
-# Starts the app.
+# Starts the app in development mode.
 npm start
 
 # Builds binaries. The output will be in out/ directory.
@@ -28,4 +28,9 @@ npm run test
 npm run lint
 ```
 
-When running the app with ```npm start```, you can type ```rs``` in the same terminal to restart it.
+This project is meant to be used together with Soldat binaries. By default, the launcher will expect to find a directory called "soldat" at the root of this project. It should contain all files that Soldat needs to operate (binaries for both server and client, dynamic libraries, soldat.smod file and font for the client). When making a release build (with ```npm run make```), this "soldat" directory will be copied to Electron's resources folder. If you want, you can customize the path to Soldat by editing src/api/soldat/paths.ts file.
+
+When running the app with ```npm start```, you can type ```rs``` in the same terminal to quickly restart it.
+
+## Support me
+If you like this project and would like to support me, please consider donating. You can do so with [PayPal](https://paypal.me/janrozanski).

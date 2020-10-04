@@ -23,7 +23,10 @@ const createWindow = (): void => {
 
     mainWindow.removeMenu();
     mainWindow.maximize();
-    mainWindow.webContents.openDevTools();
+
+    if (process.env.NODE_ENV === "development") {
+        mainWindow.webContents.openDevTools();
+    }
 
     /* Load the index.html of the app.
      *
