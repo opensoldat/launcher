@@ -44,18 +44,18 @@ const LobbyPage: React.FC<LobbyPageProps> = props => {
 
     return (
         <div className="lobby-page">
+            <Panel>
+                <ConnectForm
+                    connectFormStore={props.connectFormStore}
+                    onlineGamesStore={props.onlineGamesStore} />
+            </Panel>
+
             <Panel className="servers-table-panel">
                 <ServersTable
                     onServerClick={handleServerClick}
                     onServerDoubleClick={handleServerDoubleClick}
                     onlineGamesStore={props.onlineGamesStore}
                     serversStore={props.serversStore} />
-            </Panel>
-
-            <Panel>
-                <ConnectForm
-                    connectFormStore={props.connectFormStore}
-                    onlineGamesStore={props.onlineGamesStore} />
             </Panel>
         </div>
     )
