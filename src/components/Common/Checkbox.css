@@ -1,6 +1,7 @@
 .checkbox-container {
     cursor: pointer;
     display: inline-flex;
+    align-self: flex-start;
     align-items: center;
 }
 
