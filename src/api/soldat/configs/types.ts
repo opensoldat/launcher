@@ -117,6 +117,8 @@ export interface ServerConfig extends SoldatConfig {
         bots_random_delta: string;
         bots_difficulty: string;
         bots_chat: string;
+
+        net_port: string;
     };
 }
 /* eslint-enable @typescript-eslint/camelcase */

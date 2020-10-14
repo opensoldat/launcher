@@ -36,6 +36,10 @@ class ServerSettingsStore {
             return Promise.reject(this.settings.botsCountError);
         }
 
+        if (this.settings.network.portError) {
+            return Promise.reject("Invalid port. " + this.settings.network.portError);
+        }
+
         this.isSaving = true;
 
         const saveServerConfig = window.soldat.server.saveConfig(this.settings.toConfig());

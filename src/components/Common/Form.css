@@ -20,8 +20,9 @@
     min-height: 2rem;
     min-width: 0;
 
+    /* Provides positioning for validation error message. */
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 
 .form .field:not(:last-child) {

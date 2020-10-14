@@ -1,4 +1,5 @@
 import { observable, computed } from "mobx";
+import validateNumber from "src/validation/number";
 
 class ConnectFormStore {
     @observable ip = "127.0.0.1";
@@ -19,24 +20,7 @@ class ConnectFormStore {
     }
 
     @computed get portError(): string {
-        if (!this.port || this.port.length === 0) {
-            return "Can not be empty";
-        }
-
-        if (!/^\d+$/.test(this.port)) {
-            return "Must only contain digits";
-        }
-
-        const portNumber = Number(this.port);
-        if (isNaN(portNumber)) {
-            return "Invalid port";
-        }
-
-        if (portNumber <= 0 || portNumber > 99999) {
-            return "Must be in range [1, 99999]";
-        }
-
-        return null;
+        return validateNumber(this.port, 1, 65535);
     }
 
     isValid(): boolean {

@@ -3,6 +3,7 @@ import { computed, observable } from "mobx";
 import { ServerConfig } from "src/api/soldat/configs/types";
 import { GameModes } from "src/types";
 import { toBool, toNumber, toString } from "../convertUtils";
+import NetworkSettings from "./network";
 
 export interface GameStylesSettings {
     realisticEnabled: boolean;
@@ -105,6 +106,7 @@ const defaultServerSettings: ServerSettingsData = {
 class ServerSettings implements ServerSettingsData {
     @observable gameplay: GameplaySettings;
     @observable bots: BotsSettings;
+    @observable network: NetworkSettings;
 
     constructor(config?: ServerConfig) {
         this.gameplay = {
@@ -150,6 +152,8 @@ class ServerSettings implements ServerSettingsData {
             this.gameplay.timeLimit = Math.floor(this.gameplay.timeLimit / 3600);
         }
 
+        this.network = new NetworkSettings(config);
+
         defaultsDeep(this, defaultServerSettings);
     }
 
@@ -186,6 +190,8 @@ class ServerSettings implements ServerSettingsData {
 
                 bots_difficulty: toString(this.bots.difficulty),
                 bots_chat: toString(this.bots.chat),
+
+                net_port: this.network.port
             }
         }
     }

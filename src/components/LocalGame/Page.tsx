@@ -10,6 +10,7 @@ import GameModeDescription from "./GameModeDescription";
 import GameModeSelection from "./GameModeSelection";
 import GameplayForm from "./Gameplay/Form";
 import MapsSelection from "./Maps/Selection";
+import AdvancedForm from "./AdvancedForm";
 
 import LocalGameStore from "src/stores/localGame";
 import MapsStore from "src/stores/maps";
@@ -81,6 +82,10 @@ const LocalGamePage: React.FunctionComponent<LocalGamePageProps> = props => {
 
     const handleGameModeChange = (newGameMode: GameModes): void => {
         props.serverSettingsStore.settings.gameplay.mode = newGameMode;
+    }
+
+    const handleAdvancedCollapsedToggle = (collapsed: boolean): void => {
+        props.uiState.advancedSettingsCollapsed = collapsed;
     }
 
     const handleBotsCollapsedToggle = (collapsed: boolean): void => {
@@ -179,6 +184,18 @@ const LocalGamePage: React.FunctionComponent<LocalGamePageProps> = props => {
                                 }>
                                 <div>
                                     <BotsForm serverSettings={props.serverSettingsStore.settings} />
+                                </div>
+                            </Collapsable>
+
+                            <Collapsable
+                                className="settings-group"
+                                collapsed={props.uiState.advancedSettingsCollapsed}
+                                onCollapsedToggle={handleAdvancedCollapsedToggle}
+                                headerContent={
+                                    <span>ADVANCED</span>
+                                }>
+                                <div>
+                                    <AdvancedForm networkSettings={props.serverSettingsStore.settings.network} />
                                 </div>
                             </Collapsable>
                         </Panel>

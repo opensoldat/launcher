@@ -19,18 +19,11 @@ import { soldatPaths } from "./paths";
 let serverProcess: ChildProcess = undefined;
 
 const start = (
-    port: number,
-    onReady: (port: number) => void,
+    onReady: () => void,
     onFailed: (error: Error) => void,
     onTerminated: (exitCode: number, stderr: string) => void
 ): void => {
-    if (typeof(port) !== "number" || !isFinite(port) || Math.round(port) !== port) {
-        throw Error("Invalid port parameter passed to server launcher.");
-    }
-
-    serverProcess = spawn(soldatPaths.serverExecutable, [
-        "-net_port " + port.toString()
-    ]);
+    serverProcess = spawn(soldatPaths.serverExecutable);
 
     // We collect output from stderr, so that we can know when
     // server terminated unexpectedly, and when it was intended.
@@ -50,7 +43,7 @@ const start = (
     serverProcess.stdout.setEncoding("utf8");
     serverProcess.stdout.on("data", (output: string) => {
         if (output.includes("[NET] Game networking initialized.")) {
-            onReady(port);
+            onReady();
         }
     });
 

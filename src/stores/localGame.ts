@@ -4,43 +4,42 @@ class LocalGameStore {
     @observable isStarting = false;
     @observable isRunning = false;
 
-    private localClientId: string = undefined;
-    private errorCallback: (errorMessage: string) => void = undefined;
+    private localClientId: string;
+    private localServerPort: number;
+    private errorCallback: (errorMessage: string) => void;
 
-    @action startLocalGame(port: number, onError: (errorMessage: string) => void): void {
+    @action startLocalGame(serverPort: number, onError: (errorMessage: string) => void): void {
         this.errorCallback = onError;
         this.isStarting = true;
+        this.localServerPort = serverPort;
 
-        try {
-            window.soldat.server.start(port,
-                this.onServerReady.bind(this),
-                this.onServerFailed.bind(this),
-                this.onServerTerminated.bind(this));
-        } catch (error) {
-            this.errorCallback(error.message);
-        }
+        window.soldat.server.start(
+            this.onServerReady.bind(this),
+            this.onServerFailed.bind(this),
+            this.onServerTerminated.bind(this)
+        );
     }
 
     @action stopLocalGame(): void {
         window.soldat.client.stop(this.localClientId);
-        this.localClientId = undefined;
         window.soldat.server.stop();
 
         this.isRunning = false;
         this.isStarting = false;
     }
 
-    private onServerReady(port: number): void {
+    private onServerReady(): void {
         console.log("Server is ready.");
 
         try {
             this.localClientId = window.soldat.client.start(
                 "127.0.0.1",
-                port,
+                this.localServerPort,
                 null,
                 this.onLocalClientFailed.bind(this),
                 this.onLocalClientTerminated.bind(this),
-                false);
+                false
+            );
             
             this.isStarting = false;
             this.isRunning = true;

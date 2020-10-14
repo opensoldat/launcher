@@ -15,7 +15,8 @@ class UiStore {
             highlightedMap: null
         },
 
-        botsSettingsCollapsed: true
+        botsSettingsCollapsed: true,
+        advancedSettingsCollapsed: true
     };
 
     @observable settingsPage: SettingsPageUiState = {

@@ -58,9 +58,12 @@ const App: React.FC = () => {
     const startLocalGame = (): void => {
         serverSettingsStore.saveAll()
         .then(() => {
-            localGameStore.startLocalGame(23073, (errorMessage: string) => {
-                toast.error("Local game failed:\n" + errorMessage);
-            });
+            localGameStore.startLocalGame(
+                Number(serverSettingsStore.settings.network.port),
+                (errorMessage: string) => {
+                    toast.error("Local game failed:\n" + errorMessage);
+                }
+            );
         })
         .catch((errorMessage: string) => {
             toast.error("Could not save server settings:\n" + errorMessage);

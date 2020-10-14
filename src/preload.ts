@@ -86,10 +86,10 @@ declare global {
                 saveMapsList: (mapsNames: string[]) => Promise<void>;
 
                 start: (
-                    port: number,
-                    onReady: (port: number) => void,
+                    onReady: () => void,
                     onFailed: (error: Error) => void,
-                    onTerminated: (exitCode: number, stderr: string) => void) => void;
+                    onTerminated: (exitCode: number, stderr: string) => void
+                ) => void;
                 stop: () => void;
             };
         };

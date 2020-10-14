@@ -5,6 +5,7 @@ export interface LocalGamePageUiState {
     mapsSettingsCollapsed: boolean;
     mapsSelection: MapsSelectionUiState;
     botsSettingsCollapsed: boolean;
+    advancedSettingsCollapsed: boolean;
 }
 
 export interface MapsSelectionUiState {
