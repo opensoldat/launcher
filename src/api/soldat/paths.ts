@@ -1,10 +1,10 @@
 import path from "path";
 
-const isDev = process.env.NODE_ENV === "development";
+const isProduction = process.env.NODE_ENV === "production";
 
 const soldatPaths = {
-    clientDirectory: isDev ? "./soldat" : path.resolve(process.resourcesPath, "soldat"),
-    serverDirectory: isDev ? "./soldat" : path.resolve(process.resourcesPath, "soldat"),
+    clientDirectory: isProduction ? path.resolve(process.resourcesPath, "soldat") : "./soldat",
+    serverDirectory: isProduction ? path.resolve(process.resourcesPath, "soldat") : "./soldat",
 
     get clientExecutable(): string {
         let clientExecutableFilename = "soldat";
