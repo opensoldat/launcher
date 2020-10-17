@@ -8,7 +8,7 @@ import ServersTable from "./ServersTable/";
 
 import { Server } from "../../types";
 
-import ConnectFormStore from "../../stores/lobby/connectForm";
+import ConnectFormStore from "../../stores/launcher/connectForm";
 import LobbyServersStore from "../../stores/lobby/servers";
 import OnlineGamesStore from "../../stores/onlineGames";
 

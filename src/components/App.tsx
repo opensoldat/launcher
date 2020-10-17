@@ -1,13 +1,15 @@
 import React from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { ToastContainer, toast } from "react-toastify";
+import { observer } from "mobx-react";
 
 import LobbyPage from "./Lobby/Page";
 import LocalGamePage from "./LocalGame/Page";
 import SettingsPage from "./Settings/Page";
+import Spinner from "./Common/Spinner";
 
+import LauncherDataStore from "src/stores/launcher/data";
 import ClientSettingsStore from "../stores/settings/client";
-import ConnectFormStore from "../stores/lobby/connectForm";
 import ServerSettingsStore from "../stores/settings/server";
 import LobbyServersStore from "../stores/lobby/servers";
 import LocalGameStore from "../stores/localGame";
@@ -25,8 +27,12 @@ enum TabIndexes {
 }
 
 const App: React.FC = () => {
-    const [clientSettingsStore] = React.useState(() => new ClientSettingsStore());
+    const [launcherDataStore] = React.useState(() => new LauncherDataStore());
+    if (!launcherDataStore.isLoading && !launcherDataStore.gotData) {
+        launcherDataStore.loadData();
+    }
 
+    const [clientSettingsStore] = React.useState(() => new ClientSettingsStore());
     const [serverSettingsStore] = React.useState(() => new ServerSettingsStore());
 
     /* We keep track of some UI-related states so that we can restore
@@ -40,7 +46,6 @@ const App: React.FC = () => {
     const [onlineGamesStore] = React.useState(() => new OnlineGamesStore());
 
     const [lobbyServersStore] = React.useState(() => new LobbyServersStore());
-    const [connectFormStore] = React.useState(() => new ConnectFormStore());
 
     const handleTabChange = (index: number, lastIndex: number): boolean => {
         if (lastIndex === TabIndexes.LocalGame) {
@@ -72,50 +77,57 @@ const App: React.FC = () => {
 
     return (
         <main>
-            <Tabs
-                onSelect={handleTabChange}
-                selectedTabClassName="navigation-bar-tab--selected">
-                <div className="navigation-bar-container">
-                    <TabList className="navigation-bar">
-                        <Tab className="navigation-bar-tab">LOBBY</Tab>
-                        <Tab className="navigation-bar-tab">LOCAL</Tab>
-                        <Tab className="navigation-bar-tab">SETTINGS</Tab>
-                    </TabList>
-                </div>
+        {launcherDataStore.isLoading || !launcherDataStore.gotData
+        ?   <div className="centered-spinner">
+                <Spinner />
+            </div>
+        :   <React.Fragment>
+                <Tabs
+                    onSelect={handleTabChange}
+                    selectedTabClassName="navigation-bar-tab--selected">
+                    <div className="navigation-bar-container">
+                        <TabList className="navigation-bar">
+                            <Tab className="navigation-bar-tab">LOBBY</Tab>
+                            <Tab className="navigation-bar-tab">LOCAL</Tab>
+                            <Tab className="navigation-bar-tab">SETTINGS</Tab>
+                        </TabList>
+                    </div>
 
-                <TabPanel className="navigation-bar-content">
-                    <LobbyPage
-                        connectFormStore={connectFormStore} 
-                        onlineGamesStore={onlineGamesStore}
-                        serversStore={lobbyServersStore} />
-                </TabPanel>
+                    <TabPanel className="navigation-bar-content">
+                        <LobbyPage
+                            connectFormStore={launcherDataStore.connectFormStore} 
+                            onlineGamesStore={onlineGamesStore}
+                            serversStore={lobbyServersStore} />
+                    </TabPanel>
 
-                <TabPanel className="navigation-bar-content">
-                    <LocalGamePage
-                        serverSettingsStore={serverSettingsStore}
-                        localGameStore={localGameStore}
-                        mapsStore={mapsStore}
-                        uiState={uiStore.localGamePage}
-                        onStartLocalGameClick={startLocalGame}
-                        onStopLocalGameClick={(): void => localGameStore.stopLocalGame()} />
-                </TabPanel>
+                    <TabPanel className="navigation-bar-content">
+                        <LocalGamePage
+                            serverSettingsStore={serverSettingsStore}
+                            localGameStore={localGameStore}
+                            mapsStore={mapsStore}
+                            uiState={uiStore.localGamePage}
+                            onStartLocalGameClick={startLocalGame}
+                            onStopLocalGameClick={(): void => localGameStore.stopLocalGame()} />
+                    </TabPanel>
 
-                <TabPanel className="navigation-bar-content">
-                    <SettingsPage
-                        clientSettingsStore={clientSettingsStore}
-                        uiState={uiStore.settingsPage} />
-                </TabPanel>
-            </Tabs>
+                    <TabPanel className="navigation-bar-content">
+                        <SettingsPage
+                            clientSettingsStore={clientSettingsStore}
+                            uiState={uiStore.settingsPage} />
+                    </TabPanel>
+                </Tabs>
 
-            <ToastContainer
-                draggable={false}
-                bodyStyle={{
-                    fontFamily: "play-regular",
-                    wordBreak: "break-word",
-                    whiteSpace: "pre-wrap"
-                }} />
+                <ToastContainer
+                    draggable={false}
+                    bodyStyle={{
+                        fontFamily: "play-regular",
+                        wordBreak: "break-word",
+                        whiteSpace: "pre-wrap"
+                    }} />
+            </React.Fragment>
+        }
         </main>
     )
 }
 
-export default App;
+export default observer(App);

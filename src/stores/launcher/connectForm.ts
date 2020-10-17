@@ -1,10 +1,31 @@
-import { observable, computed } from "mobx";
+import { defaults } from "lodash";
+import { observable, computed, action } from "mobx";
 import validateNumber from "src/validation/number";
 
-class ConnectFormStore {
-    @observable ip = "127.0.0.1";
-    @observable port = "23073";
-    @observable password = "";
+export interface ConnectFormData {
+    ip: string;
+    port: string;
+    password: string;
+}
+
+const defaultData: ConnectFormData = {
+    ip: "127.0.0.1",
+    port: "23073",
+    password: ""
+};
+
+class ConnectFormStore implements ConnectFormData {
+    @observable ip: string;
+    @observable port: string;
+    @observable password: string;
+
+    @action setData(data: ConnectFormData) {
+        this.ip = data?.ip;
+        this.port = data?.port;
+        this.password = data?.password;
+
+        defaults(this, defaultData);
+    }
 
     @computed get ipError(): string {
         if (!this.ip || this.ip.length === 0) {

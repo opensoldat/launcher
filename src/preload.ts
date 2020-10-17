@@ -1,6 +1,10 @@
 import { contextBridge } from "electron";
 
 import {
+    loadData
+} from "./api/launcher/data";
+
+import {
     start as startServer,
     stop as stopServer
 } from "./api/soldat/server";
@@ -47,6 +51,10 @@ import {
 
 declare global {
     interface Window {
+        launcher: {
+            loadData: () => Promise<string>;
+        };
+
         soldat: {
             client: {
                 loadControlsConfig: () => Promise<ControlsConfig>;
@@ -95,6 +103,13 @@ declare global {
         };
     }
 }
+
+contextBridge.exposeInMainWorld(
+    "launcher",
+    {
+        loadData
+    }
+);
 
 contextBridge.exposeInMainWorld(
     "soldat",

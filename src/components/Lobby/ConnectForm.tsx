@@ -2,7 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 import { toast } from "react-toastify";
 
-import ConnectFormStore from "../../stores/lobby/connectForm";
+import ConnectFormStore from "../../stores/launcher/connectForm";
 import OnlineGamesStore from "../../stores/onlineGames";
 
 import "./ConnectForm.css";
