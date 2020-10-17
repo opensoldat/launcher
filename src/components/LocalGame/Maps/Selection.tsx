@@ -6,7 +6,6 @@ import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import MapPreview from "./Preview";
 import MapsList from "./List";
 import MapsListItem from "./ListItem";
-import Spinner from "src/components/Common/Spinner";
 
 import MapsStore from "src/stores/maps";
 import ServerMapsList from "src/settings/server/mapsList";

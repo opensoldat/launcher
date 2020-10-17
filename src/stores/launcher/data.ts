@@ -16,7 +16,7 @@ class LauncherDataStore {
 
         window.launcher.loadData()
         .then(fileContent => {
-            var data: LauncherData;
+            let data: LauncherData;
             try {
                 data = JSON.parse(fileContent);
             } catch (error) {
@@ -36,7 +36,7 @@ class LauncherDataStore {
     }
 
     saveData(): Promise<void> {
-        var data: LauncherData = {
+        const data: LauncherData = {
             connectForm: this.connectFormStore.getData()
         };
 

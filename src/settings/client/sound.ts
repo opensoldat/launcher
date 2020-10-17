@@ -27,20 +27,22 @@ class SoundSettings implements SoundSettingsData {
         this.explosionsSoundEffects = toBool(config?.cvars.snd_effects_explosions);
 
         defaults(this, defaultSoundSettings);
-    };
+    }
 
     toConfig(): SoundConfig {
         // We don't do any validation when converting to config.
         // Theoretically Soldat should handle such scenarios just fine.
         return {
             bindings: null,
+            /* eslint-disable @typescript-eslint/camelcase */
             cvars: {
                 snd_volume: toString(this.volume),
                 snd_effects_battle: toString(this.battleSoundEffects),
                 snd_effects_explosions: toString(this.explosionsSoundEffects)
             }
+            /* eslint-enable @typescript-eslint/camelcase */
         }
-    };
+    }
 }
 
 export default SoundSettings;

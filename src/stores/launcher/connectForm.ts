@@ -27,7 +27,7 @@ class ConnectFormStore implements ConnectFormData {
         };
     }
     
-    @action setData(data: ConnectFormData) {
+    @action setData(data: ConnectFormData): void {
         this.ip = data?.ip;
         this.port = data?.port;
         this.password = data?.password;

@@ -160,6 +160,7 @@ class ServerSettings implements ServerSettingsData {
     toConfig(): ServerConfig {
         return {
             bindings: null,
+            /* eslint-disable @typescript-eslint/camelcase */
             cvars: {
                 sv_gamemode: toString(this.gameplay.mode),
                 sv_timelimit: toString(this.gameplay.timeLimit * 3600),
@@ -193,6 +194,7 @@ class ServerSettings implements ServerSettingsData {
 
                 net_port: this.network.port
             }
+            /* eslint-enable @typescript-eslint/camelcase */
         }
     }
 

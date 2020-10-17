@@ -38,7 +38,7 @@ test("Clears out all duplicate keys when setting new key", () => {
 
     controlsWrapper.setBindingKey("test5", newKey);
 
-    const filterByNewKey = (binding: KeyBinding) => binding.key === newKey;
+    const filterByNewKey = (binding: KeyBinding): boolean => binding.key === newKey;
 
     const commonBindingsWithNewKey = controlsWrapper.controlsSettings.bindings.filter(
         filterByNewKey

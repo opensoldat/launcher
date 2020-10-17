@@ -1,4 +1,4 @@
-import { action, observable, toJS } from "mobx";
+import { action, observable } from "mobx";
 import PlayerSettings from "../../../settings/client/player";
 
 class PlayerSettingsStore {

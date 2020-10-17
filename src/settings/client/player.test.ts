@@ -12,6 +12,7 @@ describe("Constructor", () => {
     test("Sets default settings for properties that are missing in config", () => {
         const config = {
             cvars: {
+                // eslint-disable-next-line @typescript-eslint/camelcase
                 cl_player_name: "Test"
             }
         } as PlayerConfig;

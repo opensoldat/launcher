@@ -65,14 +65,14 @@ class CustomBindings {
                 ...configBinding
             }
         });
-    };
+    }
 
     toConfig(): SoldatConfig {
         return {
             bindings: toJS(this.bindings),
             cvars: null
         };
-    };
+    }
 
     @action addEmpty(): void {
         this.bindings.unshift({

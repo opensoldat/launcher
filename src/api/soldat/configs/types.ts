@@ -24,7 +24,7 @@ export interface GameConfig extends SoldatConfig {
         cl_endscreenshot: string;
         cl_screenshake: string;
         cl_servermods: string;
-    }
+    };
 }
 
 export interface GraphicsConfig extends SoldatConfig {

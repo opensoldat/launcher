@@ -90,13 +90,14 @@ class PlayerSettings implements PlayerSettingsData {
         this.secondaryWeapon = toNumber(config?.cvars.cl_player_secwep) as SecondaryWeapons
 
         defaults(this, defaultPlayerSettings);
-    };
+    }
 
     toConfig(): PlayerConfig {
         // We don't do any validation when converting to config.
         // Theoretically Soldat should handle such scenarios just fine.
         return {
             bindings: null,
+            /* eslint-disable @typescript-eslint/camelcase */
             cvars: {
                 cl_player_name: this.nickname,
                 
@@ -111,8 +112,9 @@ class PlayerSettings implements PlayerSettingsData {
                 cl_player_chainstyle: toString(this.chainStyle),
                 cl_player_secwep: toString(this.secondaryWeapon)
             }
+            /* eslint-enable @typescript-eslint/camelcase */
         }
-    };
+    }
 
     @computed get nicknameError(): string {
         if (this.nickname.length == 0) {

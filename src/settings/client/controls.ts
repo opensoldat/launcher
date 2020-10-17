@@ -85,16 +85,17 @@ class ControlsSettings implements ControlsSettingsData {
         }
 
         defaults(this, defaultControls);
-    };
+    }
 
     toConfig(): ControlsConfig {
         return {
             bindings: toJS(this.bindings),
             cvars: {
+                // eslint-disable-next-line @typescript-eslint/camelcase
                 cl_sensitivity: toString(this.mouseSensitivity / 100.0)
             }
         }
-    };
+    }
 
     getBindingByCommand(command: CommonGameCommands): CommonKeyBinding {
         return this.bindings.find(
