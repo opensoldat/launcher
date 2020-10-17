@@ -34,6 +34,14 @@ class LauncherDataStore {
             })
         );
     }
+
+    saveData(): Promise<void> {
+        var data: LauncherData = {
+            connectForm: this.connectFormStore.getData()
+        };
+
+        return window.launcher.saveData(JSON.stringify(data));
+    }
 }
 
 export default LauncherDataStore;

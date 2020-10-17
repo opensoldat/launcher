@@ -10,4 +10,8 @@ const loadData = function(): Promise<string> {
         });
 }
 
-export { loadData };
+const saveData = function(fileContent: string): Promise<void> {
+    return fs.promises.writeFile(filePath, fileContent);
+}
+
+export { loadData, saveData };

@@ -47,9 +47,25 @@ const App: React.FC = () => {
 
     const [lobbyServersStore] = React.useState(() => new LobbyServersStore());
 
+    React.useEffect(() => {
+        window.electron.receiveCloseRequest(() => {
+            const promises = [];
+            if (launcherDataStore.gotData) {
+                promises.push(launcherDataStore.saveData());
+            }
+            if (serverSettingsStore.gotData) {
+                promises.push(serverSettingsStore.saveAll());
+            }
+
+            Promise.allSettled(promises)
+            .then(() => {
+                window.electron.forceClose();
+            });
+        });
+    }, []);
+
     const handleTabChange = (index: number, lastIndex: number): boolean => {
         if (lastIndex === TabIndexes.LocalGame) {
-            // TODO: We might also want to save server settings when closing the app.
             serverSettingsStore.saveAll();
         }
 

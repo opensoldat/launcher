@@ -19,6 +19,14 @@ class ConnectFormStore implements ConnectFormData {
     @observable port: string;
     @observable password: string;
 
+    getData(): ConnectFormData {
+        return {
+            ip: this.ip,
+            port: this.port,
+            password: this.password
+        };
+    }
+    
     @action setData(data: ConnectFormData) {
         this.ip = data?.ip;
         this.port = data?.port;

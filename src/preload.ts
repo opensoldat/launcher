@@ -1,7 +1,8 @@
-import { contextBridge } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
 
 import {
-    loadData
+    loadData,
+    saveData
 } from "./api/launcher/data";
 
 import {
@@ -51,8 +52,14 @@ import {
 
 declare global {
     interface Window {
+        electron: {
+            forceClose: () => void;
+            receiveCloseRequest: (handleClose: () => void) => void;
+        };
+
         launcher: {
             loadData: () => Promise<string>;
+            saveData: (fileContent: string) => Promise<void>;
         };
 
         soldat: {
@@ -105,9 +112,24 @@ declare global {
 }
 
 contextBridge.exposeInMainWorld(
+    "electron",
+    {
+        forceClose: (): void => {
+            ipcRenderer.send("forceClose");
+        },
+        receiveCloseRequest: (handleClose: () => void): void => {
+            ipcRenderer.on("closeRequested", () => {
+                handleClose();
+            });
+        }
+    }
+)
+
+contextBridge.exposeInMainWorld(
     "launcher",
     {
-        loadData
+        loadData,
+        saveData
     }
 );
 

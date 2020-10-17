@@ -1,7 +1,10 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
+
+let mainWindow: BrowserWindow;
+let forceClose = false;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) { // eslint-disable-line global-require
@@ -10,7 +13,7 @@ if (require("electron-squirrel-startup")) { // eslint-disable-line global-requir
 
 const createWindow = (): void => {
     // Create the browser window.
-    const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         webPreferences: {
             /* Due to security reasons, we don't want to enable full Node.js support in renderer
              * processes. Instead, we'll expose our internal APIs with preload script. */
@@ -44,6 +47,19 @@ const createWindow = (): void => {
      * webPreferences seemed to solve the problem too.
      */
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+
+    /* When user closes the window, we notify the renderer process about it,
+     * so that we can save config files and close local game (so that we don't have
+     * a pending soldat server process that users have to terminate manually).
+     * When renderer process is done with that, it will notify main process, so that we
+     * can proceed with quitting the app.
+     */
+    mainWindow.on("close", event => {
+        if (!forceClose) {
+            event.preventDefault();
+            mainWindow.webContents.send("closeRequested");
+        }
+    });
 };
 
 // This method will be called when Electron has finished
@@ -66,6 +82,11 @@ app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
         createWindow();
     }
+});
+
+ipcMain.on("forceClose", () => {
+    forceClose = true;
+    mainWindow.close();
 });
 
 // In this file you can include the rest of your app's specific main process

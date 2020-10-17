@@ -18,6 +18,10 @@
                 "*"
             ]
         },
+        "lib": [
+            "DOM",
+            "ES2020.Promise"
+        ],
         "experimentalDecorators": true
     },
     "include": [
