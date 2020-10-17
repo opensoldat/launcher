@@ -49,6 +49,15 @@ const App: React.FC = () => {
 
     React.useEffect(() => {
         window.electron.receiveCloseRequest(() => {
+            /* Technically, this shouldn't be necessary when the "detached" option passed
+             * to spawn() calls is false, but it doesn't seem to work on Linux. So, since
+             * we don't want to force users to kill local server manually, we stop local
+             * game when the app closes.
+             * TODO: notify users about this, and ask them to confirm they want to close
+             * (modal dialog).
+             */
+            localGameStore.stopLocalGame();
+
             const promises = [];
             if (launcherDataStore.gotData) {
                 promises.push(launcherDataStore.saveData());

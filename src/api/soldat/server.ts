@@ -14,7 +14,7 @@ import { soldatPaths } from "./paths";
  * doesn't close child processes, but CTRL+C from terminal seems to
  * work fine... maybe it has to do with the fact that real parent is
  * the terminal window, and not the electron app itself; I don't know...
- * Might as well get more surprises on Mac :)
+ * As a workaround, we stop local game manually when the app closes.
  */
 let serverProcess: ChildProcess = undefined;
 
