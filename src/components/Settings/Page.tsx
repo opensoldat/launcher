@@ -11,12 +11,14 @@ import PlayerPanel from "./PlayerPanel";
 import SoundPanel from "./SoundPanel";
 
 import ClientSettingsStore from "../../stores/settings/client";
+import LaunchArgumentsStore from "src/stores/launcher/launchArguments";
 import { SettingsPageUiState } from "../../types/ui";
 
 import "./Page.css";
 
 type SettingsPageProps = {
     clientSettingsStore: ClientSettingsStore;
+    launchArgumentsStore: LaunchArgumentsStore;
     uiState: SettingsPageUiState;
 };
 
@@ -62,7 +64,9 @@ const SettingsPage: React.FC<SettingsPageProps> = props => {
                 </TabPanel>
 
                 <TabPanel>
-                    <GamePanel gameSettingsStore={props.clientSettingsStore.gameSettingsStore} />
+                    <GamePanel
+                        gameSettingsStore={props.clientSettingsStore.gameSettingsStore}
+                        launchArgumentsStore={props.launchArgumentsStore} />
                 </TabPanel>
 
                 <TabPanel>

@@ -1,5 +1,6 @@
 import { action, observable } from "mobx";
 import { computedFn } from "mobx-utils";
+import LaunchArgumentsStore from "./launcher/launchArguments";
 
 interface Client {
     // Unique identifier, so that we know which client terminated.
@@ -13,6 +14,11 @@ interface Client {
 
 class OnlineGamesStore {
     @observable readonly clients: Client[] = [];
+    readonly launchArgumentsStore: LaunchArgumentsStore;
+
+    constructor(launchArgumentsStore: LaunchArgumentsStore) {
+        this.launchArgumentsStore = launchArgumentsStore;
+    }
 
     @action connect = (
         ip: string,
@@ -23,6 +29,7 @@ class OnlineGamesStore {
         try {
             const clientId = window.soldat.client.start(
                 ip, port, password,
+                this.launchArgumentsStore.client,
                 this.onClientFailed,
                 this.onClientTerminated,
                 true

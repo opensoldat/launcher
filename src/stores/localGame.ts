@@ -43,6 +43,7 @@ class LocalGameStore {
                 "127.0.0.1",
                 this.localServerPort,
                 null,
+                this.launchArgumentsStore.client,
                 this.onLocalClientFailed.bind(this),
                 this.onLocalClientTerminated.bind(this),
                 false

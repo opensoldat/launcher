@@ -43,7 +43,7 @@ const App: React.FC = () => {
     const [mapsStore] = React.useState(() => new MapsStore());
     
     const [localGameStore] = React.useState(() => new LocalGameStore(launcherDataStore.launchArgumentsStore));
-    const [onlineGamesStore] = React.useState(() => new OnlineGamesStore());
+    const [onlineGamesStore] = React.useState(() => new OnlineGamesStore(launcherDataStore.launchArgumentsStore));
 
     const [lobbyServersStore] = React.useState(() => new LobbyServersStore());
 
@@ -139,6 +139,7 @@ const App: React.FC = () => {
                     <TabPanel className="navigation-bar-content">
                         <SettingsPage
                             clientSettingsStore={clientSettingsStore}
+                            launchArgumentsStore={launcherDataStore.launchArgumentsStore}
                             uiState={uiStore.settingsPage} />
                     </TabPanel>
                 </Tabs>

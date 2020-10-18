@@ -1,17 +1,22 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 import Checkbox from "../Common/Checkbox";
+import LaunchArgumentsTooltip from "../Common/LaunchArgumentsTooltip";
 import Panel from "../Common/Panel";
 import Spinner from "../Common/Spinner";
 
 import GameSettingsStore from "src/stores/settings/client/game";
+import LaunchArgumentsStore from "src/stores/launcher/launchArguments";
 
 import "./SettingsPanel.css";
 
 type GamePanelProps = {
     gameSettingsStore: GameSettingsStore;
+    launchArgumentsStore: LaunchArgumentsStore;
 }
 
 const GamePanel: React.FC<GamePanelProps> = props => {
@@ -19,6 +24,10 @@ const GamePanel: React.FC<GamePanelProps> = props => {
 
     if (!props.gameSettingsStore.isLoading && !gameSettings) {
         props.gameSettingsStore.loadSettings();
+    }
+
+    const handleLaunchArgumentsChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        props.launchArgumentsStore.client = event.target.value;
     }
 
     const handleScreenShakeToggle = (checked: boolean): void => {
@@ -98,6 +107,36 @@ const GamePanel: React.FC<GamePanelProps> = props => {
                                 colorTheme="dark"
                                 checked={gameSettings.allowServerMods}
                                 onToggle={handleServerModsToggle} />
+                        </div>
+                    </div>
+
+                    <div className="fields-group">
+                        <div className="title">ADVANCED</div>
+
+                        <div className="field">
+                            <label
+                                className="label label-with-info"
+                                htmlFor="launch-arguments">
+                                Client launch arguments
+                                <FontAwesomeIcon
+                                    className="info-icon"
+                                    data-tip
+                                    data-for="launch-arguments-tooltip"
+                                    icon={faInfoCircle} />
+                            </label>
+                            <div className="user-input">
+                                <input
+                                    id="launch-arguments"
+                                    spellCheck="false"
+                                    type="text"
+                                    value={props.launchArgumentsStore.client}
+                                    onChange={handleLaunchArgumentsChange}>
+                                </input>
+                            </div>
+
+                            <LaunchArgumentsTooltip
+                                id="launch-arguments-tooltip"
+                                target="client" />
                         </div>
                     </div>
                 </div>

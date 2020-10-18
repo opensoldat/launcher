@@ -70,7 +70,9 @@ const AdvancedForm: React.FC<AdvancedFormProps> = props => {
                     </input>
                 </div>
 
-                <LaunchArgumentsTooltip id="launch-arguments-tooltip" />
+                <LaunchArgumentsTooltip
+                    id="launch-arguments-tooltip"
+                    target="server" />
             </div>
         </div>
     )

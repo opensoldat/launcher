@@ -86,6 +86,7 @@ declare global {
                     ip: string,
                     port: number,
                     password: string,
+                    launchArguments: string,
                     onFailed: (clientId: string, error: Error) => void,
                     onTerminated: (clientId: string) => void,
                     detachedProcess: boolean
