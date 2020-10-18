@@ -16,7 +16,7 @@ class OnlineGamesStore {
     @observable readonly clients: Client[] = [];
     readonly launchArgumentsStore: LaunchArgumentsStore;
 
-    constructor(launchArgumentsStore: LaunchArgumentsStore) {
+    constructor(launchArgumentsStore?: LaunchArgumentsStore) {
         this.launchArgumentsStore = launchArgumentsStore;
     }
 
@@ -29,7 +29,7 @@ class OnlineGamesStore {
         try {
             const clientId = window.soldat.client.start(
                 ip, port, password,
-                this.launchArgumentsStore.client,
+                this.launchArgumentsStore?.client,
                 this.onClientFailed,
                 this.onClientTerminated,
                 true
