@@ -1,12 +1,25 @@
-import { observer } from "mobx-react";
 import React from "react";
+import { observer } from "mobx-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+
+import LaunchArgumentsStore from "src/stores/launcher/launchArguments";
 import NetworkSettings from "src/settings/server/network";
 
+import LaunchArgumentsTooltip from "../Common/LaunchArgumentsTooltip";
+
+import "../Common/Form.css";
+
 type AdvancedFormProps = {
+    launchArgumentsStore: LaunchArgumentsStore;
     networkSettings: NetworkSettings;
 }
 
 const AdvancedForm: React.FC<AdvancedFormProps> = props => {
+    const handleLaunchArgumentsChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        props.launchArgumentsStore.server = event.target.value;
+    }
+
     const handlePortChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         props.networkSettings.port = event.target.value.trim();
     }
@@ -34,6 +47,30 @@ const AdvancedForm: React.FC<AdvancedFormProps> = props => {
                     }
                     </div>
                 </div>
+            </div>
+
+            <div className="field">
+                <label
+                    className="label label-with-info"
+                    htmlFor="launch-arguments">
+                    Server launch arguments
+                    <FontAwesomeIcon
+                        className="info-icon"
+                        data-tip
+                        data-for="launch-arguments-tooltip"
+                        icon={faInfoCircle} />
+                </label>
+                <div className="user-input">
+                    <input
+                        id="launch-arguments"
+                        spellCheck="false"
+                        type="text"
+                        value={props.launchArgumentsStore.server}
+                        onChange={handleLaunchArgumentsChange}>
+                    </input>
+                </div>
+
+                <LaunchArgumentsTooltip id="launch-arguments-tooltip" />
             </div>
         </div>
     )

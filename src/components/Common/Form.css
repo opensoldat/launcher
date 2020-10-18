@@ -14,6 +14,15 @@
     white-space: nowrap;
 }
 
+.form .field .label-with-info {
+    display: inline-flex;
+    align-items: center;
+}
+
+.form .field .label-with-info .info-icon {
+    margin-left: 1em;
+}
+
 .form .field .user-input {
     margin-left: 1rem;
     flex: 1;

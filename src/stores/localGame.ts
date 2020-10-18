@@ -1,12 +1,18 @@
 import { observable, action } from "mobx";
+import LaunchArgumentsStore from "./launcher/launchArguments";
 
 class LocalGameStore {
     @observable isStarting = false;
     @observable isRunning = false;
 
+    readonly launchArgumentsStore: LaunchArgumentsStore;
     private localClientId: string;
     private localServerPort: number;
     private errorCallback: (errorMessage: string) => void;
+
+    constructor(launchArgumentsStore: LaunchArgumentsStore) {
+        this.launchArgumentsStore = launchArgumentsStore;
+    }
 
     @action startLocalGame(serverPort: number, onError: (errorMessage: string) => void): void {
         this.errorCallback = onError;
@@ -14,6 +20,7 @@ class LocalGameStore {
         this.localServerPort = serverPort;
 
         window.soldat.server.start(
+            this.launchArgumentsStore.server,
             this.onServerReady.bind(this),
             this.onServerFailed.bind(this),
             this.onServerTerminated.bind(this)

@@ -42,7 +42,7 @@ const App: React.FC = () => {
     const [uiStore] = React.useState(() => new UiStore());
     const [mapsStore] = React.useState(() => new MapsStore());
     
-    const [localGameStore] = React.useState(() => new LocalGameStore());
+    const [localGameStore] = React.useState(() => new LocalGameStore(launcherDataStore.launchArgumentsStore));
     const [onlineGamesStore] = React.useState(() => new OnlineGamesStore());
 
     const [lobbyServersStore] = React.useState(() => new LobbyServersStore());
@@ -127,9 +127,10 @@ const App: React.FC = () => {
 
                     <TabPanel className="navigation-bar-content">
                         <LocalGamePage
-                            serverSettingsStore={serverSettingsStore}
+                            launchArgumentsStore={launcherDataStore.launchArgumentsStore}
                             localGameStore={localGameStore}
                             mapsStore={mapsStore}
+                            serverSettingsStore={serverSettingsStore}
                             uiState={uiStore.localGamePage}
                             onStartLocalGameClick={startLocalGame}
                             onStopLocalGameClick={(): void => localGameStore.stopLocalGame()} />

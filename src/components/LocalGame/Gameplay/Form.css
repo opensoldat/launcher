@@ -7,12 +7,3 @@
     /* Should match height of form field's label */
     height: 2rem;
 }
-
-.gameplay-form .field .label-with-info {
-    display: inline-flex;
-    align-items: center;
-}
-
-.gameplay-form .field .label-with-info .info-icon {
-    margin-left: 1em;
-}

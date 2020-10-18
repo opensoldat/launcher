@@ -19,11 +19,14 @@ import { soldatPaths } from "./paths";
 let serverProcess: ChildProcess = undefined;
 
 const start = (
+    launchArguments: string,
     onReady: () => void,
     onFailed: (error: Error) => void,
     onTerminated: (exitCode: number, stderr: string) => void
 ): void => {
-    serverProcess = spawn(soldatPaths.serverExecutable);
+    serverProcess = spawn(soldatPaths.serverExecutable, [
+        launchArguments
+    ]);
 
     // We collect output from stderr, so that we can know when
     // server terminated unexpectedly, and when it was intended.

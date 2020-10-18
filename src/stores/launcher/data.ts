@@ -1,12 +1,15 @@
 import { action, observable } from "mobx";
 import ConnectFormStore, { ConnectFormData } from "./connectForm";
+import LaunchArgumentsStore, { LaunchArguments } from "./launchArguments";
 
 interface LauncherData {
     connectForm: ConnectFormData;
+    launchArguments: LaunchArguments;
 }
 
 class LauncherDataStore {
     connectFormStore = new ConnectFormStore();
+    launchArgumentsStore = new LaunchArgumentsStore();
 
     @observable isLoading = false;
     @observable gotData = false;
@@ -26,6 +29,7 @@ class LauncherDataStore {
         })
         .then(launcherData => {
             this.connectFormStore.setData(launcherData?.connectForm);
+            this.launchArgumentsStore.setArguments(launcherData?.launchArguments);
         })
         .finally(
             action(() => {
@@ -37,7 +41,8 @@ class LauncherDataStore {
 
     saveData(): Promise<void> {
         const data: LauncherData = {
-            connectForm: this.connectFormStore.getData()
+            connectForm: this.connectFormStore.getData(),
+            launchArguments: this.launchArgumentsStore.getArguments()
         };
 
         return window.launcher.saveData(JSON.stringify(data));

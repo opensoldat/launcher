@@ -12,6 +12,7 @@ import GameplayForm from "./Gameplay/Form";
 import MapsSelection from "./Maps/Selection";
 import AdvancedForm from "./AdvancedForm";
 
+import LaunchArgumentsStore from "src/stores/launcher/launchArguments";
 import LocalGameStore from "src/stores/localGame";
 import MapsStore from "src/stores/maps";
 import ServerSettingsStore from "src/stores/settings/server";
@@ -23,9 +24,10 @@ import "./Page.css";
 import "../Common/Buttons.css";
 
 type LocalGamePageProps = {
-    serverSettingsStore: ServerSettingsStore;
+    launchArgumentsStore: LaunchArgumentsStore;
     localGameStore: LocalGameStore;
     mapsStore: MapsStore;
+    serverSettingsStore: ServerSettingsStore;
     uiState: LocalGamePageUiState;
 
     onStartLocalGameClick: () => void;
@@ -195,7 +197,9 @@ const LocalGamePage: React.FunctionComponent<LocalGamePageProps> = props => {
                                     <span>ADVANCED</span>
                                 }>
                                 <div>
-                                    <AdvancedForm networkSettings={props.serverSettingsStore.settings.network} />
+                                    <AdvancedForm
+                                        launchArgumentsStore={props.launchArgumentsStore}
+                                        networkSettings={props.serverSettingsStore.settings.network} />
                                 </div>
                             </Collapsable>
                         </Panel>

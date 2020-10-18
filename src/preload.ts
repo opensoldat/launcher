@@ -101,6 +101,7 @@ declare global {
                 saveMapsList: (mapsNames: string[]) => Promise<void>;
 
                 start: (
+                    launchArguments: string,
                     onReady: () => void,
                     onFailed: (error: Error) => void,
                     onTerminated: (exitCode: number, stderr: string) => void
