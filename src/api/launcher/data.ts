@@ -1,6 +1,8 @@
 import fs from "fs";
+import path from "path";
+import { isProduction } from "src/environment";
 
-const filePath = "./launcher.json";
+const filePath = path.resolve(isProduction ? process.resourcesPath : "", "./launcher.json");
 
 const loadData = function(): Promise<string> {
     return fs.promises.readFile(filePath, { encoding: "utf8" })

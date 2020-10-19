@@ -1,6 +1,5 @@
 import path from "path";
-
-const isProduction = process.env.NODE_ENV === "production";
+import { isProduction } from "src/environment";
 
 const soldatPaths = {
     clientDirectory: isProduction ? path.resolve(process.resourcesPath, "soldat") : "./soldat",

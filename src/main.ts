@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain } from "electron";
+import { isDevelopment } from "./environment";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -27,7 +28,7 @@ const createWindow = (): void => {
     mainWindow.removeMenu();
     mainWindow.maximize();
 
-    if (process.env.NODE_ENV === "development") {
+    if (isDevelopment) {
         mainWindow.webContents.openDevTools();
     }
 
