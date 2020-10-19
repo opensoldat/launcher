@@ -4,7 +4,7 @@ declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
 let mainWindow: BrowserWindow;
-let forceClose = false;
+let interceptClose = false;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) { // eslint-disable-line global-require
@@ -53,9 +53,16 @@ const createWindow = (): void => {
      * a pending soldat server process that users have to terminate manually).
      * When renderer process is done with that, it will notify main process, so that we
      * can proceed with quitting the app.
+     * Additionally, to make sure that user can always close the app, we expect
+     * the renderer process to notify the main process when it's ready to receive
+     * a close request. This is to prevent scenario in which renderer process encounters
+     * an error on startup (for example a wrong path when importing CSS modules), which
+     * leads to close request never being processed by renderer, effectively preventing
+     * user from closing the app (killing manually from task manager, or by sending a
+     * SIGKILL signal is the only way to close it).
      */
     mainWindow.on("close", event => {
-        if (!forceClose) {
+        if (interceptClose) {
             event.preventDefault();
             mainWindow.webContents.send("closeRequested");
         }
@@ -85,8 +92,12 @@ app.on("activate", () => {
 });
 
 ipcMain.on("forceClose", () => {
-    forceClose = true;
+    interceptClose = false;
     mainWindow.close();
+});
+
+ipcMain.on("interceptClose", () => {
+    interceptClose = true;
 });
 
 // In this file you can include the rest of your app's specific main process

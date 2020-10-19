@@ -48,7 +48,7 @@ const App: React.FC = () => {
     const [lobbyServersStore] = React.useState(() => new LobbyServersStore());
 
     React.useEffect(() => {
-        window.electron.receiveCloseRequest(() => {
+        window.electron.interceptCloseRequest(() => {
             /* Technically, this shouldn't be necessary when the "detached" option passed
              * to spawn() calls is false, but it doesn't seem to work on Linux. So, since
              * we don't want to force users to kill local server manually, we stop local

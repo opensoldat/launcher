@@ -54,7 +54,7 @@ declare global {
     interface Window {
         electron: {
             forceClose: () => void;
-            receiveCloseRequest: (handleClose: () => void) => void;
+            interceptCloseRequest: (handleClose: () => void) => void;
         };
 
         launcher: {
@@ -119,7 +119,8 @@ contextBridge.exposeInMainWorld(
         forceClose: (): void => {
             ipcRenderer.send("forceClose");
         },
-        receiveCloseRequest: (handleClose: () => void): void => {
+        interceptCloseRequest: (handleClose: () => void): void => {
+            ipcRenderer.send("interceptClose");
             ipcRenderer.on("closeRequested", () => {
                 handleClose();
             });
