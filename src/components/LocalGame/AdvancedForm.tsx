@@ -3,21 +3,21 @@ import { observer } from "mobx-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
-import LaunchArgumentsStore from "src/stores/launcher/launchArguments";
 import NetworkSettings from "src/settings/server/network";
+import ServerLaunchSettingsStore from "src/stores/launcher/serverLaunchSettings";
 
 import LaunchArgumentsTooltip from "../Common/LaunchArgumentsTooltip";
 
 import "../Common/Form.css";
 
 type AdvancedFormProps = {
-    launchArgumentsStore: LaunchArgumentsStore;
+    serverLaunchSettingsStore: ServerLaunchSettingsStore;
     networkSettings: NetworkSettings;
 }
 
 const AdvancedForm: React.FC<AdvancedFormProps> = props => {
-    const handleLaunchArgumentsChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        props.launchArgumentsStore.server = event.target.value;
+    const handleCustomLaunchArgumentsChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        props.serverLaunchSettingsStore.customArguments = event.target.value;
     }
 
     const handlePortChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -65,8 +65,8 @@ const AdvancedForm: React.FC<AdvancedFormProps> = props => {
                         id="launch-arguments"
                         spellCheck="false"
                         type="text"
-                        value={props.launchArgumentsStore.server}
-                        onChange={handleLaunchArgumentsChange}>
+                        value={props.serverLaunchSettingsStore.customArguments}
+                        onChange={handleCustomLaunchArgumentsChange}>
                     </input>
                 </div>
 

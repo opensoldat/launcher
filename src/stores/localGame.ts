@@ -1,17 +1,23 @@
 import { observable, action } from "mobx";
-import LaunchArgumentsStore from "./launcher/launchArguments";
+import ClientLaunchSettingsStore from "./launcher/clientLaunchSettings";
+import ServerLaunchSettingsStore from "./launcher/serverLaunchSettings";
 
 class LocalGameStore {
     @observable isStarting = false;
     @observable isRunning = false;
 
-    readonly launchArgumentsStore: LaunchArgumentsStore;
+    readonly clientLaunchSettingsStore: ClientLaunchSettingsStore;
+    readonly serverLaunchSettingsStore: ServerLaunchSettingsStore;
+
     private localClientId: string;
     private localServerPort: number;
     private errorCallback: (errorMessage: string) => void;
 
-    constructor(launchArgumentsStore: LaunchArgumentsStore) {
-        this.launchArgumentsStore = launchArgumentsStore;
+    constructor(
+        clientLaunchSettingsStore: ClientLaunchSettingsStore,
+        serverLaunchSettingsStore: ServerLaunchSettingsStore) {
+        this.clientLaunchSettingsStore = clientLaunchSettingsStore;
+        this.serverLaunchSettingsStore = serverLaunchSettingsStore;
     }
 
     @action startLocalGame(serverPort: number, onError: (errorMessage: string) => void): void {
@@ -20,7 +26,7 @@ class LocalGameStore {
         this.localServerPort = serverPort;
 
         window.soldat.server.start(
-            this.launchArgumentsStore.server,
+            this.serverLaunchSettingsStore.launchArguments,
             this.onServerReady.bind(this),
             this.onServerFailed.bind(this),
             this.onServerTerminated.bind(this)
@@ -43,7 +49,7 @@ class LocalGameStore {
                 "127.0.0.1",
                 this.localServerPort,
                 null,
-                this.launchArgumentsStore.client,
+                this.clientLaunchSettingsStore.launchArguments,
                 this.onLocalClientFailed.bind(this),
                 this.onLocalClientTerminated.bind(this),
                 false

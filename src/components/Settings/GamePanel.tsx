@@ -9,14 +9,14 @@ import LaunchArgumentsTooltip from "../Common/LaunchArgumentsTooltip";
 import Panel from "../Common/Panel";
 import Spinner from "../Common/Spinner";
 
+import ClientLaunchSettingsStore from "src/stores/launcher/clientLaunchSettings";
 import GameSettingsStore from "src/stores/settings/client/game";
-import LaunchArgumentsStore from "src/stores/launcher/launchArguments";
 
 import "./SettingsPanel.css";
 
 type GamePanelProps = {
+    clientLaunchSettingsStore: ClientLaunchSettingsStore;
     gameSettingsStore: GameSettingsStore;
-    launchArgumentsStore: LaunchArgumentsStore;
 }
 
 const GamePanel: React.FC<GamePanelProps> = props => {
@@ -26,8 +26,8 @@ const GamePanel: React.FC<GamePanelProps> = props => {
         props.gameSettingsStore.loadSettings();
     }
 
-    const handleLaunchArgumentsChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        props.launchArgumentsStore.client = event.target.value;
+    const handleCustomLaunchArgumentsChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        props.clientLaunchSettingsStore.customArguments = event.target.value;
     }
 
     const handleScreenShakeToggle = (checked: boolean): void => {
@@ -129,8 +129,8 @@ const GamePanel: React.FC<GamePanelProps> = props => {
                                     id="launch-arguments"
                                     spellCheck="false"
                                     type="text"
-                                    value={props.launchArgumentsStore.client}
-                                    onChange={handleLaunchArgumentsChange}>
+                                    value={props.clientLaunchSettingsStore.customArguments}
+                                    onChange={handleCustomLaunchArgumentsChange}>
                                 </input>
                             </div>
 

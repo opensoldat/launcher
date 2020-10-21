@@ -1,15 +1,18 @@
 import { action, observable } from "mobx";
 import ConnectFormStore, { ConnectFormData } from "./connectForm";
-import LaunchArgumentsStore, { LaunchArguments } from "./launchArguments";
+import ClientLaunchSettingsStore, { ClientLaunchSettings } from "./clientLaunchSettings";
+import ServerLaunchSettingsStore, { ServerLaunchSettings } from "./serverLaunchSettings";
 
 interface LauncherData {
     connectForm: ConnectFormData;
-    launchArguments: LaunchArguments;
+    clientLaunchSettings: ClientLaunchSettings;
+    serverLaunchSettings: ServerLaunchSettings;
 }
 
 class LauncherDataStore {
     connectFormStore = new ConnectFormStore();
-    launchArgumentsStore = new LaunchArgumentsStore();
+    clientLaunchSettingsStore = new ClientLaunchSettingsStore();
+    serverLaunchSettingsStore = new ServerLaunchSettingsStore();
 
     @observable isLoading = false;
     @observable gotData = false;
@@ -29,7 +32,8 @@ class LauncherDataStore {
         })
         .then(launcherData => {
             this.connectFormStore.setData(launcherData?.connectForm);
-            this.launchArgumentsStore.setArguments(launcherData?.launchArguments);
+            this.clientLaunchSettingsStore.setSettings(launcherData?.clientLaunchSettings);
+            this.serverLaunchSettingsStore.setSettings(launcherData?.serverLaunchSettings);
         })
         .finally(
             action(() => {
@@ -42,7 +46,8 @@ class LauncherDataStore {
     saveData(): Promise<void> {
         const data: LauncherData = {
             connectForm: this.connectFormStore.getData(),
-            launchArguments: this.launchArgumentsStore.getArguments()
+            clientLaunchSettings: this.clientLaunchSettingsStore.getSettings(),
+            serverLaunchSettings: this.serverLaunchSettingsStore.getSettings()
         };
 
         return window.launcher.saveData(JSON.stringify(data));
