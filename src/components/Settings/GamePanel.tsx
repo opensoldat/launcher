@@ -6,6 +6,7 @@ import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 import Checkbox from "../Common/Checkbox";
 import LaunchArgumentsTooltip from "../Common/LaunchArgumentsTooltip";
+import LocalMountTooltip from "./LocalMountTooltip";
 import Panel from "../Common/Panel";
 import Spinner from "../Common/Spinner";
 
@@ -28,6 +29,10 @@ const GamePanel: React.FC<GamePanelProps> = props => {
 
     const handleCustomLaunchArgumentsChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         props.clientLaunchSettingsStore.customArguments = event.target.value;
+    }
+
+    const handleLocalMountToggle = (checked: boolean): void => {
+        props.clientLaunchSettingsStore.localMount = checked;
     }
 
     const handleScreenShakeToggle = (checked: boolean): void => {
@@ -112,6 +117,28 @@ const GamePanel: React.FC<GamePanelProps> = props => {
 
                     <div className="fields-group">
                         <div className="title">ADVANCED</div>
+
+                        <div className="field">
+                            <label
+                                className="label label-with-info"
+                                htmlFor="local-mount">
+                                Local mount
+                                <FontAwesomeIcon
+                                    className="info-icon"
+                                    data-tip
+                                    data-for="local-mount-tooltip"
+                                    icon={faInfoCircle} />
+                            </label>
+                            <div className="user-input">
+                                <Checkbox
+                                    id="local-mount"
+                                    colorTheme="dark"    
+                                    checked={props.clientLaunchSettingsStore.localMount}
+                                    onToggle={handleLocalMountToggle} />
+                            </div>
+
+                            <LocalMountTooltip id="local-mount-tooltip" />
+                        </div>
 
                         <div className="field">
                             <label
