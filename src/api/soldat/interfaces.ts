@@ -1,5 +1,5 @@
 import fs from "fs";
-import { soldatPaths } from "../paths";
+import { soldatPaths } from "./paths";
 
 /* Interfaces can come from 3 places:
  * 1) Archive files with .sint extension in custom-interfaces directory.

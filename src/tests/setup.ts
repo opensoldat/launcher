@@ -35,6 +35,11 @@ import {
     loadServerMapsList,
     saveServerMapsList
 } from "src/api/soldat/configs";
+
+import {
+    loadArchiveNames,
+    loadDirectoryNames
+} from "src/api/soldat/interfaces";
  
 configure({ adapter: new Adapter() });
 useStaticRendering(true);
@@ -72,5 +77,10 @@ window.soldat = {
 
         start: startServer,
         stop: stopServer
+    },
+
+    interfaces: {
+        loadArchiveNames,
+        loadDirectoryNames
     }
 }

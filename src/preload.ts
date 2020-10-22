@@ -118,7 +118,7 @@ declare global {
             interfaces: {
                 loadArchiveNames: () => Promise<string[]>;
                 loadDirectoryNames: () => Promise<string[]>;
-            }
+            };
         };
     }
 }
