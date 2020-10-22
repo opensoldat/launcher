@@ -1,6 +1,7 @@
 import React from "react";
 import ReactSelect, {Props as ReactSelectProps, StylesConfig } from "react-select";
 import { ThemeConfig } from "react-select/src/theme";
+import { SelectOption } from "src/types";
 
 /* This is a wrapper for react-select. It provides styling compatible
  * with our app's design, at least in the context of forms. Styling
@@ -19,14 +20,6 @@ import { ThemeConfig } from "react-select/src/theme";
  * it still gets resized as soon as you hover an option. Maybe forcing a
  * rerender on window's resize would do the trick.
  */
-
-// Couldn't be bothered to go through react-select's
-// code to find the correct type for this, so we just use
-// our own, which is compatible with react-select's type.
-export interface SelectOption {
-    label: string;
-    value: string;
-}
 
 /* I was unhappy with the type of "value" prop that react-select expects (basically
  * you have to pass an object with "value" and "label" properties, but we only really

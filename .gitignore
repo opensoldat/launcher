@@ -88,5 +88,5 @@ typings/
 # Electron-Forge
 out/
 
-soldat/
+/soldat/
 launcher.json

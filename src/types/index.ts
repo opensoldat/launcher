@@ -99,3 +99,11 @@ export interface Server {
     info: string;
     version: string;
 }
+
+// Couldn't be bothered to go through react-select's
+// code to find the correct type for this, so we just use
+// our own, which is compatible with react-select's type.
+export interface SelectOption {
+    label: string;
+    value: string;
+}

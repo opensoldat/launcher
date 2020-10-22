@@ -33,6 +33,7 @@ interface GraphicsSettingsData {
     weatherEffects: boolean;
     smoothEdges: boolean;
 
+    interfaceStyle: string;
     scaleInterface: boolean;
     playerIndicator: boolean;
     killsList: boolean;
@@ -60,6 +61,7 @@ const defaultGraphicsSettings: GraphicsSettingsData = {
     weatherEffects: true,
     smoothEdges: false,
 
+    interfaceStyle: "Default",
     playerIndicator: true,
     scaleInterface: true,
     killsList: true,
@@ -83,6 +85,7 @@ class GraphicsSettings implements GraphicsSettingsData {
     @observable weatherEffects: boolean;
     @observable smoothEdges: boolean;
 
+    @observable interfaceStyle: string;
     @observable scaleInterface: boolean;
     @observable playerIndicator: boolean;
     @observable killsList: boolean;
@@ -112,7 +115,8 @@ class GraphicsSettings implements GraphicsSettingsData {
         this.maxFPS = toNumber(config?.cvars.r_maxfps);
         this.weatherEffects = toBool(config?.cvars.r_weathereffects);
         this.smoothEdges = toBool(config?.cvars.r_smoothedges);
-        
+  
+        this.interfaceStyle = config?.cvars.ui_style;
         this.scaleInterface = toBool(config?.cvars.r_scaleinterface);
         this.playerIndicator = toBool(config?.cvars.ui_playerindicator);
         this.killsList = toBool(config?.cvars.ui_killconsole);
@@ -152,6 +156,7 @@ class GraphicsSettings implements GraphicsSettingsData {
                 r_weathereffects: toString(this.weatherEffects),
                 r_smoothedges: toString(this.smoothEdges),
     
+                ui_style: this.interfaceStyle,
                 r_scaleinterface: toString(this.scaleInterface),
                 ui_playerindicator: toString(this.playerIndicator),
                 ui_killconsole: toString(this.killsList),

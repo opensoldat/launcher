@@ -42,6 +42,10 @@ const soldatPaths = {
         return path.join(this.clientConfigsDirectory, "sound.cfg");
     },
 
+    get customInterfacesDirectory(): string {
+        return path.join(this.clientDirectory, "custom-interfaces");
+    },
+
     get serverConfigsDirectory(): string {
         return path.join(this.serverDirectory, "configs");
     },

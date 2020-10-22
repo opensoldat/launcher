@@ -3,27 +3,33 @@ import { observer } from "mobx-react";
 import { toast } from "react-toastify";
 
 import GraphicsSettingsStore from "src/stores/settings/client/graphics";
+import InterfacesStore from "src/stores/interfaces";
 import { DisplayModes } from "src/settings/client/graphics";
 
+import Checkbox from "../Common/Checkbox";
+import ColorInput from "../Common/ColorInput";
 import Panel from "../Common/Panel";
 import ResolutionSelect from "./ResolutionSelect";
 import Select from "../Common/Select";
-import Spinner from "../Common/Spinner";
-
 import SliderNumberInput from "../Common/SliderNumberInput";
-import Checkbox from "../Common/Checkbox";
-import ColorInput from "../Common/ColorInput";
+import Spinner from "../Common/Spinner";
 
 import "../Common/Form.css";
 import "./SettingsPanel.css";
+import InlineRefreshButton from "../Common/InlineRefreshButton";
 
 type GraphicsPanelProps = {
     graphicsSettingsStore: GraphicsSettingsStore;
+    interfacesStore: InterfacesStore;
 }
 
 const GraphicsPanel: React.FC<GraphicsPanelProps> = props => {
     if (!props.graphicsSettingsStore.isLoading && !props.graphicsSettingsStore.settings) {
         props.graphicsSettingsStore.loadSettings();
+    }
+
+    if (!props.interfacesStore.isLoading && !props.interfacesStore.gotInterfaces) {
+        props.interfacesStore.loadInterfaces();
     }
 
     const graphicsSettings = props.graphicsSettingsStore.settings;
@@ -66,6 +72,10 @@ const GraphicsPanel: React.FC<GraphicsPanelProps> = props => {
         graphicsSettings.weatherEffects = checked;
     }
 
+    const handleInterfaceStyleChange = (newStyle: string): void => {
+        graphicsSettings.interfaceStyle = newStyle;
+    }
+
     const handleScaleInterfaceToggle = (checked: boolean): void => {
         graphicsSettings.scaleInterface = checked;
     }
@@ -101,6 +111,8 @@ const GraphicsPanel: React.FC<GraphicsPanelProps> = props => {
     }
 
     const isLoading = props.graphicsSettingsStore.isLoading || !graphicsSettings;
+    const showInterfacesSpinner = props.interfacesStore.isLoading ||
+        !props.interfacesStore.gotInterfaces;
 
     return (
         <div className="settings-panel-container">
@@ -273,6 +285,25 @@ const GraphicsPanel: React.FC<GraphicsPanelProps> = props => {
 
                     <div className="fields-group">
                         <div className="title">INTERFACE</div>
+
+                        <div className="field">
+                            <label className="label"> Style </label>
+                            <div className="user-input">
+                            {showInterfacesSpinner
+                            ?   <div className="centered-spinner">
+                                    <Spinner />
+                                </div>
+                            :   <div className="inline">
+                                    <Select
+                                        options={props.interfacesStore.selectOptions}
+                                        selectedValue={graphicsSettings.interfaceStyle}
+                                        onSelectedChange={handleInterfaceStyleChange}
+                                        menuPosition="fixed" />
+                                    <InlineRefreshButton onClick={(): void => props.interfacesStore.loadInterfaces()} />
+                                </div>
+                            }
+                            </div>
+                        </div>
 
                         <div className="field">
                             <label

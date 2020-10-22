@@ -11,6 +11,7 @@ import Spinner from "./Common/Spinner";
 import LauncherDataStore from "src/stores/launcher/data";
 import ClientSettingsStore from "../stores/settings/client";
 import ServerSettingsStore from "../stores/settings/server";
+import InterfacesStore from "src/stores/interfaces";
 import LobbyServersStore from "../stores/lobby/servers";
 import LocalGameStore from "../stores/localGame";
 import MapsStore from "../stores/maps";
@@ -40,6 +41,10 @@ const App: React.FC = () => {
      * component, because pages get unmounted when navigating between tabs,
      * and we would lose their internal states. */
     const [uiStore] = React.useState(() => new UiStore());
+
+    const [interfacesStore] = React.useState(() => new InterfacesStore(
+        launcherDataStore.clientLaunchSettingsStore
+    ));
     const [mapsStore] = React.useState(() => new MapsStore());
     
     const [localGameStore] = React.useState(() => new LocalGameStore(
@@ -145,6 +150,7 @@ const App: React.FC = () => {
                         <SettingsPage
                             clientLaunchSettingsStore={launcherDataStore.clientLaunchSettingsStore}
                             clientSettingsStore={clientSettingsStore}
+                            interfacesStore={interfacesStore}
                             uiState={uiStore.settingsPage} />
                     </TabPanel>
                 </Tabs>

@@ -1,0 +1,11 @@
+.inline-refresh-button {
+    width: 2em;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inline-refresh-button .icon {
+    cursor: pointer;
+}

@@ -46,6 +46,7 @@ export interface GraphicsConfig extends SoldatConfig {
         r_smoothedges: string;
         r_weathereffects: string;
 
+        ui_style: string;
         r_scaleinterface: string;
         ui_playerindicator: string;
         ui_killconsole: string;

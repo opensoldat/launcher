@@ -50,6 +50,11 @@ import {
     saveServerMapsList
 } from "./api/soldat/configs";
 
+import {
+    loadArchiveNames,
+    loadDirectoryNames
+} from "./api/soldat/interfaces";
+
 declare global {
     interface Window {
         electron: {
@@ -109,6 +114,11 @@ declare global {
                 ) => void;
                 stop: () => void;
             };
+
+            interfaces: {
+                loadArchiveNames: () => Promise<string[]>;
+                loadDirectoryNames: () => Promise<string[]>;
+            }
         };
     }
 }
@@ -171,6 +181,11 @@ contextBridge.exposeInMainWorld(
 
             start: startServer,
             stop: stopServer
+        },
+
+        "interfaces": {
+            loadArchiveNames,
+            loadDirectoryNames
         }
     }
 );

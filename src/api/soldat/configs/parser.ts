@@ -44,7 +44,7 @@ const parseConfigFileData = (data: string): SoldatConfig => {
             config.bindings.push(binding);
         } else {
             // We ignore settings that don't start with expected prefixes.
-            const whitelistedPrefixes = ["bots_", "cl_", "r_", "sv_", "net_"];
+            const whitelistedPrefixes = ["bots_", "cl_", "net_", "r_", "sv_", "ui_"];
             let allow = false;
             whitelistedPrefixes.forEach((prefix) => {
                 if (substrings[0].startsWith(prefix)) {

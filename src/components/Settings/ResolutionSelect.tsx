@@ -2,8 +2,8 @@ import React from "react";
 import { observer } from "mobx-react";
 
 import IntegerInput from "../Common/IntegerInput";
-import Select, { SelectOption } from "../Common/Select";
-import { Resolution } from "../../types";
+import Select from "../Common/Select";
+import { Resolution, SelectOption } from "../../types";
 
 import "./ResolutionSelect.css";
 
