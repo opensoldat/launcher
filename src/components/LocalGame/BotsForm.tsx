@@ -161,7 +161,7 @@ const BotsForm: React.FC<BotsFormProps> = props => {
                         ]}
                         selectedValue={bots.difficulty.toString()}
                         onSelectedChange={handleBotsDifficultyChange}
-                        menuPosition="fixed" />
+                        menuPlacement="top" />
                 </div>
             </div>
 

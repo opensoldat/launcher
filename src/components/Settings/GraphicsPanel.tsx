@@ -136,8 +136,7 @@ const GraphicsPanel: React.FC<GraphicsPanelProps> = props => {
                                     {value: DisplayModes.Fullscreen.toString(), label: "Fullscreen"}
                                 ]}
                                 selectedValue={graphicsSettings.displayMode.toString()}
-                                onSelectedChange={handleDisplayModeChange}
-                                menuPosition="fixed" />
+                                onSelectedChange={handleDisplayModeChange} />
                         </div>
                     </div>
 
@@ -297,8 +296,7 @@ const GraphicsPanel: React.FC<GraphicsPanelProps> = props => {
                                     <Select
                                         options={props.interfacesStore.selectOptions}
                                         selectedValue={graphicsSettings.interfaceStyle}
-                                        onSelectedChange={handleInterfaceStyleChange}
-                                        menuPosition="fixed" />
+                                        onSelectedChange={handleInterfaceStyleChange} />
                                     <InlineRefreshButton onClick={(): void => props.interfacesStore.loadInterfaces()} />
                                 </div>
                             }

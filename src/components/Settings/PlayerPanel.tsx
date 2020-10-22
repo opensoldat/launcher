@@ -219,7 +219,7 @@ const PlayerPanel: React.FC<PlayerPanelProps> = props => {
                             <div className="user-input">
                                 <Select
                                     name="head-style"
-                                    menuPosition="fixed"
+                                    menuPlacement="top"
                                     options={[
                                         {value: HeadStyles.None.toString(), label: "None"},
                                         {value: HeadStyles.Helmet.toString(), label: "Helmet"},
@@ -237,7 +237,7 @@ const PlayerPanel: React.FC<PlayerPanelProps> = props => {
                             <div className="user-input">
                                 <Select
                                     name="hair-style"
-                                    menuPosition="fixed"
+                                    menuPlacement="top"
                                     options={[
                                         {value: HairStyles.Army.toString(), label: "Army"},
                                         {value: HairStyles.Dreadlocks.toString(), label: "Dreadlocks"},
@@ -257,7 +257,7 @@ const PlayerPanel: React.FC<PlayerPanelProps> = props => {
                             <div className="user-input">
                                 <Select
                                     name="chain-style"
-                                    menuPosition="fixed"
+                                    menuPlacement="top"
                                     options={[
                                         {value: ChainStyles.None.toString(), label: "None"},
                                         {value: ChainStyles.DogTags.toString(), label: "Dog Tags"},

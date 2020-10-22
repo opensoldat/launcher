@@ -99,8 +99,7 @@ const ResolutionSelect: React.FC<ResolutionSelectProps> = props => {
             <Select
                 options={selectOptions}
                 selectedValue={selectedOption}
-                onSelectedChange={handleSelectChange}
-                menuPosition="fixed" />
+                onSelectedChange={handleSelectChange} />
 
             {selectedOption === "custom" &&
                 <div className="custom-resolution-fields">
