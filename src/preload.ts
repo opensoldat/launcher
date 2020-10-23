@@ -51,9 +51,13 @@ import {
 } from "./api/soldat/configs";
 
 import {
-    loadArchiveNames,
-    loadDirectoryNames
+    loadArchiveNames as loadInterfaceArchiveNames,
+    loadDirectoryNames as loadInterfaceDirectoryNames
 } from "./api/soldat/interfaces";
+
+import {
+    loadArchiveNames as loadModArchiveNames
+} from "./api/soldat/mods";
 
 declare global {
     interface Window {
@@ -118,6 +122,10 @@ declare global {
             interfaces: {
                 loadArchiveNames: () => Promise<string[]>;
                 loadDirectoryNames: () => Promise<string[]>;
+            };
+
+            mods: {
+                loadArchiveNames: () => Promise<string[]>;
             };
         };
     }
@@ -184,8 +192,12 @@ contextBridge.exposeInMainWorld(
         },
 
         "interfaces": {
-            loadArchiveNames,
-            loadDirectoryNames
+            loadArchiveNames: loadInterfaceArchiveNames,
+            loadDirectoryNames: loadInterfaceDirectoryNames
+        },
+
+        "mods": {
+            loadArchiveNames: loadModArchiveNames
         }
     }
 );

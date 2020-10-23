@@ -37,9 +37,13 @@ import {
 } from "src/api/soldat/configs";
 
 import {
-    loadArchiveNames,
-    loadDirectoryNames
+    loadArchiveNames as loadInterfaceArchiveNames,
+    loadDirectoryNames as loadInterfaceDirectoryNames
 } from "src/api/soldat/interfaces";
+
+import {
+    loadArchiveNames as loadModArchiveNames
+} from "src/api/soldat/mods";
  
 configure({ adapter: new Adapter() });
 useStaticRendering(true);
@@ -80,7 +84,11 @@ window.soldat = {
     },
 
     interfaces: {
-        loadArchiveNames,
-        loadDirectoryNames
+        loadArchiveNames: loadInterfaceArchiveNames,
+        loadDirectoryNames: loadInterfaceDirectoryNames
+    },
+
+    mods: {
+        loadArchiveNames: loadModArchiveNames
     }
 }

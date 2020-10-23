@@ -15,6 +15,7 @@ import InterfacesStore from "src/stores/interfaces";
 import LobbyServersStore from "../stores/lobby/servers";
 import LocalGameStore from "../stores/localGame";
 import MapsStore from "../stores/maps";
+import ModsStore from "src/stores/mods";
 import OnlineGamesStore from "../stores/onlineGames";
 import UiStore from "../stores/ui";
 
@@ -46,6 +47,7 @@ const App: React.FC = () => {
         launcherDataStore.clientLaunchSettingsStore
     ));
     const [mapsStore] = React.useState(() => new MapsStore());
+    const [modsStore] = React.useState(() => new ModsStore());
     
     const [localGameStore] = React.useState(() => new LocalGameStore(
         launcherDataStore.clientLaunchSettingsStore,
@@ -151,6 +153,7 @@ const App: React.FC = () => {
                             clientLaunchSettingsStore={launcherDataStore.clientLaunchSettingsStore}
                             clientSettingsStore={clientSettingsStore}
                             interfacesStore={interfacesStore}
+                            modsStore={modsStore}
                             uiState={uiStore.settingsPage} />
                     </TabPanel>
                 </Tabs>

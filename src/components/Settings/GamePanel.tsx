@@ -5,19 +5,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 import Checkbox from "../Common/Checkbox";
+import InlineRefreshButton from "../Common/InlineRefreshButton";
 import LaunchArgumentsTooltip from "../Common/LaunchArgumentsTooltip";
 import LocalMountTooltip from "./LocalMountTooltip";
 import Panel from "../Common/Panel";
+import Select from "../Common/Select";
 import Spinner from "../Common/Spinner";
 
 import ClientLaunchSettingsStore from "src/stores/launcher/clientLaunchSettings";
 import GameSettingsStore from "src/stores/settings/client/game";
+import ModsStore from "src/stores/mods";
 
 import "./SettingsPanel.css";
 
 type GamePanelProps = {
     clientLaunchSettingsStore: ClientLaunchSettingsStore;
     gameSettingsStore: GameSettingsStore;
+    modsStore: ModsStore;
 }
 
 const GamePanel: React.FC<GamePanelProps> = props => {
@@ -27,12 +31,20 @@ const GamePanel: React.FC<GamePanelProps> = props => {
         props.gameSettingsStore.loadSettings();
     }
 
+    if (!props.modsStore.isLoading && !props.modsStore.gotMods) {
+        props.modsStore.loadMods();
+    }
+
     const handleCustomLaunchArgumentsChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         props.clientLaunchSettingsStore.customArguments = event.target.value;
     }
 
     const handleLocalMountToggle = (checked: boolean): void => {
         props.clientLaunchSettingsStore.localMount = checked;
+    }
+
+    const handleModChange = (newMod: string): void => {
+        props.clientLaunchSettingsStore.mod = newMod;
     }
 
     const handleScreenShakeToggle = (checked: boolean): void => {
@@ -62,6 +74,8 @@ const GamePanel: React.FC<GamePanelProps> = props => {
     }
 
     const isLoading = props.gameSettingsStore.isLoading || !gameSettings;
+    const showModsSpinner = props.modsStore.isLoading || !props.modsStore.gotMods;
+
     return (
         <div className="settings-panel-container">
             <Panel>
@@ -138,6 +152,25 @@ const GamePanel: React.FC<GamePanelProps> = props => {
                             </div>
 
                             <LocalMountTooltip id="local-mount-tooltip" />
+                        </div>
+
+                        <div className="field">
+                            <label className="label"> Custom mod </label>
+                            <div className="user-input">
+                            {showModsSpinner
+                            ?   <div className="centered-spinner">
+                                    <Spinner />
+                                </div>
+                            :   <div className="inline">
+                                    <Select
+                                        options={props.modsStore.selectOptions}
+                                        selectedValue={props.clientLaunchSettingsStore.mod}
+                                        onSelectedChange={handleModChange}
+                                        menuPlacement="top" />
+                                    <InlineRefreshButton onClick={(): void => props.modsStore.loadMods()} />
+                                </div>
+                            }
+                            </div>
                         </div>
 
                         <div className="field">

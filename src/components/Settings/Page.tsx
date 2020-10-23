@@ -13,6 +13,7 @@ import SoundPanel from "./SoundPanel";
 import ClientLaunchSettingsStore from "src/stores/launcher/clientLaunchSettings";
 import ClientSettingsStore from "src/stores/settings/client";
 import InterfacesStore from "src/stores/interfaces";
+import ModsStore from "src/stores/mods";
 import { SettingsPageUiState } from "src/types/ui";
 
 import "./Page.css";
@@ -21,6 +22,7 @@ type SettingsPageProps = {
     clientLaunchSettingsStore: ClientLaunchSettingsStore;
     clientSettingsStore: ClientSettingsStore;
     interfacesStore: InterfacesStore;
+    modsStore: ModsStore;
     uiState: SettingsPageUiState;
 };
 
@@ -68,7 +70,8 @@ const SettingsPage: React.FC<SettingsPageProps> = props => {
                 <TabPanel>
                     <GamePanel
                         clientLaunchSettingsStore={props.clientLaunchSettingsStore}
-                        gameSettingsStore={props.clientSettingsStore.gameSettingsStore} />
+                        gameSettingsStore={props.clientSettingsStore.gameSettingsStore}
+                        modsStore={props.modsStore} />
                 </TabPanel>
 
                 <TabPanel>

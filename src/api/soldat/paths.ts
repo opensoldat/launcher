@@ -46,6 +46,10 @@ const soldatPaths = {
         return path.join(this.clientDirectory, "custom-interfaces");
     },
 
+    get modsDirectory(): string {
+        return path.join(this.clientDirectory, "mods");
+    },
+
     get serverConfigsDirectory(): string {
         return path.join(this.serverDirectory, "configs");
     },
