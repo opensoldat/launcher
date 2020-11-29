@@ -1,5 +1,10 @@
 import { Map } from ".";
 
+export interface DemosPageUiState {
+    searchTerm: string;
+    selectedDemoFileName: string;
+}
+
 export interface LocalGamePageUiState {
     gameplaySettingsCollapsed: boolean;
     mapsSettingsCollapsed: boolean;

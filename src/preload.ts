@@ -59,6 +59,11 @@ import {
     loadArchiveNames as loadModArchiveNames
 } from "./api/soldat/mods";
 
+import {
+    loadFileNames as loadDemoFileNames,
+    play as playDemo
+} from "./api/soldat/demos";
+
 declare global {
     interface Window {
         electron: {
@@ -117,6 +122,14 @@ declare global {
                     onTerminated: (exitCode: number, stderr: string) => void
                 ) => void;
                 stop: () => void;
+            };
+
+            demos: {
+                loadFileNames: () => Promise<string[]>;
+                play: (
+                    fileName: string,
+                    onFailed: (error: Error) => void
+                ) => void;
             };
 
             interfaces: {
@@ -189,6 +202,11 @@ contextBridge.exposeInMainWorld(
 
             start: startServer,
             stop: stopServer
+        },
+
+        "demos": {
+            loadFileNames: loadDemoFileNames,
+            play: playDemo
         },
 
         "interfaces": {

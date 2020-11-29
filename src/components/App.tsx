@@ -3,20 +3,22 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { ToastContainer, toast } from "react-toastify";
 import { observer } from "mobx-react";
 
+import DemosPage from "./Demos/Page";
 import LobbyPage from "./Lobby/Page";
 import LocalGamePage from "./LocalGame/Page";
 import SettingsPage from "./Settings/Page";
 import Spinner from "./Common/Spinner";
 
-import LauncherDataStore from "src/stores/launcher/data";
 import ClientSettingsStore from "../stores/settings/client";
-import ServerSettingsStore from "../stores/settings/server";
+import DemosStore from "src/stores/demos";
 import InterfacesStore from "src/stores/interfaces";
+import LauncherDataStore from "src/stores/launcher/data";
 import LobbyServersStore from "../stores/lobby/servers";
 import LocalGameStore from "../stores/localGame";
 import MapsStore from "../stores/maps";
 import ModsStore from "src/stores/mods";
 import OnlineGamesStore from "../stores/onlineGames";
+import ServerSettingsStore from "../stores/settings/server";
 import UiStore from "../stores/ui";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -25,6 +27,7 @@ import "./App.css";
 enum TabIndexes {
     Lobby = 0,
     LocalGame,
+    Demos,
     Settings
 }
 
@@ -43,6 +46,7 @@ const App: React.FC = () => {
      * and we would lose their internal states. */
     const [uiStore] = React.useState(() => new UiStore());
 
+    const [demosStore] = React.useState(() => new DemosStore());
     const [interfacesStore] = React.useState(() => new InterfacesStore(
         launcherDataStore.clientLaunchSettingsStore
     ));
@@ -126,6 +130,7 @@ const App: React.FC = () => {
                         <TabList className="navigation-bar">
                             <Tab className="navigation-bar-tab">LOBBY</Tab>
                             <Tab className="navigation-bar-tab">LOCAL</Tab>
+                            <Tab className="navigation-bar-tab">DEMOS</Tab>
                             <Tab className="navigation-bar-tab">SETTINGS</Tab>
                         </TabList>
                     </div>
@@ -146,6 +151,12 @@ const App: React.FC = () => {
                             uiState={uiStore.localGamePage}
                             onStartLocalGameClick={startLocalGame}
                             onStopLocalGameClick={(): void => localGameStore.stopLocalGame()} />
+                    </TabPanel>
+
+                    <TabPanel className="navigation-bar-content">
+                        <DemosPage
+                            demosStore={demosStore}
+                            uiState={uiStore.demosPage} />
                     </TabPanel>
 
                     <TabPanel className="navigation-bar-content">

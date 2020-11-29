@@ -1,0 +1,27 @@
+.demos-page {
+    /* Minor tweak for small window sizes */
+    white-space: nowrap;
+}
+
+.demos-page .panel {
+    max-height: calc(100vh - 12rem);
+    overflow-y: auto;
+}
+
+.demos-page .demos-list-actions {
+    margin-bottom: 1em;
+}
+
+.demos-page button {
+    font-size: medium;
+}
+
+.demos-page button .icon {
+    margin-right: 0.5em;
+}
+
+.demos-page .action-buttons {
+    display: flex;
+    margin-top: 1em;
+    justify-content: flex-end;
+}

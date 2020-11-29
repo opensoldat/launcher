@@ -44,6 +44,11 @@ import {
 import {
     loadArchiveNames as loadModArchiveNames
 } from "src/api/soldat/mods";
+
+import {
+    loadFileNames as loadDemoFileNames,
+    play as playDemo
+} from "src/api/soldat/demos";
  
 configure({ adapter: new Adapter() });
 useStaticRendering(true);
@@ -81,6 +86,11 @@ window.soldat = {
 
         start: startServer,
         stop: stopServer
+    },
+
+    demos: {
+        loadFileNames: loadDemoFileNames,
+        play: playDemo
     },
 
     interfaces: {

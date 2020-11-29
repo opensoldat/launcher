@@ -1,0 +1,29 @@
+.demos-list-item {
+    cursor: pointer;
+    height: 2.5em;
+    border-left: 0px;
+    border-right: 0px;
+
+    color: #ffffff;
+    background-color: #282828;
+
+    border-top: 1px solid #828282;
+    border-bottom: 1px solid #828282;
+    margin-bottom: -1px;
+    padding-left: 1em;
+
+    display: flex;
+    align-items: center;
+}
+
+.demos-list-item.selected {
+    background-color: #495059;
+}
+
+.demos-list-item:hover {
+    background-color: #3e444d;
+}
+
+.demos-list-item:active {
+    background-color: #30353b;
+}
