@@ -3,22 +3,8 @@
     margin-bottom: 1em;
 }
 
-.servers-table-actions .quick-search-container {
+.servers-table-actions .quick-search-bar {
     flex: 1;
-
-    display: inline-flex;
-    align-items: center;
-}
-
-.servers-table-actions .quick-search {
-    height: 2em;
-    width: 100%;
-    font-size: 1em;
-    box-sizing: border-box;
-    padding: 6px;
-    border-radius: 3px;
-    border: 1px;
-    margin-left: 0.8em;
 }
 
 .servers-table-actions .buttons-container {

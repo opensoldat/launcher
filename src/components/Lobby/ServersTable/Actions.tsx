@@ -1,9 +1,11 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter, faSearch, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
+import { faFilter, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 
 import FiltersTooltip from "./FiltersTooltip";
+import SearchBar from "src/components/Common/SearchBar";
+
 import LobbyServersStore from "../../../stores/lobby/servers";
 import "./Actions.css";
 
@@ -12,8 +14,8 @@ type ServersTableActionsProps = {
 }
 
 const ServersTableActions: React.FC<ServersTableActionsProps> = props => {
-    const handleQuickSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        props.serversStore.filtersStore.quickSearch = event.target.value;
+    const handleQuickSearchChange = (newSearchTerm: string): void => {
+        props.serversStore.filtersStore.quickSearch = newSearchTerm;
     }
 
     const refreshServers = (): void => {
@@ -22,20 +24,11 @@ const ServersTableActions: React.FC<ServersTableActionsProps> = props => {
 
     return (
         <div className="servers-table-actions">
-            <div className="quick-search-container">
-                <label htmlFor="quick-search">
-                    <FontAwesomeIcon icon={faSearch} />
-                </label>
-                <input
-                    id="quick-search"
-                    className="quick-search"
-                    placeholder="Quick search... (server name, map name, IP)"
-                    spellCheck="false"
-                    type="search"
-                    value={props.serversStore.filtersStore.quickSearch}
-                    onChange={handleQuickSearchChange}>
-                </input>
-            </div>
+            <SearchBar
+                className="quick-search-bar"
+                placeholder="Quick search... (server name, map name, IP)"
+                value={props.serversStore.filtersStore.quickSearch}
+                onChange={handleQuickSearchChange} />
 
             <div className="buttons-container">
                 <button

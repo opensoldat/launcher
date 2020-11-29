@@ -9,7 +9,13 @@
 }
 
 .demos-page .demos-list-actions {
+    display: flex;
     margin-bottom: 1em;
+}
+
+.demos-page .demos-list-actions .demo-search-bar {
+    flex: 1;
+    margin-right: 1em;
 }
 
 .demos-page button {

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 import Panel from "../Common/Panel";
 import DemosList from "./List";
+import SearchBar from "../Common/SearchBar";
 
 import DemosStore from "src/stores/demos";
 import { DemosPageUiState } from "src/types/ui";
@@ -44,6 +45,10 @@ const DemosPage: React.FC<DemosPageProps> = props => {
         props.demosStore.loadDemos();
     }
 
+    const handleSearchTermChange = (newSearchTerm: string): void => {
+        props.uiState.searchTerm = newSearchTerm;
+    }
+
     const filteredDemosFileNames = props.demosStore.filterDemos(props.uiState.searchTerm);
     /* Clear out selection in case the selected demo disappeared from list
      * (it got filtered out, or user refreshed the list after deleting demo file)
@@ -57,7 +62,11 @@ const DemosPage: React.FC<DemosPageProps> = props => {
         <div className="demos-page">
             <Panel>
                 <div className="demos-list-actions">
-                    {/*<SearchBar />*/}
+                    <SearchBar
+                        className="demo-search-bar"
+                        placeholder="Search demo by file name..."
+                        value={props.uiState.searchTerm}
+                        onChange={handleSearchTermChange} />
                     <button
                         className="button green-button refresh-button"
                         onClick={handleRefreshButtonClick}

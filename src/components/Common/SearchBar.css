@@ -1,0 +1,15 @@
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar .search-input {
+    height: 2em;
+    width: 100%;
+    font-size: 1em;
+    box-sizing: border-box;
+    padding: 6px;
+    border-radius: 3px;
+    border: 1px;
+    margin-left: 0.8em;
+}
