@@ -50,6 +50,11 @@ const soldatPaths = {
         return path.join(this.clientDirectory, "demos");
     },
 
+    get mapsDirectory(): string {
+        // We only list maps in server's directory (in case server and client aren't in same folder).
+        return path.join(this.serverDirectory, "maps");
+    },
+
     get modsDirectory(): string {
         return path.join(this.clientDirectory, "mods");
     },

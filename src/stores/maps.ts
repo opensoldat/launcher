@@ -1,17 +1,28 @@
-import { action } from "mobx";
-import { computedFn } from "mobx-utils";
+import { action, computed, observable } from "mobx";
 import shortid from "shortid";
 
 import { Map } from "../types";
 
 class MapsStore {
-    maps: Map[];
-
-    /* TODO: list of all maps should be loaded from disk.
-     * Not sure yet how to achieve this in a reasonable way with current
-     * .smod/.smap bundles....
+    /* Maps can come from 2 places
+     * 1) Archive files with .smap extension in maps folder (regardless of local mount)
+     * 2) Default maps. When local mount is disabled, those will come from soldat.smod.
+     * When local mount is enabled, instead, we expect default maps' .pms files to be
+     * in maps directory (i.e. user should have extracted soldat.smod).
+     * 
+     * TODO: When local mount is enabled, technically we should list all files with
+     * .pms extension in maps directory to make sure that default maps are still
+     * present (user could have deleted them, but he'd still see them in the list
+     * because of our hardcoded default maps; however, user would not be able to
+     * start a local game this way).
+     * With this approach we should make sure that we only look for default maps'
+     * names with .pms extension, as other maps will not work (server only works with
+     * maps in soldat.smod, or with .smaps in maps directory - in other words,
+     * server doesn't support local mount).
+     * Or am I wrong, and server could technically support other .pms files from
+     * maps directory too? Not sure if serving files would still work.
      */
-    private allMapsNames = [
+    readonly defaultMapsNames = [
         "Aero", "Airpirates", "Arena", "Arena2", "Arena3", "Bigfalls", "Blox",
         "Bridge", "Bunker", "Cambodia", "CrackedBoot", "ctf_Ash", "ctf_B2b",
         "ctf_Blade", "ctf_Campeche", "ctf_Cobra", "ctf_Crucifix", "ctf_Death",
@@ -30,18 +41,43 @@ class MapsStore {
         "inf_Rise", "inf_Warehouse", "inf_Warlock", "Island2k5", "Jungle", "Krab",
         "Lagrange", "Leaf", "MrSnowman", "RatCave", "Rok", "RR", "Shau", "Tropiccave",
         "Unlim", "Veoto"
-    ].sort();
+    ];
+    @observable mapArchivesNames: string[];
+    @observable isLoading = false;
 
-    @action loadMaps = (): void => {
-        this.maps = this.allMapsNames.map(mapName => ({
-            id: shortid.generate(),
-            name: mapName
-        }));
+    @computed get availableMaps(): Map[] {
+        return this.defaultMapsNames
+            .concat(this.mapArchivesNames || [])
+            .sort((a, b) => a.localeCompare(b))
+            .map(mapName => {
+                return {
+                    id: shortid.generate(),
+                    name: mapName
+                }
+            })
     }
 
-    getMapsByName = computedFn(function filterMapsByName(this: MapsStore, searchFilter: string): Map[] {
-        return this.maps.filter(map => map.name.toLowerCase().includes(searchFilter.toLowerCase()));
-    }, true);
+    filterMaps(searchTerm: string): Map[] {
+        return this.availableMaps.filter(map => {
+            return map.name.toLowerCase().includes(searchTerm.toLowerCase());
+        })
+    }
+
+    @computed get gotMaps(): boolean {
+        return this.mapArchivesNames != null;
+    }
+
+    @action loadMaps(): void {
+        this.isLoading = true;
+
+        window.soldat.maps.listArchivesNames()
+        .then(
+            action(archivesNames => {
+                this.mapArchivesNames = archivesNames;
+                this.isLoading = false;
+            })
+        );
+    }
 }
 
 export default MapsStore;

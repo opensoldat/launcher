@@ -89,6 +89,10 @@ window.soldat = {
         listDirectoriesNames: (): Promise<string[]> => listSubdirectoriesNames(soldatPaths.customInterfacesDirectory)
     },
 
+    maps: {
+        listArchivesNames: (): Promise<string[]> => listFilesNames(soldatPaths.mapsDirectory, ".smap")
+    },
+
     mods: {
         listArchivesNames: (): Promise<string[]> => listFilesNames(soldatPaths.modsDirectory, ".smod")
     }

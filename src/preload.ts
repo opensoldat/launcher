@@ -128,6 +128,10 @@ declare global {
                 listDirectoriesNames: () => Promise<string[]>;
             };
 
+            maps: {
+                listArchivesNames: () => Promise<string[]>;
+            };
+
             mods: {
                 listArchivesNames: () => Promise<string[]>;
             };
@@ -206,6 +210,11 @@ contextBridge.exposeInMainWorld(
                 listFilesNames(soldatPaths.customInterfacesDirectory, ".sint"),
             listDirectoriesNames: (): Promise<string[]> =>
                 listSubdirectoriesNames(soldatPaths.customInterfacesDirectory)
+        },
+
+        "maps": {
+            listArchivesNames: (): Promise<string[]> =>
+                listFilesNames(soldatPaths.mapsDirectory, ".smap")
         },
 
         "mods": {

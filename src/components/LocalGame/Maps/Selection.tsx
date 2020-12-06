@@ -22,7 +22,7 @@ type MapsSelectionProps = {
 };
 
 const MapsSelection: React.FC<MapsSelectionProps> = props => {
-    if (props.mapsStore && !props.mapsStore.maps) {
+    if (props.mapsStore && !props.mapsStore.gotMaps) {
         props.mapsStore.loadMaps();
     }
 
@@ -55,14 +55,6 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
         props.serverMapsList.remove(mapId);
     }
 
-    const getFilteredMaps = (): Map[] => {
-        if (!props.mapsStore) {
-            return [];
-        }
-
-        return props.mapsStore.getMapsByName(props.uiState.searchFilter);
-    }
-
     return (
         <div className="map-selection-container">
             <div className="map-selection">
@@ -77,7 +69,7 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
 
                 <div className="maps-list-container">
                     <MapsList emptyMessage="No maps found">
-                        {getFilteredMaps().map((map: Map) =>
+                        {props.mapsStore.filterMaps(props.uiState.searchFilter).map((map: Map) =>
                             <MapsListItem
                                 key={map.id}
                                 highlighted={props.uiState.highlightedMap?.id === map.id}
