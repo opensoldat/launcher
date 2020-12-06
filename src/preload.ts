@@ -50,19 +50,10 @@ import {
     saveServerMapsList
 } from "./api/soldat/configs";
 
-import {
-    loadArchiveNames as loadInterfaceArchiveNames,
-    loadDirectoryNames as loadInterfaceDirectoryNames
-} from "./api/soldat/interfaces";
+import { play as playDemo } from "./api/soldat/demos";
 
-import {
-    loadArchiveNames as loadModArchiveNames
-} from "./api/soldat/mods";
-
-import {
-    loadFileNames as loadDemoFileNames,
-    play as playDemo
-} from "./api/soldat/demos";
+import { listFilesNames, listSubdirectoriesNames } from "./api/directoryListing";
+import { soldatPaths } from "./api/soldat/paths";
 
 declare global {
     interface Window {
@@ -125,7 +116,7 @@ declare global {
             };
 
             demos: {
-                loadFileNames: () => Promise<string[]>;
+                listFilesNames: () => Promise<string[]>;
                 play: (
                     fileName: string,
                     onFailed: (error: Error) => void
@@ -133,12 +124,12 @@ declare global {
             };
 
             interfaces: {
-                loadArchiveNames: () => Promise<string[]>;
-                loadDirectoryNames: () => Promise<string[]>;
+                listArchivesNames: () => Promise<string[]>;
+                listDirectoriesNames: () => Promise<string[]>;
             };
 
             mods: {
-                loadArchiveNames: () => Promise<string[]>;
+                listArchivesNames: () => Promise<string[]>;
             };
         };
     }
@@ -205,17 +196,21 @@ contextBridge.exposeInMainWorld(
         },
 
         "demos": {
-            loadFileNames: loadDemoFileNames,
+            listFilesNames: (): Promise<string[]> =>
+                listFilesNames(soldatPaths.demosDirectory, ".sdm"),
             play: playDemo
         },
 
         "interfaces": {
-            loadArchiveNames: loadInterfaceArchiveNames,
-            loadDirectoryNames: loadInterfaceDirectoryNames
+            listArchivesNames: (): Promise<string[]> =>
+                listFilesNames(soldatPaths.customInterfacesDirectory, ".sint"),
+            listDirectoriesNames: (): Promise<string[]> =>
+                listSubdirectoriesNames(soldatPaths.customInterfacesDirectory)
         },
 
         "mods": {
-            loadArchiveNames: loadModArchiveNames
+            listArchivesNames: (): Promise<string[]> =>
+                listFilesNames(soldatPaths.modsDirectory, ".smod")
         }
     }
 );

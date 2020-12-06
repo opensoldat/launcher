@@ -8,13 +8,13 @@ describe("Select options", () => {
 
     beforeAll(() => {
         window.soldat.interfaces = {
-            loadArchiveNames: jest.fn().mockReturnValue(
+            listArchivesNames: jest.fn().mockReturnValue(
                 Promise.resolve([
                     "archive1",
                     "archive2"
                 ])
             ),
-            loadDirectoryNames: jest.fn().mockReturnValue(
+            listDirectoriesNames: jest.fn().mockReturnValue(
                 Promise.resolve([
                     "directory1",
                     "directory2"

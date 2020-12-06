@@ -36,24 +36,15 @@ import {
     saveServerMapsList
 } from "src/api/soldat/configs";
 
-import {
-    loadArchiveNames as loadInterfaceArchiveNames,
-    loadDirectoryNames as loadInterfaceDirectoryNames
-} from "src/api/soldat/interfaces";
-
-import {
-    loadArchiveNames as loadModArchiveNames
-} from "src/api/soldat/mods";
-
-import {
-    loadFileNames as loadDemoFileNames,
-    play as playDemo
-} from "src/api/soldat/demos";
+import { play as playDemo } from "src/api/soldat/demos";
+import { listFilesNames, listSubdirectoriesNames } from "src/api/directoryListing";
+import { soldatPaths } from "src/api/soldat/paths";
  
 configure({ adapter: new Adapter() });
 useStaticRendering(true);
 
-/* We provide the same apis that we have when running the app with Electron. */
+/* We provide the same apis that we have when running the app with Electron.
+ * You can mock them in individual tests. */
 window.soldat = {
     client: {
         loadControlsConfig,
@@ -89,16 +80,16 @@ window.soldat = {
     },
 
     demos: {
-        loadFileNames: loadDemoFileNames,
+        listFilesNames: (): Promise<string[]> => listFilesNames(soldatPaths.demosDirectory, ".sdm"),
         play: playDemo
     },
 
     interfaces: {
-        loadArchiveNames: loadInterfaceArchiveNames,
-        loadDirectoryNames: loadInterfaceDirectoryNames
+        listArchivesNames: (): Promise<string[]> => listFilesNames(soldatPaths.customInterfacesDirectory, ".sint"),
+        listDirectoriesNames: (): Promise<string[]> => listSubdirectoriesNames(soldatPaths.customInterfacesDirectory)
     },
 
     mods: {
-        loadArchiveNames: loadModArchiveNames
+        listArchivesNames: (): Promise<string[]> => listFilesNames(soldatPaths.modsDirectory, ".smod")
     }
 }

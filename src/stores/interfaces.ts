@@ -5,9 +5,18 @@ import { SelectOption } from "src/types";
 class InterfacesStore {
     readonly clientLaunchSettingsStore: ClientLaunchSettingsStore;
 
-    @observable archiveInterfaceNames: string[];
-    @observable directoryInterfaceNames: string[];
-    readonly defaultInterfaceNames = [
+    /* Interfaces can come from 3 places:
+    * 1) Archive files with .sint extension in custom-interfaces directory.
+    * 2) Subdirectories in custom-interfaces directory (when local mount is enabled).
+    * 3) Directories in soldat.smod (when local mount is disabled).
+    * 
+    * Our apis cover 1) and 2). For 3rd case, we rely on hard-coded strings,
+    * since soldat.smod is meant to be static, and it's not supposed to be edited
+    * by users.
+    */
+    @observable interfaceArchivesNames: string[];
+    @observable interfaceDirectoriesNames: string[];
+    readonly defaultInterfacesNames = [
         "cabbage",
         "classic",
         "lacey-v2",
@@ -27,36 +36,36 @@ class InterfacesStore {
     }
 
     @computed get gotInterfaces(): boolean {
-        return this.archiveInterfaceNames != null &&
-            this.directoryInterfaceNames != null;
+        return this.interfaceArchivesNames != null &&
+            this.interfaceDirectoriesNames != null;
     }
 
     @action loadInterfaces(): void {
         this.isLoading = true;
 
         Promise.all([
-            window.soldat.interfaces.loadArchiveNames(),
-            window.soldat.interfaces.loadDirectoryNames()
+            window.soldat.interfaces.listArchivesNames(),
+            window.soldat.interfaces.listDirectoriesNames()
         ])
         .then(
-            action(([archiveNames, directoryNames]) => {
-                this.archiveInterfaceNames = archiveNames;
-                this.directoryInterfaceNames = directoryNames;
+            action(([archivesNames, directoriesNames]) => {
+                this.interfaceArchivesNames = archivesNames;
+                this.interfaceDirectoriesNames = directoriesNames;
                 this.isLoading = false;
             })
         );
     }
 
     @computed get selectOptions(): SelectOption[] {
-        let interfaceNames = this.archiveInterfaceNames.slice();
+        let interfacesNames = this.interfaceArchivesNames.slice();
         if (this.clientLaunchSettingsStore.localMount) {
-            interfaceNames = interfaceNames.concat(this.directoryInterfaceNames.slice());
+            interfacesNames = interfacesNames.concat(this.interfaceDirectoriesNames.slice());
         } else {
-            interfaceNames = interfaceNames.concat(this.defaultInterfaceNames);
+            interfacesNames = interfacesNames.concat(this.defaultInterfacesNames);
         }
-        interfaceNames.sort();
+        interfacesNames.sort();
 
-        return ["Default"].concat(interfaceNames)
+        return ["Default"].concat(interfacesNames)
             .map(interfaceName => {
                 return {
                     label: interfaceName,

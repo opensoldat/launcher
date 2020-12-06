@@ -1,19 +1,19 @@
 import { action, computed, observable } from "mobx";
 
 class DemosStore {
-    @observable demoFileNames: string[];
+    @observable demoFilesNames: string[];
     @observable isLoading = false;
 
     @computed get gotDemos(): boolean {
-        return this.demoFileNames != null;
+        return this.demoFilesNames != null;
     }
 
     filterDemos(searchTerm: string): string[] {
-        if (!this.demoFileNames) {
+        if (!this.demoFilesNames) {
             return [];
         }
 
-        return this.demoFileNames.filter(fileName => {
+        return this.demoFilesNames.filter(fileName => {
             return fileName.toLowerCase().includes(searchTerm.toLowerCase());
         });
     }
@@ -21,10 +21,10 @@ class DemosStore {
     @action loadDemos(): void {
         this.isLoading = true;
 
-        window.soldat.demos.loadFileNames()
+        window.soldat.demos.listFilesNames()
         .then(
-            action(fileNames => {
-                this.demoFileNames = fileNames;
+            action(filesNames => {
+                this.demoFilesNames = filesNames;
                 this.isLoading = false;
             })
         );
