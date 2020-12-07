@@ -6,6 +6,7 @@ import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import MapPreview from "./Preview";
 import MapsList from "./List";
 import MapsListItem from "./ListItem";
+import InlineRefreshButton from "src/components/Common/InlineRefreshButton";
 import SearchBar from "src/components/Common/SearchBar";
 
 import MapsStore from "src/stores/maps";
@@ -48,6 +49,10 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
         props.uiState.highlightedMap = map;
     }
 
+    const handleRefreshMapsButtonClick = (): void => {
+        props.mapsStore.loadMaps();
+    }
+
     const handleSearchFilterChange = (newValue: string): void => {
         props.uiState.searchFilter = newValue;
     }
@@ -61,10 +66,16 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
     return (
         <div className="map-selection-container">
             <div className="map-selection">
-                <SearchBar
-                    placeholder="Search..."
-                    value={props.uiState.searchFilter}
-                    onChange={handleSearchFilterChange} />
+                <div className="maps-list-actions">
+                    <SearchBar
+                        className="maps-search-bar"
+                        placeholder="Search..."
+                        value={props.uiState.searchFilter}
+                        onChange={handleSearchFilterChange} />
+                    
+                    <InlineRefreshButton
+                        onClick={handleRefreshMapsButtonClick} />
+                </div>
 
                 <div className="maps-list-container">
                     <MapsList
