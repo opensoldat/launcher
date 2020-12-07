@@ -6,6 +6,7 @@ import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import MapPreview from "./Preview";
 import MapsList from "./List";
 import MapsListItem from "./ListItem";
+import SearchBar from "src/components/Common/SearchBar";
 
 import MapsStore from "src/stores/maps";
 import ServerMapsList from "src/settings/server/mapsList";
@@ -47,8 +48,8 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
         props.uiState.highlightedMap = map;
     }
 
-    const handleSearchFilterChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        props.uiState.searchFilter = event.target.value;
+    const handleSearchFilterChange = (newValue: string): void => {
+        props.uiState.searchFilter = newValue;
     }
 
     const handleRemoveMap = (mapId: string): void => {
@@ -60,14 +61,10 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
     return (
         <div className="map-selection-container">
             <div className="map-selection">
-                <input
-                    className="search-filter"
+                <SearchBar
                     placeholder="Search..."
-                    spellCheck={false}
                     value={props.uiState.searchFilter}
-                    onChange={handleSearchFilterChange}
-                    type="search">
-                </input>
+                    onChange={handleSearchFilterChange} />
 
                 <div className="maps-list-container">
                     <MapsList

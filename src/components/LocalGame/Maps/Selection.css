@@ -26,13 +26,6 @@
     margin-top: 1em;
 }
 
-.map-selection .maps-list-container .spinner-container {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .maps-list-header {
     display: flex;
     justify-content: space-between;
