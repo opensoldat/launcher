@@ -15,7 +15,9 @@
 
 .maps-list .empty-message {
     color: #a0a0a0;
+}
 
+.maps-list .centered-content {
     display: flex;
     align-items: center;
     justify-content: center;

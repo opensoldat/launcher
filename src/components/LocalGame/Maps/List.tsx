@@ -1,20 +1,36 @@
 import React from "react";
+import Spinner from "src/components/Common/Spinner";
 
 import "./List.css";
 
 type MapsListProps = {
     emptyMessage: string;
+    isLoading: boolean;
 }
 
-const MapsList: React.FC<MapsListProps> = props => (
-    <div className="maps-list">
-        {React.Children.count(props.children) > 0
-        ? props.children
-        : <div className="empty-message">
+const MapsList: React.FC<MapsListProps> = props => {
+    const emptyMessage = (
+        <div className="centered-content empty-message">
             {props.emptyMessage}
-          </div>
+        </div>
+    )
+
+    const loadingSpinner = (
+        <div className="centered-content">
+            <Spinner />
+        </div>
+    )
+
+    return (
+        <div className="maps-list">
+        {props.isLoading
+        ?   loadingSpinner
+        :   React.Children.count(props.children) > 0
+            ? props.children
+            : emptyMessage
         }
-    </div>
-);
+        </div>
+    )
+};
 
 export default MapsList;

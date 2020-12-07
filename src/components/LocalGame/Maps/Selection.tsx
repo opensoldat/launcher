@@ -55,6 +55,8 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
         props.serverMapsList.remove(mapId);
     }
 
+    const isLoadingAvailableMaps = props.mapsStore.isLoading || !props.mapsStore.gotMaps;
+
     return (
         <div className="map-selection-container">
             <div className="map-selection">
@@ -68,7 +70,9 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
                 </input>
 
                 <div className="maps-list-container">
-                    <MapsList emptyMessage="No maps found">
+                    <MapsList
+                        emptyMessage="No maps found"
+                        isLoading={isLoadingAvailableMaps}>
                         {props.mapsStore.filterMaps(props.uiState.searchFilter).map((map: Map) =>
                             <MapsListItem
                                 key={map.id}
@@ -98,7 +102,9 @@ const MapsSelection: React.FC<MapsSelectionProps> = props => {
                         </button>
                     </div>
 
-                    <MapsList emptyMessage="Empty">
+                    <MapsList
+                        emptyMessage="Empty"
+                        isLoading={false}>
                         {props.serverMapsList.maps.map(map =>
                             <MapsListItem
                                 key={map.id}
