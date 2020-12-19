@@ -1,9 +1,0 @@
-.gameplay-form .field .user-input .checkboxes-list {
-    display: flex;
-    flex-direction: column;
-}
-
-.gameplay-form .field .user-input.game-styles .checkbox-container {
-    /* Should match height of form field's label */
-    height: 2rem;
-}

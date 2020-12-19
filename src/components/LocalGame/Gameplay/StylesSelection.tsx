@@ -22,7 +22,7 @@ const GameStylesSelection: React.FC<GameStylesSelectionProps> = props => {
     }
 
     return (
-        <div className="checkboxes-list">
+        <React.Fragment>
             <Checkbox
                 checked={props.gameStyles.realisticEnabled}
                 colorTheme="dark"
@@ -40,7 +40,7 @@ const GameStylesSelection: React.FC<GameStylesSelectionProps> = props => {
                 colorTheme="dark"
                 rightLabel="Advance"
                 onToggle={handleAdvanceToggle} />
-        </div>
+        </React.Fragment>
     )
 }
 

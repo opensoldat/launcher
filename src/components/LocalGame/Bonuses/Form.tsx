@@ -3,7 +3,8 @@ import { observer } from "mobx-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
-import Select from "../../Common/Select";
+import Checkbox from "src/components/Common/Checkbox";
+import Select from "src/components/Common/Select";
 import BonusesTooltip from "./Tooltip";
 import { BonusFrequencies, BonusesSettings } from "src/settings/server";
 
@@ -16,6 +17,26 @@ type BonusesFormProps = {
 const BonusesForm: React.FC<BonusesFormProps> = props => {
     const handleBonusesFrequencyChange = (newValue: string): void => {
         props.bonusesSettings.frequency = Number(newValue) as BonusFrequencies;
+    }
+
+    const handleBerserkerBonusToggle = (checked: boolean): void => {
+        props.bonusesSettings.berserker = checked;
+    }
+
+    const handleClusterBonusToggle = (checked: boolean): void => {
+        props.bonusesSettings.cluster = checked;
+    }
+
+    const handleFlamerBonusToggle = (checked: boolean): void => {
+        props.bonusesSettings.flamer = checked;
+    }
+
+    const handlePredatorBonusToggle = (checked: boolean): void => {
+        props.bonusesSettings.predator = checked;
+    }
+
+    const handleVestBonusToggle = (checked: boolean): void => {
+        props.bonusesSettings.vest = checked;
     }
 
     return (
@@ -47,7 +68,36 @@ const BonusesForm: React.FC<BonusesFormProps> = props => {
                         data-for="bonuses-tooltip"
                         icon={faInfoCircle} />
                 </label>
-                <div className="user-input">
+                <div className="user-input checkboxes-list">
+                    <Checkbox
+                        checked={props.bonusesSettings.berserker}
+                        colorTheme="dark"
+                        rightLabel="Berserker"
+                        onToggle={handleBerserkerBonusToggle} />
+
+                    <Checkbox
+                        checked={props.bonusesSettings.cluster}
+                        colorTheme="dark"
+                        rightLabel="Cluster"
+                        onToggle={handleClusterBonusToggle} />
+
+                    <Checkbox
+                        checked={props.bonusesSettings.flamer}
+                        colorTheme="dark"
+                        rightLabel="Flamer"
+                        onToggle={handleFlamerBonusToggle} />
+
+                    <Checkbox
+                        checked={props.bonusesSettings.predator}
+                        colorTheme="dark"
+                        rightLabel="Predator"
+                        onToggle={handlePredatorBonusToggle} />
+
+                    <Checkbox
+                        checked={props.bonusesSettings.vest}
+                        colorTheme="dark"
+                        rightLabel="Vest"
+                        onToggle={handleVestBonusToggle} />
                 </div>
 
                 <BonusesTooltip id="bonuses-tooltip" />

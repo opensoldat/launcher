@@ -13,7 +13,6 @@ import SliderNumberInput from "../../Common/SliderNumberInput";
 import Tooltip from "../../Common/Tooltip";
 
 import "../../Common/Form.css";
-import "./Form.css";
 
 type GameplayFormProps = {
     gameplaySettings: GameplaySettings;
@@ -79,7 +78,7 @@ const GameplayForm: React.FC<GameplayFormProps> = props => {
                         data-for="game-styles-tooltip"
                         icon={faInfoCircle} />
                 </label>
-                <div className="user-input game-styles">
+                <div className="user-input checkboxes-list">
                     <GameStylesSelection gameStyles={gameplay.styles} />
                 </div>
 

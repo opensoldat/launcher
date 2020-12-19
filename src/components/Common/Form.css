@@ -63,6 +63,11 @@
     font-size: 1em;
 }
 
+.form .user-input.checkboxes-list .checkbox-container {
+    /* Should match height of form field's label */
+    height: 2rem;
+}
+
 /* We don't want top margin when the fields group is
  * first element inside form */
 .form .fields-group:not(:first-child) {
