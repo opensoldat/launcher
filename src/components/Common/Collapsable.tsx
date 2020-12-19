@@ -9,7 +9,7 @@ type CollapsableProps = {
     onCollapsedToggle: (collapsed: boolean) => void;
 
     className?: string;
-    headerContent: JSX.Element;
+    headerContent: React.ReactNode;
 }
 
 const Collapsable: React.FC<CollapsableProps> = props => {

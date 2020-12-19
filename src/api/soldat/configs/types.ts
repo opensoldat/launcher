@@ -119,6 +119,13 @@ export interface ServerConfig extends SoldatConfig {
         bots_difficulty: string;
         bots_chat: string;
 
+        sv_bonus_frequency: string;
+        sv_bonus_berserker: string;
+        sv_bonus_cluster: string;
+        sv_bonus_flamer: string;
+        sv_bonus_predator: string;
+        sv_bonus_vest: string;
+
         net_port: string;
     };
 }

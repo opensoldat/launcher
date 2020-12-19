@@ -5,12 +5,13 @@ import * as mobx from "mobx";
 import Collapsable from "../Common/Collapsable";
 import Panel from "../Common/Panel";
 import Spinner from "../Common/Spinner";
-import BotsForm from "./BotsForm";
 import GameModeDescription from "./GameModeDescription";
 import GameModeSelection from "./GameModeSelection";
-import GameplayForm from "./Gameplay/Form";
 import MapsSelection from "./Maps/Selection";
 import AdvancedForm from "./AdvancedForm";
+import BonusesForm from "./Bonuses/Form";
+import BotsForm from "./BotsForm";
+import GameplayForm from "./Gameplay/Form";
 
 import LocalGameStore from "src/stores/localGame";
 import MapsStore from "src/stores/maps";
@@ -90,6 +91,10 @@ const LocalGamePage: React.FunctionComponent<LocalGamePageProps> = props => {
         props.uiState.advancedSettingsCollapsed = collapsed;
     }
 
+    const handleBonusesCollapsedToggle = (collapsed: boolean): void => {
+        props.uiState.bonusesSettingsCollapsed = collapsed;
+    }
+
     const handleBotsCollapsedToggle = (collapsed: boolean): void => {
         props.uiState.botsSettingsCollapsed = collapsed;
     }
@@ -155,10 +160,7 @@ const LocalGamePage: React.FunctionComponent<LocalGamePageProps> = props => {
                                 className="settings-group"
                                 collapsed={props.uiState.gameplaySettingsCollapsed}
                                 onCollapsedToggle={handleGameplayCollapsedToggle}
-                                headerContent={
-                                    <span>GAMEPLAY</span>
-                                }>
-                            
+                                headerContent="GAMEPLAY">
                                 <GameplayForm gameplaySettings={props.serverSettingsStore.settings.gameplay} />
                             </Collapsable>
 
@@ -166,41 +168,37 @@ const LocalGamePage: React.FunctionComponent<LocalGamePageProps> = props => {
                                 className="settings-group"
                                 collapsed={props.uiState.mapsSettingsCollapsed}
                                 onCollapsedToggle={handleMapsCollapsedToggle}
-                                headerContent={
-                                    <span>MAPS</span>
-                                }>
-                                <div>
-                                    <MapsSelection
-                                        mapsStore={props.mapsStore}
-                                        serverMapsList={props.serverSettingsStore.mapsList}
-                                        uiState={props.uiState.mapsSelection} />
-                                </div>
+                                headerContent="MAPS">
+                                <MapsSelection
+                                    mapsStore={props.mapsStore}
+                                    serverMapsList={props.serverSettingsStore.mapsList}
+                                    uiState={props.uiState.mapsSelection} />
                             </Collapsable>
 
                             <Collapsable
                                 className="settings-group"
                                 collapsed={props.uiState.botsSettingsCollapsed}
                                 onCollapsedToggle={handleBotsCollapsedToggle}
-                                headerContent={
-                                    <span>BOTS</span>
-                                }>
-                                <div>
-                                    <BotsForm serverSettings={props.serverSettingsStore.settings} />
-                                </div>
+                                headerContent="BOTS">
+                                <BotsForm serverSettings={props.serverSettingsStore.settings} />
+                            </Collapsable>
+
+                            <Collapsable
+                                className="settings-group"
+                                collapsed={props.uiState.bonusesSettingsCollapsed}
+                                onCollapsedToggle={handleBonusesCollapsedToggle}
+                                headerContent="BONUSES">
+                                <BonusesForm bonusesSettings={props.serverSettingsStore.settings.bonuses} />
                             </Collapsable>
 
                             <Collapsable
                                 className="settings-group"
                                 collapsed={props.uiState.advancedSettingsCollapsed}
                                 onCollapsedToggle={handleAdvancedCollapsedToggle}
-                                headerContent={
-                                    <span>ADVANCED</span>
-                                }>
-                                <div>
-                                    <AdvancedForm
-                                        serverLaunchSettingsStore={props.serverLaunchSettingsStore}
-                                        networkSettings={props.serverSettingsStore.settings.network} />
-                                </div>
+                                headerContent="ADVANCED">
+                                <AdvancedForm
+                                    serverLaunchSettingsStore={props.serverLaunchSettingsStore}
+                                    networkSettings={props.serverSettingsStore.settings.network} />
                             </Collapsable>
                         </Panel>
                     </React.Fragment>

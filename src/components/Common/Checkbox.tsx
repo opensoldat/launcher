@@ -12,7 +12,7 @@ type CheckboxProps = {
     id?: string;
     name?: string;
     leftLabel?: string;
-    rightLabel?: string;
+    rightLabel?: React.ReactNode;
 
     colorTheme: "light" | "dark";
 }

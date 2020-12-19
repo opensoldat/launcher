@@ -22,6 +22,7 @@ class UiStore {
         },
 
         botsSettingsCollapsed: true,
+        bonusesSettingsCollapsed: true,
         advancedSettingsCollapsed: true
     };
 

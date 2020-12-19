@@ -58,9 +58,29 @@ export interface GameplaySettings {
     sniperLine: boolean;
 }
 
+export enum BonusFrequencies {
+    Never,
+    VeryRare,
+    Rare,
+    Average,
+    Frequent,
+    VeryFrequent
+}
+
+export interface BonusesSettings {
+    frequency: BonusFrequencies;
+
+    berserker: boolean;
+    cluster: boolean;
+    flamer: boolean;
+    predator: boolean;
+    vest: boolean;
+}
+
 interface ServerSettingsData {
     gameplay: GameplaySettings;
     bots: BotsSettings;
+    bonuses: BonusesSettings;
 }
 
 const defaultServerSettings: ServerSettingsData = {
@@ -100,12 +120,21 @@ const defaultServerSettings: ServerSettingsData = {
 
         difficulty: BotDifficulties.Normal,
         chat: true
+    },
+    bonuses: {
+        frequency: BonusFrequencies.Never,
+        berserker: false,
+        cluster: false,
+        flamer: false,
+        predator: false,
+        vest: false
     }
 };
 
 class ServerSettings implements ServerSettingsData {
     @observable gameplay: GameplaySettings;
     @observable bots: BotsSettings;
+    @observable bonuses: BonusesSettings;
     @observable network: NetworkSettings;
 
     constructor(config?: ServerConfig) {
@@ -146,6 +175,16 @@ class ServerSettings implements ServerSettingsData {
 
             difficulty: toNumber(config?.cvars.bots_difficulty),
             chat: toBool(config?.cvars.bots_chat)
+        }
+
+        this.bonuses = {
+            frequency: toNumber(config?.cvars.sv_bonus_frequency),
+
+            berserker: toBool(config?.cvars.sv_bonus_berserker),
+            cluster: toBool(config?.cvars.sv_bonus_cluster),
+            flamer: toBool(config?.cvars.sv_bonus_flamer),
+            predator: toBool(config?.cvars.sv_bonus_predator),
+            vest: toBool(config?.cvars.sv_bonus_vest)
         }
 
         if (this.gameplay.timeLimit !== undefined) {
@@ -191,6 +230,13 @@ class ServerSettings implements ServerSettingsData {
 
                 bots_difficulty: toString(this.bots.difficulty),
                 bots_chat: toString(this.bots.chat),
+
+                sv_bonus_frequency: toString(this.bonuses.frequency),
+                sv_bonus_berserker: toString(this.bonuses.berserker),
+                sv_bonus_cluster: toString(this.bonuses.cluster),
+                sv_bonus_flamer: toString(this.bonuses.flamer),
+                sv_bonus_predator: toString(this.bonuses.predator),
+                sv_bonus_vest: toString(this.bonuses.vest),
 
                 net_port: this.network.port
             }

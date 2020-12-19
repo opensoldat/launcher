@@ -10,6 +10,7 @@ export interface LocalGamePageUiState {
     mapsSettingsCollapsed: boolean;
     mapsSelection: MapsSelectionUiState;
     botsSettingsCollapsed: boolean;
+    bonusesSettingsCollapsed: boolean;
     advancedSettingsCollapsed: boolean;
 }
 
