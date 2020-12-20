@@ -8,7 +8,7 @@ rules.push({
 });
 
 rules.push({
-    test: /\.(ttf|png)$/,
+    test: /\.(ttf|png|bmp)$/,
     use: [
         {
             loader: "file-loader",
@@ -28,7 +28,8 @@ module.exports = {
     plugins: plugins,
     resolve: {
         alias: {
-            src: path.resolve(__dirname, "src/")
+            src: path.resolve(__dirname, "src/"),
+            assets: path.resolve(__dirname, "assets/")
         },
         extensions: [".js", ".ts", ".jsx", ".tsx", ".css"]
     },

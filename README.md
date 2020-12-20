@@ -32,5 +32,10 @@ This project is meant to be used together with Soldat binaries. By default, the 
 
 When running the app with ```npm start```, you can type ```rs``` in the same terminal to quickly restart it.
 
+## License
+The launcher is licensed under [MIT](./LICENSE) license.
+
+Files in the "assets" directory were taken from [Soldat's base repository](https://github.com/Soldat/base) and are licensed under [CC BY 4.0](https://github.com/Soldat/base/blob/master/LICENSE.md). Their original author is Michał Marcinkowski. No changes were made to the files.
+
 ## Support me
 If you like this project and would like to support me, please consider donating. You can do so with [PayPal](https://paypal.me/janrozanski).

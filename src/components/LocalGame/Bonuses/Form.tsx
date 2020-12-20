@@ -4,11 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 import Checkbox from "src/components/Common/Checkbox";
+import CheckboxLabelWithImage from "src/components/Common/CheckboxLabelWithImage";
 import Select from "src/components/Common/Select";
 import BonusesTooltip from "./Tooltip";
 import { BonusFrequencies, BonusesSettings } from "src/settings/server";
 
 import "../../Common/Form.css";
+import BerserkerBonusImage from "assets/bonuses/berserkerkit.bmp";
+import ClusterBonusImage from "assets/bonuses/clusterkit.png";
+import FlamerBonusImage from "assets/bonuses/flamerkit.bmp";
+import PredatorBonusImage from "assets/bonuses/predatorkit.bmp";
+import VestBonusImage from "assets/bonuses/vestkit.png";
 
 type BonusesFormProps = {
     bonusesSettings: BonusesSettings;
@@ -38,6 +44,8 @@ const BonusesForm: React.FC<BonusesFormProps> = props => {
     const handleVestBonusToggle = (checked: boolean): void => {
         props.bonusesSettings.vest = checked;
     }
+
+    const checkboxLabelsMinWidth = "10em";
 
     return (
         <div className="form">
@@ -72,31 +80,56 @@ const BonusesForm: React.FC<BonusesFormProps> = props => {
                     <Checkbox
                         checked={props.bonusesSettings.berserker}
                         colorTheme="dark"
-                        rightLabel="Berserker"
+                        rightLabel={
+                            <CheckboxLabelWithImage
+                                label="Berserker"
+                                labelMinWidth={checkboxLabelsMinWidth}
+                                imagePath={BerserkerBonusImage} />
+                        }
                         onToggle={handleBerserkerBonusToggle} />
 
                     <Checkbox
                         checked={props.bonusesSettings.cluster}
                         colorTheme="dark"
-                        rightLabel="Cluster"
+                        rightLabel={
+                            <CheckboxLabelWithImage
+                                label="Cluster grenades"
+                                labelMinWidth={checkboxLabelsMinWidth}
+                                imagePath={ClusterBonusImage} />
+                        }
                         onToggle={handleClusterBonusToggle} />
 
                     <Checkbox
                         checked={props.bonusesSettings.flamer}
                         colorTheme="dark"
-                        rightLabel="Flamer"
+                        rightLabel={
+                            <CheckboxLabelWithImage
+                                label="Flamer"
+                                labelMinWidth={checkboxLabelsMinWidth}
+                                imagePath={FlamerBonusImage} />
+                        }
                         onToggle={handleFlamerBonusToggle} />
 
                     <Checkbox
                         checked={props.bonusesSettings.predator}
                         colorTheme="dark"
-                        rightLabel="Predator"
+                        rightLabel={
+                            <CheckboxLabelWithImage
+                                label="Predator"
+                                labelMinWidth={checkboxLabelsMinWidth}
+                                imagePath={PredatorBonusImage} />
+                        }
                         onToggle={handlePredatorBonusToggle} />
 
                     <Checkbox
                         checked={props.bonusesSettings.vest}
                         colorTheme="dark"
-                        rightLabel="Vest"
+                        rightLabel={
+                            <CheckboxLabelWithImage
+                                label="Bulletproof vest"
+                                labelMinWidth={checkboxLabelsMinWidth}
+                                imagePath={VestBonusImage} />
+                        }
                         onToggle={handleVestBonusToggle} />
                 </div>
 
