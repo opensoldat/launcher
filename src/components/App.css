@@ -1,6 +1,6 @@
 @font-face {
     font-family: play-regular;
-    src: url("../assets/play-regular.ttf") format("truetype");
+    src: url("../../assets/play-regular.ttf") format("truetype");
     font-weight: 600;
     font-style: normal;
 }
@@ -27,7 +27,7 @@ body {
     position: fixed;
     left: 0;
     right: 0;
-    background-image: url("../assets/background.png");
+    background-image: url("../../assets/background.png");
     min-height: 100%;
     min-width: 100%;
     background-position: center;
