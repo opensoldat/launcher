@@ -77,10 +77,16 @@ export interface BonusesSettings {
     vest: boolean;
 }
 
+export interface WeaponsSettings {
+    maxGrenades: number;
+    stationaryGuns: boolean;
+}
+
 interface ServerSettingsData {
     gameplay: GameplaySettings;
     bots: BotsSettings;
     bonuses: BonusesSettings;
+    weapons: WeaponsSettings;
 }
 
 const defaultServerSettings: ServerSettingsData = {
@@ -128,6 +134,10 @@ const defaultServerSettings: ServerSettingsData = {
         flamer: false,
         predator: false,
         vest: false
+    },
+    weapons: {
+        maxGrenades: 3,
+        stationaryGuns: true
     }
 };
 
@@ -135,6 +145,7 @@ class ServerSettings implements ServerSettingsData {
     @observable gameplay: GameplaySettings;
     @observable bots: BotsSettings;
     @observable bonuses: BonusesSettings;
+    @observable weapons: WeaponsSettings;
     @observable network: NetworkSettings;
 
     constructor(config?: ServerConfig) {
@@ -187,6 +198,11 @@ class ServerSettings implements ServerSettingsData {
             vest: toBool(config?.cvars.sv_bonus_vest)
         }
 
+        this.weapons = {
+            maxGrenades: toNumber(config?.cvars.sv_maxgrenades),
+            stationaryGuns: toBool(config?.cvars.sv_stationaryguns)
+        }
+
         if (this.gameplay.timeLimit !== undefined) {
             this.gameplay.timeLimit = Math.floor(this.gameplay.timeLimit / 3600);
         }
@@ -237,6 +253,9 @@ class ServerSettings implements ServerSettingsData {
                 sv_bonus_flamer: toString(this.bonuses.flamer),
                 sv_bonus_predator: toString(this.bonuses.predator),
                 sv_bonus_vest: toString(this.bonuses.vest),
+
+                sv_maxgrenades: toString(this.weapons.maxGrenades),
+                sv_stationaryguns: toString(this.weapons.stationaryGuns),
 
                 net_port: this.network.port
             }

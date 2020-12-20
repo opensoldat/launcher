@@ -84,7 +84,6 @@ export interface ServerConfig extends SoldatConfig {
     cvars: {
         sv_gamemode: string;
         sv_timelimit: string;
-        //sv_maxgrenades: number;
         sv_bullettime: string;
         sv_friendlyfire: string;
         sv_sniperline: string;
@@ -125,6 +124,9 @@ export interface ServerConfig extends SoldatConfig {
         sv_bonus_flamer: string;
         sv_bonus_predator: string;
         sv_bonus_vest: string;
+
+        sv_maxgrenades: string;
+        sv_stationaryguns: string;
 
         net_port: string;
     };

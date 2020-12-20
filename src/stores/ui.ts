@@ -13,17 +13,17 @@ class UiStore {
     };
 
     @observable localGamePage: LocalGamePageUiState = {
+        advancedSettingsCollapsed: true,
+        bonusesSettingsCollapsed: true,
+        botsSettingsCollapsed: true,
         gameplaySettingsCollapsed: false,
-        
         mapsSettingsCollapsed: true,
+        weaponsSettingsCollapsed: true,
+        
         mapsSelection: {
             searchFilter: "",
             highlightedMap: null
-        },
-
-        botsSettingsCollapsed: true,
-        bonusesSettingsCollapsed: true,
-        advancedSettingsCollapsed: true
+        }
     };
 
     @observable settingsPage: SettingsPageUiState = {

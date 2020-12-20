@@ -6,12 +6,14 @@ export interface DemosPageUiState {
 }
 
 export interface LocalGamePageUiState {
+    advancedSettingsCollapsed: boolean;
+    bonusesSettingsCollapsed: boolean;
+    botsSettingsCollapsed: boolean;
     gameplaySettingsCollapsed: boolean;
     mapsSettingsCollapsed: boolean;
+    weaponsSettingsCollapsed: boolean;
+
     mapsSelection: MapsSelectionUiState;
-    botsSettingsCollapsed: boolean;
-    bonusesSettingsCollapsed: boolean;
-    advancedSettingsCollapsed: boolean;
 }
 
 export interface MapsSelectionUiState {

@@ -12,6 +12,7 @@ import AdvancedForm from "./AdvancedForm";
 import BonusesForm from "./Bonuses/Form";
 import BotsForm from "./BotsForm";
 import GameplayForm from "./Gameplay/Form";
+import WeaponsForm from "./WeaponsForm";
 
 import LocalGameStore from "src/stores/localGame";
 import MapsStore from "src/stores/maps";
@@ -107,6 +108,10 @@ const LocalGamePage: React.FunctionComponent<LocalGamePageProps> = props => {
         props.uiState.mapsSettingsCollapsed = collapsed;
     }
 
+    const handleWeaponsCollapsedToggle = (collapsed: boolean): void => {
+        props.uiState.weaponsSettingsCollapsed = collapsed;
+    }
+
     const isStartingLocalGame = (
         props.serverSettingsStore.isSaving ||
         props.localGameStore.isStarting
@@ -181,6 +186,14 @@ const LocalGamePage: React.FunctionComponent<LocalGamePageProps> = props => {
                                 onCollapsedToggle={handleBotsCollapsedToggle}
                                 headerContent="BOTS">
                                 <BotsForm serverSettings={props.serverSettingsStore.settings} />
+                            </Collapsable>
+
+                            <Collapsable
+                                className="settings-group"
+                                collapsed={props.uiState.weaponsSettingsCollapsed}
+                                onCollapsedToggle={handleWeaponsCollapsedToggle}
+                                headerContent="WEAPONS">
+                                <WeaponsForm weaponsSettings={props.serverSettingsStore.settings.weapons} />
                             </Collapsable>
 
                             <Collapsable
