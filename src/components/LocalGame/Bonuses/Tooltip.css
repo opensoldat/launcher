@@ -1,0 +1,8 @@
+.bonuses-tooltip .list .list-item .content .label {
+    min-width: 9em;
+}
+
+.bonuses-tooltip .list .list-item .content .description {
+    margin-left: 0.8em;
+    max-width: 13em;
+}

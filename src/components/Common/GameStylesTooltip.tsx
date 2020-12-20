@@ -1,13 +1,16 @@
 import React from "react";
 
 import Tooltip from "./Tooltip";
+import "./GameStylesTooltip.css";
 
 type GameStylesTooltipProps = {
     id: string;
 }
 
 const GameStylesTooltip: React.FC<GameStylesTooltipProps> = props => (
-    <Tooltip id={props.id}>
+    <Tooltip
+        className="game-styles-tooltip"
+        id={props.id}>
         <ul className="list">
             <li className="list-item">
                 <div className="content">
