@@ -4,7 +4,7 @@
     align-items: flex-start;
 }
 
-.form .field .label {
+.form .field > .label {
     flex: 0 0 55%;
     background-color: #282828;
     height: 2rem;

@@ -1,3 +1,25 @@
-.opaque-tooltip {
+.tooltip {
     opacity: 1 !important;
+}
+
+.tooltip .list {
+    margin: 0;
+    padding-left: 1em;
+}
+
+.tooltip .list .list-item:not(:last-child) {
+    margin-bottom: 1em;
+}
+   
+.tooltip .list .list-item .content {
+    display: inline-flex;
+}
+
+.tooltip .list .list-item .content > .label {
+    min-width: 5em;
+}
+
+.tooltip .list .list-item .content .description {
+    margin-left: 0.8em;
+    max-width: 15em;
 }

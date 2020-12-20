@@ -19,7 +19,7 @@ const Tooltip: React.FC<TooltipProps> = props => (
     <ReactTooltip
         border
         borderColor="#828282"
-        className={"opaque-tooltip " + (props.className ? props.className : "")}
+        className={"tooltip " + (props.className ? props.className : "")}
         clickable={props.clickable}
         effect="solid"
         id={props.id}
