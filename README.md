@@ -11,11 +11,13 @@ It's an Electron app, written in Typescript with [React](https://reactjs.org/) a
 - Configure client settings from *Settings* tab
 
 ## Screenshots
-<img src="https://i.imgur.com/Qve2H0I.png" width="200">
-<img src="https://i.imgur.com/JFiXxDw.png" width="200">
-<img src="https://i.imgur.com/wRmHF8Q.png" width="200">
-<img src="https://i.imgur.com/BwxTSfi.png" width="200">
-<img src="https://i.imgur.com/YAb0PCU.png" width="200">
+<p>
+    <img src="https://i.imgur.com/Qve2H0I.png" width="200">
+    <img src="https://i.imgur.com/JFiXxDw.png" width="200">
+    <img src="https://i.imgur.com/wRmHF8Q.png" width="200">
+    <img src="https://i.imgur.com/BwxTSfi.png" width="200">
+    <img src="https://i.imgur.com/YAb0PCU.png" width="200">
+</p>
 
 ## Installation and usage
 
