@@ -53,6 +53,10 @@ export interface GameplaySettings {
     timeLimit: number;
     pointsLimits: PointsLimits;
 
+    // We store the time in seconds, whereas Soldat operates on
+    // ticks. 1 second = 60 ticks.
+    respawnTime: number;
+
     bulletTime: boolean;
     friendlyFire: boolean;
     sniperLine: boolean;
@@ -106,6 +110,8 @@ const defaultServerSettings: ServerSettingsData = {
             ramboMatch: 30,
             teamDeathMatch: 60
         },
+
+        respawnTime: 6,
 
         bulletTime: false,
         friendlyFire: false,
@@ -161,6 +167,8 @@ class ServerSettings implements ServerSettingsData {
                 teamDeathMatch: toNumber(config?.cvars.sv_tm_limit)
             },
 
+            respawnTime: toNumber(config?.cvars.sv_respawntime),
+
             bulletTime: toBool(config?.cvars.sv_bullettime),
             friendlyFire: toBool(config?.cvars.sv_friendlyfire),
             sniperLine: toBool(config?.cvars.sv_sniperline),
@@ -187,8 +195,14 @@ class ServerSettings implements ServerSettingsData {
             vest: toBool(config?.cvars.sv_bonus_vest)
         }
 
+        // Apply conversions, in case we don't operate on the
+        // same units of measurement as Soldat.
         if (this.gameplay.timeLimit !== undefined) {
             this.gameplay.timeLimit = Math.floor(this.gameplay.timeLimit / 3600);
+        }
+
+        if (this.gameplay.respawnTime != null) {
+            this.gameplay.respawnTime = Math.round(this.gameplay.respawnTime / 60);
         }
 
         this.network = new NetworkSettings(config);
@@ -217,6 +231,8 @@ class ServerSettings implements ServerSettingsData {
                 sv_pm_limit: toString(this.gameplay.pointsLimits.pointMatch),
                 sv_rm_limit: toString(this.gameplay.pointsLimits.ramboMatch),
                 sv_tm_limit: toString(this.gameplay.pointsLimits.teamDeathMatch),
+
+                sv_respawntime: toString(this.gameplay.respawnTime * 60),
     
                 sv_bullettime: toString(this.gameplay.bulletTime),
                 sv_friendlyfire: toString(this.gameplay.friendlyFire),

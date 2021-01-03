@@ -45,6 +45,10 @@ const GameplayForm: React.FC<GameplayFormProps> = props => {
         }
     }
 
+    const handleRespawnTimeChange = (newRespawnTime: number): void => {
+        gameplay.respawnTime = newRespawnTime;
+    }
+
     const handleTimeLimitChange = (newTimeLimit: number): void => {
         gameplay.timeLimit = newTimeLimit;
     }
@@ -116,6 +120,30 @@ const GameplayForm: React.FC<GameplayFormProps> = props => {
                 </div>
             </div>
             }
+
+            <div className="field">
+                <label className="label label-with-info" htmlFor="respawn-time">
+                    Respawn time (seconds)
+                    <FontAwesomeIcon
+                        className="info-icon"
+                        data-tip
+                        data-for="respawn-time-tooltip"
+                        icon={faInfoCircle} />
+                </label>
+                <div className="user-input">
+                    <SliderNumberInput
+                        min={0}
+                        max={60}
+                        value={gameplay.respawnTime}
+                        onValueChange={handleRespawnTimeChange}
+                        id="respawn-time" />
+                </div>
+
+                <Tooltip id="respawn-time-tooltip">
+                    <div>Time that it takes for the player to respawn after death in non-team game modes.</div>
+                    <div>Additionally, it affects the behavior of some game objects, like medikits.</div>
+                </Tooltip>
+            </div>
 
             <div className="field">
                 <label className="label" htmlFor="friendly-fire">
