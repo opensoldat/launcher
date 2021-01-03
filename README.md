@@ -4,6 +4,19 @@ Launcher for Soldat game, a replacement for the old GUI that was removed with So
 
 It's an Electron app, written in Typescript with [React](https://reactjs.org/) and [MobX](https://mobx.js.org).
 
+## Available features
+- List, sort and filter available servers, and join online games from *Lobby* tab
+- Configure and start a new local game from *Local* tab
+- List and play recorded demos from *Demos* tab
+- Configure client settings from *Settings* tab
+
+## Screenshots
+<img src="https://i.imgur.com/Qve2H0I.png" width="200">
+<img src="https://i.imgur.com/JFiXxDw.png" width="200">
+<img src="https://i.imgur.com/wRmHF8Q.png" width="200">
+<img src="https://i.imgur.com/BwxTSfi.png" width="200">
+<img src="https://i.imgur.com/YAb0PCU.png" width="200">
+
 ## Installation and usage
 
 To run the app, you will need [Node.js](https://nodejs.org).
