@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
-import { GameplaySettings } from "src/settings/server";
+import ServerSettings from "src/settings/server";
 
 import Checkbox from "../../Common/Checkbox";
 import GameStylesSelection from "./StylesSelection";
@@ -15,11 +15,12 @@ import Tooltip from "../../Common/Tooltip";
 import "../../Common/Form.css";
 
 type GameplayFormProps = {
-    gameplaySettings: GameplaySettings;
+    serverSettings: ServerSettings;
 }
 
 const GameplayForm: React.FC<GameplayFormProps> = props => {
-    const gameplay = props.gameplaySettings;
+    const gameplay = props.serverSettings.gameplay;
+    const isTeamGameMode = props.serverSettings.isTeamGameMode;
 
     const handleAdvanceAmountChange = (newValue: number): void => {
         gameplay.styles.advanceAmount = newValue;
@@ -43,6 +44,14 @@ const GameplayForm: React.FC<GameplayFormProps> = props => {
                 gameplay.styles.survivalDestroyWeaponsAfterRound = checked;
                 break;
         }
+    }
+
+    const handleMaxWaveRespawnTimeChange = (newRespawnTime: number): void => {
+        gameplay.maxWaveRespawnTime = newRespawnTime;
+    }
+
+    const handleMinWaveRespawnTimeChange = (newRespawnTime: number): void => {
+        gameplay.minWaveRespawnTime = newRespawnTime;
     }
 
     const handleRespawnTimeChange = (newRespawnTime: number): void => {
@@ -119,6 +128,57 @@ const GameplayForm: React.FC<GameplayFormProps> = props => {
                         onValueChange={handleAdvanceAmountChange} />
                 </div>
             </div>
+            }
+
+            {isTeamGameMode &&
+            <React.Fragment>
+                <div className="field">
+                    <label className="label label-with-info" htmlFor="min-wave-respawn-time">
+                        Minimum wave respawn time (seconds)
+                        <FontAwesomeIcon
+                            className="info-icon"
+                            data-tip
+                            data-for="min-wave-respawn-time-tooltip"
+                            icon={faInfoCircle} />
+                    </label>
+                    <div className="user-input">
+                        <SliderNumberInput
+                            min={0}
+                            max={60}
+                            value={gameplay.minWaveRespawnTime}
+                            onValueChange={handleMinWaveRespawnTimeChange}
+                            id="min-wave-respawn-time" />
+                    </div>
+
+                    <Tooltip id="min-wave-respawn-time-tooltip">
+                        <div>A player can&apos;t have a respawn time less than this.</div>
+                    </Tooltip>
+                </div>
+                <div className="field">
+                    <label className="label label-with-info" htmlFor="max-wave-respawn-time">
+                        Maximum wave respawn time (seconds)
+                        <FontAwesomeIcon
+                            className="info-icon"
+                            data-tip
+                            data-for="max-wave-respawn-time-tooltip"
+                            icon={faInfoCircle} />
+                    </label>
+                    <div className="user-input">
+                        <SliderNumberInput
+                            min={0}
+                            max={60}
+                            value={gameplay.maxWaveRespawnTime}
+                            onValueChange={handleMaxWaveRespawnTimeChange}
+                            id="max-wave-respawn-time" />
+                    </div>
+
+                    <Tooltip id="max-wave-respawn-time-tooltip">
+                        <div>A global respawn timer is used so everyone that dies waits until this timer ends,</div>
+                        <div>and teammates respawn at the same time together.</div>
+                        <div>The time is based on the amount of players in the game.</div>
+                    </Tooltip>
+                </div>
+            </React.Fragment>
             }
 
             <div className="field">

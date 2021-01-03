@@ -53,9 +53,11 @@ export interface GameplaySettings {
     timeLimit: number;
     pointsLimits: PointsLimits;
 
-    // We store the time in seconds, whereas Soldat operates on
+    // We store the times in seconds, whereas Soldat operates on
     // ticks. 1 second = 60 ticks.
     respawnTime: number;
+    minWaveRespawnTime: number;
+    maxWaveRespawnTime: number;
 
     bulletTime: boolean;
     friendlyFire: boolean;
@@ -112,6 +114,8 @@ const defaultServerSettings: ServerSettingsData = {
         },
 
         respawnTime: 6,
+        minWaveRespawnTime: 2,
+        maxWaveRespawnTime: 4,
 
         bulletTime: false,
         friendlyFire: false,
@@ -168,6 +172,8 @@ class ServerSettings implements ServerSettingsData {
             },
 
             respawnTime: toNumber(config?.cvars.sv_respawntime),
+            minWaveRespawnTime: toNumber(config?.cvars.sv_respawntime_minwave),
+            maxWaveRespawnTime: toNumber(config?.cvars.sv_respawntime_maxwave),
 
             bulletTime: toBool(config?.cvars.sv_bullettime),
             friendlyFire: toBool(config?.cvars.sv_friendlyfire),
@@ -205,6 +211,14 @@ class ServerSettings implements ServerSettingsData {
             this.gameplay.respawnTime = Math.round(this.gameplay.respawnTime / 60);
         }
 
+        if (this.gameplay.minWaveRespawnTime != null) {
+            this.gameplay.minWaveRespawnTime = Math.round(this.gameplay.minWaveRespawnTime / 60);
+        }
+
+        if (this.gameplay.maxWaveRespawnTime != null) {
+            this.gameplay.maxWaveRespawnTime = Math.round(this.gameplay.maxWaveRespawnTime / 60);
+        }
+
         this.network = new NetworkSettings(config);
 
         defaultsDeep(this, defaultServerSettings);
@@ -233,6 +247,8 @@ class ServerSettings implements ServerSettingsData {
                 sv_tm_limit: toString(this.gameplay.pointsLimits.teamDeathMatch),
 
                 sv_respawntime: toString(this.gameplay.respawnTime * 60),
+                sv_respawntime_minwave: toString(this.gameplay.minWaveRespawnTime * 60),
+                sv_respawntime_maxwave: toString(this.gameplay.maxWaveRespawnTime * 60),
     
                 sv_bullettime: toString(this.gameplay.bulletTime),
                 sv_friendlyfire: toString(this.gameplay.friendlyFire),

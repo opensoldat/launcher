@@ -161,7 +161,7 @@ const LocalGamePage: React.FunctionComponent<LocalGamePageProps> = props => {
                                 collapsed={props.uiState.gameplaySettingsCollapsed}
                                 onCollapsedToggle={handleGameplayCollapsedToggle}
                                 headerContent="GAMEPLAY">
-                                <GameplayForm gameplaySettings={props.serverSettingsStore.settings.gameplay} />
+                                <GameplayForm serverSettings={props.serverSettingsStore.settings} />
                             </Collapsable>
 
                             <Collapsable

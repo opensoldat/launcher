@@ -96,8 +96,8 @@ export interface ServerConfig extends SoldatConfig {
         sv_advancemode_amount: string;
 
         sv_respawntime: string;
-        //sv_respawntime_minwave: number;
-        //sv_respawntime_maxwave: number;
+        sv_respawntime_minwave: string;
+        sv_respawntime_maxwave: string;
 
         //sv_gravity: number;
     
