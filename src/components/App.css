@@ -91,3 +91,39 @@ main > .centered-spinner {
     top: 50%;
     left: 50%;
 }
+
+::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #282828;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #495059;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #3e444d;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: #3a3f47;
+}
+
+::-webkit-scrollbar-track-piece:vertical,
+::-webkit-scrollbar-thumb:vertical {
+    border-left: 1px solid #828282;
+}
+
+::-webkit-scrollbar-track-piece:horizontal,
+::-webkit-scrollbar-thumb:horizontal {
+    border-top: 1px solid #828282;
+}
+
+::-webkit-scrollbar-corner {
+    border-top: 1px solid #828282;
+    border-left: 1px solid #828282;
+}
