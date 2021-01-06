@@ -6,7 +6,8 @@ import ConnectForm from "./ConnectForm";
 import Panel from "../Common/Panel";
 import ServersTable from "./ServersTable/";
 
-import { Server } from "../../types";
+import { Server } from "src/types";
+import { LobbyPageUiState } from "src/types/ui";
 
 import ConnectFormStore from "../../stores/launcher/connectForm";
 import LobbyServersStore from "../../stores/lobby/servers";
@@ -18,6 +19,7 @@ type LobbyPageProps = {
     connectFormStore: ConnectFormStore;
     onlineGamesStore: OnlineGamesStore;
     serversStore: LobbyServersStore;
+    uiState: LobbyPageUiState;
 }
 
 const LobbyPage: React.FC<LobbyPageProps> = props => {
@@ -55,7 +57,8 @@ const LobbyPage: React.FC<LobbyPageProps> = props => {
                     onServerClick={handleServerClick}
                     onServerDoubleClick={handleServerDoubleClick}
                     onlineGamesStore={props.onlineGamesStore}
-                    serversStore={props.serversStore} />
+                    serversStore={props.serversStore}
+                    showServerDetails={props.uiState.showServerDetails} />
             </Panel>
         </div>
     )

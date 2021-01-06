@@ -5,6 +5,12 @@ export interface DemosPageUiState {
     selectedDemoFileName: string;
 }
 
+export interface LobbyPageUiState {
+    showServerDetails: {
+        [key: string]: boolean;
+    };
+}
+
 export interface LocalGamePageUiState {
     gameplaySettingsCollapsed: boolean;
     mapsSettingsCollapsed: boolean;

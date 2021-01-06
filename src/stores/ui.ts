@@ -1,15 +1,20 @@
 import { observable } from "mobx";
 import {
     DemosPageUiState,
+    LobbyPageUiState,
     LocalGamePageUiState,
     SettingsPageUiState,
-    SettingsPageTabsIndexes
+    SettingsPageTabsIndexes,
 } from "../types/ui";
 
 class UiStore {
     @observable demosPage: DemosPageUiState = {
         searchTerm: "",
         selectedDemoFileName: ""
+    };
+
+    @observable lobbyPage: LobbyPageUiState = {
+        showServerDetails: {}
     };
 
     @observable localGamePage: LocalGamePageUiState = {

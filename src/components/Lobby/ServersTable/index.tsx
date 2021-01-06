@@ -7,6 +7,7 @@ import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 import GameStylesTooltip from "../../Common/GameStylesTooltip";
 import PlayersCell from "./PlayersCell";
+import ServerDetailsRow from "./ServerDetailsRow";
 import ServerNameCell from "./ServerNameCell";
 import ServersTableActions from "./Actions";
 import SortableColumn from "./SortableColumn";
@@ -26,6 +27,7 @@ type ServersTableProps = {
     onServerDoubleClick: (server: Server) => void;
     onlineGamesStore: OnlineGamesStore;
     serversStore: LobbyServersStore;
+    showServerDetails: { [key: string]: boolean };
 }
 
 const ServersTable: React.FC<ServersTableProps> = props => {
@@ -44,6 +46,18 @@ const ServersTable: React.FC<ServersTableProps> = props => {
         // only after receiving data from lobby).
         ReactTooltip.rebuild();
     }, [props.serversStore.filteredServers]);
+
+    const handleServerClick = (event: React.MouseEvent, server: Server): void => {
+        props.onServerClick(server);
+
+        // In case of multiple clicks in a short time, we only want to toggle
+        // server details' visibility once. 
+        if (event.detail >= 2) {
+            return;
+        }
+        const serverId = server.ip + server.port.toString();
+        props.showServerDetails[serverId] = !props.showServerDetails[serverId];
+    }
 
     return (
         <React.Fragment>
@@ -130,62 +144,69 @@ const ServersTable: React.FC<ServersTableProps> = props => {
                     </thead>
 
                     <tbody>
-                        {props.serversStore.filteredServers.map(server =>
-                            <tr
-                                className={
-                                    props.onlineGamesStore.getClient(server.ip, server.port)
-                                    ? "connected"
-                                    : ""
-                                }
-                                key={server.ip + server.port.toString()}
-                                onClick={(): void => props.onServerClick(server)}
-                                onDoubleClick={(): void => props.onServerDoubleClick(server)} >
-                                <td>
-                                    <ServerNameCell
-                                        server={server}
-                                        customWeaponsTooltipId="custom-weapons-tooltip"
-                                        requiredPasswordTooltipId="required-password-tooltip" />
-                                </td>
+                    {props.serversStore.filteredServers.map(server =>
+                    <React.Fragment key={server.ip + server.port.toString()}>
+                        <tr
+                            className={
+                                props.onlineGamesStore.getClient(server.ip, server.port)
+                                ? "connected"
+                                : ""
+                            }
+                            onClick={(event: React.MouseEvent): void => handleServerClick(event, server)}
+                            onDoubleClick={(): void => props.onServerDoubleClick(server)} >
+                            <td>
+                                <ServerNameCell
+                                    server={server}
+                                    customWeaponsTooltipId="custom-weapons-tooltip"
+                                    requiredPasswordTooltipId="required-password-tooltip" />
+                            </td>
 
-                                <td >
-                                    <PlayersCell server={server} />
-                                </td>
+                            <td >
+                                <PlayersCell server={server} />
+                            </td>
 
-                                <td>
-                                    {server.currentMap}
-                                </td>
+                            <td>
+                                {server.currentMap}
+                            </td>
 
-                                <td>
-                                    {server.gameMode === GameModes.CaptureTheFlag && "Capture the flag"}
-                                    {server.gameMode === GameModes.DeathMatch && "Deathmatch"}
-                                    {server.gameMode === GameModes.HoldTheFlag && "Hold the flag"}
-                                    {server.gameMode === GameModes.Infiltration && "Infiltration"}
-                                    {server.gameMode === GameModes.PointMatch && "Pointmatch"}
-                                    {server.gameMode === GameModes.RamboMatch && "Rambomatch"}
-                                    {server.gameMode === GameModes.TeamDeathMatch && "Team deathmatch"}
-                                </td>
+                            <td>
+                                {server.gameMode === GameModes.CaptureTheFlag && "Capture the flag"}
+                                {server.gameMode === GameModes.DeathMatch && "Deathmatch"}
+                                {server.gameMode === GameModes.HoldTheFlag && "Hold the flag"}
+                                {server.gameMode === GameModes.Infiltration && "Infiltration"}
+                                {server.gameMode === GameModes.PointMatch && "Pointmatch"}
+                                {server.gameMode === GameModes.RamboMatch && "Rambomatch"}
+                                {server.gameMode === GameModes.TeamDeathMatch && "Team deathmatch"}
+                            </td>
 
-                                <td>
-                                    {[
-                                        server.advance && "Advance",
-                                        server.realistic && "Realistic",
-                                        server.survival && "Survival"
-                                    ].filter(Boolean).join(", ")}
-                                </td>
+                            <td>
+                                {[
+                                    server.advance && "Advance",
+                                    server.realistic && "Realistic",
+                                    server.survival && "Survival"
+                                ].filter(Boolean).join(", ")}
+                            </td>
 
-                                <td>
-                                    {server.info}
-                                </td>
+                            <td>
+                                {server.info}
+                            </td>
 
-                                <td>
-                                    {server.ip}
-                                </td>
+                            <td>
+                                {server.ip}
+                            </td>
 
-                                <td>
-                                    {server.port}
-                                </td>
-                            </tr>
-                        )}
+                            <td>
+                                {server.port}
+                            </td>
+                        </tr>
+
+                        {props.showServerDetails[server.ip + server.port.toString()] &&
+                        <ServerDetailsRow
+                            server={server}
+                            serversStore={props.serversStore} />
+                        }
+                    </React.Fragment>
+                    )}
                     </tbody>
                 </table>
 

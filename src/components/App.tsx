@@ -139,7 +139,8 @@ const App: React.FC = () => {
                         <LobbyPage
                             connectFormStore={launcherDataStore.connectFormStore} 
                             onlineGamesStore={onlineGamesStore}
-                            serversStore={lobbyServersStore} />
+                            serversStore={lobbyServersStore}
+                            uiState={uiStore.lobbyPage} />
                     </TabPanel>
 
                     <TabPanel className="navigation-bar-content">
