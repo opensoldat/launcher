@@ -19,7 +19,7 @@
     border-bottom: 1px solid #828282;
 }
 
-.servers-table tbody tr {
+.servers-table tbody tr.clickable {
     cursor: pointer;
 }
 
@@ -69,27 +69,27 @@
     margin-left: 1em;
 }
 
-.servers-table tbody tr.connected {
+.servers-table tbody tr.clickable.connected {
     background-color: #316131;
 }
 
-.servers-table tbody tr.connected:hover {
+.servers-table tbody tr.clickable.connected:hover {
     background-color: #264d26;
 }
 
-.servers-table tbody tr.connected:active {
+.servers-table tbody tr.clickable.connected:active {
     background-color: #204020;
 }
 
 .servers-table tbody tr {
-    background-color: #282828
+    background-color: rgba(42, 45, 50, 0.8);
 }
 
-.servers-table tbody tr:hover {
+.servers-table tbody tr.clickable:hover {
     background-color: #363940;
 }
 
-.servers-table tbody tr:active {
+.servers-table tbody tr.clickable:active {
     background-color: #303238;
 }
 

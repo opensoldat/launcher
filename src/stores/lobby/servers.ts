@@ -36,8 +36,40 @@ class LobbyServersStore {
     @observable servers: Server[] = undefined;
     @observable isFetching = false;
 
+    @observable playersLists: { [key: string]: string[] } = {};
+    @observable isFetchingPlayersList: { [key: string]: boolean } = {};
+
     filtersStore = new ServerFiltersStore();
     sortStore = new ServersSortStore();
+
+    @action fetchPlayersList(serverIp: string, serverPort: string): Promise<void> {
+        const apiUrl = `https://api.soldat.pl/v0/server/${serverIp}/${serverPort}/players`;
+        const serverId = serverIp + serverPort;
+
+        this.isFetchingPlayersList[serverId] = true;
+        return fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Could not retrieve players' list.");
+                }
+                return response.json();
+            })
+            .then(
+                action(response => {
+                    this.playersLists[serverId] = response.Players;
+                })
+            )
+            .catch(
+                action(() => {
+                    this.playersLists[serverId] = null;
+                })
+            )
+            .finally(
+                action(() => {
+                    this.isFetchingPlayersList[serverId] = false;
+                })
+            );
+    }
 
     @action fetchServers(): Promise<void> {
         const lobbyUrl = "https://api.soldat.pl/v0/servers";

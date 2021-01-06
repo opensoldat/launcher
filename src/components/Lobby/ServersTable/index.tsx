@@ -7,7 +7,7 @@ import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 import GameStylesTooltip from "../../Common/GameStylesTooltip";
 import PlayersCell from "./PlayersCell";
-import ServerDetailsRow from "./ServerDetailsRow";
+import ServerDetailsCell from "./ServerDetailsCell";
 import ServerNameCell from "./ServerNameCell";
 import ServersTableActions from "./Actions";
 import SortableColumn from "./SortableColumn";
@@ -148,9 +148,11 @@ const ServersTable: React.FC<ServersTableProps> = props => {
                     <React.Fragment key={server.ip + server.port.toString()}>
                         <tr
                             className={
-                                props.onlineGamesStore.getClient(server.ip, server.port)
-                                ? "connected"
-                                : ""
+                                "clickable" + (
+                                    props.onlineGamesStore.getClient(server.ip, server.port)
+                                    ? " connected"
+                                    : ""
+                                )
                             }
                             onClick={(event: React.MouseEvent): void => handleServerClick(event, server)}
                             onDoubleClick={(): void => props.onServerDoubleClick(server)} >
@@ -201,9 +203,13 @@ const ServersTable: React.FC<ServersTableProps> = props => {
                         </tr>
 
                         {props.showServerDetails[server.ip + server.port.toString()] &&
-                        <ServerDetailsRow
-                            server={server}
-                            serversStore={props.serversStore} />
+                        <tr>
+                            <td colSpan={5}>
+                                <ServerDetailsCell
+                                    server={server}
+                                    serversStore={props.serversStore} />
+                            </td>
+                        </tr>
                         }
                     </React.Fragment>
                     )}
