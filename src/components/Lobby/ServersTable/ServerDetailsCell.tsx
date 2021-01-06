@@ -42,7 +42,7 @@ const ServerDetailsCell: React.FC<ServerDetailsCellProps> = props => {
     }
 
     return (
-        <div className="form">
+        <div className="form server-details-cell">
             <div className="field">
                 <label className="label">
                     Join link
@@ -71,6 +71,15 @@ const ServerDetailsCell: React.FC<ServerDetailsCellProps> = props => {
                 ?   <Spinner />
                 :   playersListContent
                 }
+                </div>
+            </div>
+
+            <div className="field">
+                <label className="label">
+                    Additional info
+                </label>
+                <div className="user-input">
+                    <span>{props.server.info}</span>
                 </div>
             </div>
         </div>

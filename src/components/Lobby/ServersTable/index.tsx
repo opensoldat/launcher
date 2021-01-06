@@ -127,19 +127,6 @@ const ServersTable: React.FC<ServersTableProps> = props => {
                                         size="1x" />
                                 </div>
                             </th>
-                            <th>
-                                Additional info
-                            </th>
-
-                            <SortableColumn
-                                columnName="IP"
-                                label="IP"
-                                sortStore={props.serversStore.sortStore} />
-
-                            <SortableColumn
-                                columnName="Port"
-                                label="Port"
-                                sortStore={props.serversStore.sortStore} />
                         </tr>
                     </thead>
 
@@ -187,18 +174,6 @@ const ServersTable: React.FC<ServersTableProps> = props => {
                                     server.realistic && "Realistic",
                                     server.survival && "Survival"
                                 ].filter(Boolean).join(", ")}
-                            </td>
-
-                            <td>
-                                {server.info}
-                            </td>
-
-                            <td>
-                                {server.ip}
-                            </td>
-
-                            <td>
-                                {server.port}
                             </td>
                         </tr>
 

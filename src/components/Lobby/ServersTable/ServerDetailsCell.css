@@ -3,9 +3,13 @@
     flex-direction: column;
 }
 
-.copy-button {
+.server-details-cell .copy-button {
     cursor: pointer;
     margin-left: 0.5em;
     display: flex;
     align-items: center;
+}
+
+.server-details-cell {
+    margin-left: 2em;
 }
