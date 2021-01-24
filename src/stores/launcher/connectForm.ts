@@ -35,6 +35,53 @@ class ConnectFormStore implements ConnectFormData {
         defaults(this, defaultData);
     }
 
+    @action setFromSoldatLink(soldatLink: string): void {
+        const SOLDAT_PROTOCOL = "soldat://";
+        if (!soldatLink || !soldatLink.startsWith(SOLDAT_PROTOCOL)) {
+            return;
+        }
+
+        const link = soldatLink.slice(SOLDAT_PROTOCOL.length);
+        const portSeparator = ":", passSeparator = "/";
+        const portSeparatorIdx = link.indexOf(portSeparator);
+        const passSeparatorIdx = link.indexOf(passSeparator);
+
+        let ip = "";
+        if (portSeparatorIdx >= 0) {
+            ip = link.substring(0, portSeparatorIdx);
+        } else {
+            if (passSeparatorIdx >= 0) {
+                ip = link.substring(0, passSeparatorIdx);
+            } else {
+                ip = link;
+            }
+        }
+
+        let port = "";
+        if (portSeparatorIdx >= 0) {
+            if (passSeparatorIdx >= 0) {
+                port = link.substring(portSeparatorIdx + 1, passSeparatorIdx);
+            } else {
+                port = link.substring(portSeparatorIdx + 1)
+            }
+        }
+
+        let pass = "";
+        if (passSeparatorIdx >= 0) {
+            pass = link.substring(passSeparatorIdx + 1);
+        }
+
+        if (ip.length > 0) {
+            this.ip = ip;
+        }
+        if (port.length > 0) {
+            this.port = port;
+        }
+        if (pass.length > 0) {
+            this.password = pass;
+        }
+    }
+
     @computed get ipError(): string {
         if (!this.ip || this.ip.length === 0) {
             return "Can not be empty";

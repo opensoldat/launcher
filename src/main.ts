@@ -71,27 +71,14 @@ const createWindow = (): void => {
     });
 };
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on("ready", createWindow);
-
-// Quit when all windows are closed.
-app.on("window-all-closed", () => {
-    // On OS X it is common for applications and their menu bar
-    // to stay active until the user quits explicitly with Cmd + Q
-    if (process.platform !== "darwin") {
-        app.quit();
+const SOLDAT_PROTOCOL = "soldat";
+function handleCommandLineArguments(argv: string[]): void {
+    const soldatLink = argv.find(x => x.startsWith(`${SOLDAT_PROTOCOL}://`));
+    if (!soldatLink || !mainWindow) {
+        return;
     }
-});
-
-app.on("activate", () => {
-    // On OS X it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
-    if (BrowserWindow.getAllWindows().length === 0) {
-        createWindow();
-    }
-});
+    mainWindow.webContents.send("soldatLink", soldatLink);
+}
 
 /* We want only one instance of the launcher. Whenever a second instance
  * is launched (for example by clicking soldat:// link), we kill it,
@@ -107,6 +94,7 @@ if (!primaryInstance) {
             }
             mainWindow.focus();
         }
+        handleCommandLineArguments(argv);
     });
 }
 
@@ -124,12 +112,12 @@ if (!primaryInstance) {
   * related to the way electron-forge starts a development build. */
 if (process.defaultApp) {
     if (process.argv.length >= 2) {
-        app.setAsDefaultProtocolClient("soldat", process.execPath, [
+        app.setAsDefaultProtocolClient(SOLDAT_PROTOCOL, process.execPath, [
             path.resolve(process.argv[1]),
         ]);
     }
 } else {
-    app.setAsDefaultProtocolClient("soldat");
+    app.setAsDefaultProtocolClient(SOLDAT_PROTOCOL);
 }
 
 ipcMain.on("forceClose", () => {
@@ -139,6 +127,35 @@ ipcMain.on("forceClose", () => {
 
 ipcMain.on("interceptClose", () => {
     interceptClose = true;
+});
+
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+app.on("ready", () => {
+    createWindow();
+    // We need the renderer to be able to react, so we wait
+    // for it to be ready before parsing arguments.
+    mainWindow.webContents.on("did-finish-load", () => {
+        handleCommandLineArguments(process.argv);
+    });
+});
+
+// Quit when all windows are closed.
+app.on("window-all-closed", () => {
+    // On OS X it is common for applications and their menu bar
+    // to stay active until the user quits explicitly with Cmd + Q
+    if (process.platform !== "darwin") {
+        app.quit();
+    }
+});
+
+app.on("activate", () => {
+    // On OS X it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (BrowserWindow.getAllWindows().length === 0) {
+        createWindow();
+    }
 });
 
 // In this file you can include the rest of your app's specific main process

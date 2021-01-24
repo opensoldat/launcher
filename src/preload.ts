@@ -60,6 +60,7 @@ declare global {
         electron: {
             forceClose: () => void;
             interceptCloseRequest: (handleClose: () => void) => void;
+            onSoldatLink: (handleSoldatLink: (soldatLink: string) => void) => void;
         };
 
         launcher: {
@@ -149,6 +150,11 @@ contextBridge.exposeInMainWorld(
             ipcRenderer.send("interceptClose");
             ipcRenderer.on("closeRequested", () => {
                 handleClose();
+            });
+        },
+        onSoldatLink: (handleSoldatLink: (soldatLink: string) => void): void => {
+            ipcRenderer.on("soldatLink", (event, link) => {
+                handleSoldatLink(link);
             });
         }
     }

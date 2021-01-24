@@ -87,6 +87,12 @@ const App: React.FC = () => {
                 window.electron.forceClose();
             });
         });
+
+        // The main process notifies us when user clicks on a soldat:// link.
+        // We refresh values in connect form accordingly, and try to join the game.
+        window.electron.onSoldatLink((soldatLink: string) => {
+            launcherDataStore.connectFormStore.setFromSoldatLink(soldatLink);
+        });
     }, []);
 
     const handleTabChange = (index: number, lastIndex: number): boolean => {
