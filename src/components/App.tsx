@@ -92,6 +92,17 @@ const App: React.FC = () => {
         // We refresh values in connect form accordingly, and try to join the game.
         window.electron.onSoldatLink((soldatLink: string) => {
             launcherDataStore.connectFormStore.setFromSoldatLink(soldatLink);
+
+            if (launcherDataStore.connectFormStore.isValid()) {
+                onlineGamesStore.connect(
+                    launcherDataStore.connectFormStore.ip,
+                    Number(launcherDataStore.connectFormStore.port),
+                    launcherDataStore.connectFormStore.password,
+                    function(errorMessage) {
+                        toast.error("Could not start game:\n" + errorMessage);
+                    }
+                )
+            }
         });
     }, []);
 
