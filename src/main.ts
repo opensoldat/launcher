@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain } from "electron";
+import path from "path";
 import { isDevelopment } from "./environment";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -91,6 +92,45 @@ app.on("activate", () => {
         createWindow();
     }
 });
+
+/* We want only one instance of the launcher. Whenever a second instance
+ * is launched (for example by clicking soldat:// link), we kill it,
+ * and handle it from the single instance. */
+const primaryInstance = app.requestSingleInstanceLock();
+if (!primaryInstance) {
+    app.quit();
+} else {
+    app.on("second-instance", (event, argv) => {
+        if (mainWindow) {
+            if (mainWindow.isMinimized()) {
+                mainWindow.restore();
+            }
+            mainWindow.focus();
+        }
+    });
+}
+
+ /* As of now, soldat:// links only work on Windows. Electron doesn't support
+  * registering protocols on Linux, so a different approach might be needed.
+  * As for MacOS, it seems simpler to set up, but I don't have a way to test it.
+  *
+  * There are 2 cases that need to be handled with soldat:// link:
+  * 1) User clicks on link while having an instance of launcher running already.
+  * 2) User clicks on link without any other instance running.
+  * We handle the first case from the single instance that is running.
+  * On Windows, this will work both in development and production builds.
+  *
+  * The second case, however, will only work in production build. This seems
+  * related to the way electron-forge starts a development build. */
+if (process.defaultApp) {
+    if (process.argv.length >= 2) {
+        app.setAsDefaultProtocolClient("soldat", process.execPath, [
+            path.resolve(process.argv[1]),
+        ]);
+    }
+} else {
+    app.setAsDefaultProtocolClient("soldat");
+}
 
 ipcMain.on("forceClose", () => {
     interceptClose = false;
