@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import { isDevelopment } from "./environment";
+import { isSoldatLink, SOLDAT_PROTOCOL } from "./soldatLink";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -71,9 +72,8 @@ const createWindow = (): void => {
     });
 };
 
-const SOLDAT_PROTOCOL = "soldat";
 function handleCommandLineArguments(argv: string[]): void {
-    const soldatLink = argv.find(x => x.startsWith(`${SOLDAT_PROTOCOL}://`));
+    const soldatLink = argv.find(x => isSoldatLink(x));
     if (!soldatLink || !mainWindow) {
         return;
     }

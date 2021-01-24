@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import ConnectFormStore from "../../stores/launcher/connectForm";
 import OnlineGamesStore from "../../stores/onlineGames";
 
+import { isSoldatLink } from "src/soldatLink";
+
 import "./ConnectForm.css";
 
 type ConnectFormProps = {
@@ -32,6 +34,16 @@ const ConnectForm: React.FC<ConnectFormProps> = props => {
             case "server-password":
                 props.connectFormStore.password = target.value;
                 break;
+        }
+    }
+
+    const handleIpInputPaste = (event: React.ClipboardEvent<HTMLInputElement>): void => {
+        const pastedString = event.clipboardData.getData("text/plain");
+        props.connectFormStore.setFromSoldatLink(pastedString);
+
+        // We don't want to actually paste the soldat:// link.
+        if (isSoldatLink(pastedString)) {
+            event.preventDefault();
         }
     }
 
@@ -65,7 +77,8 @@ const ConnectForm: React.FC<ConnectFormProps> = props => {
                     spellCheck="false"
                     type="text"
                     value={props.connectFormStore.ip}
-                    onChange={handleInputChange}>
+                    onChange={handleInputChange}
+                    onPaste={handleIpInputPaste}>
                 </input>
 
                 <div className="error-message">
