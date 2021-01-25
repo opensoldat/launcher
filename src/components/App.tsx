@@ -97,6 +97,9 @@ const App: React.FC = () => {
                         toast.error("Could not start game:\n" + errorMessage);
                     }
                 )
+
+                // Navigate to Lobby tab.
+                handleTabChange(TabsIndexes.Lobby, uiStore.selectedTabIndex);
             }
         });
     }, []);
