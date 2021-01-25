@@ -1,5 +1,12 @@
 import { Map } from ".";
 
+export enum TabsIndexes {
+    Lobby = 0,
+    LocalGame,
+    Demos,
+    Settings
+}
+
 export interface DemosPageUiState {
     searchTerm: string;
     selectedDemoFileName: string;

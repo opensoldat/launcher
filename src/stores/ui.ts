@@ -5,9 +5,12 @@ import {
     LocalGamePageUiState,
     SettingsPageUiState,
     SettingsPageTabsIndexes,
+    TabsIndexes,
 } from "../types/ui";
 
 class UiStore {
+    @observable selectedTabIndex = TabsIndexes.Lobby;
+
     @observable demosPage: DemosPageUiState = {
         searchTerm: "",
         selectedDemoFileName: ""

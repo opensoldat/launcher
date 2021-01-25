@@ -21,15 +21,10 @@ import OnlineGamesStore from "../stores/onlineGames";
 import ServerSettingsStore from "../stores/settings/server";
 import UiStore from "../stores/ui";
 
+import { TabsIndexes } from "src/types/ui";
+
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-
-enum TabIndexes {
-    Lobby = 0,
-    LocalGame,
-    Demos,
-    Settings
-}
 
 const App: React.FC = () => {
     const [launcherDataStore] = React.useState(() => new LauncherDataStore());
@@ -107,7 +102,8 @@ const App: React.FC = () => {
     }, []);
 
     const handleTabChange = (index: number, lastIndex: number): boolean => {
-        if (lastIndex === TabIndexes.LocalGame) {
+        uiStore.selectedTabIndex = index;
+        if (lastIndex === TabsIndexes.LocalGame) {
             serverSettingsStore.saveAll();
         }
 
@@ -142,6 +138,7 @@ const App: React.FC = () => {
         :   <React.Fragment>
                 <Tabs
                     onSelect={handleTabChange}
+                    selectedIndex={uiStore.selectedTabIndex}
                     selectedTabClassName="navigation-bar-tab--selected">
                     <div className="navigation-bar-container">
                         <TabList className="navigation-bar">
