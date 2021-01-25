@@ -58,6 +58,34 @@ const App: React.FC = () => {
 
     const [lobbyServersStore] = React.useState(() => new LobbyServersStore());
 
+    const handleTabChange = (index: number, lastIndex: number): boolean => {
+        uiStore.selectedTabIndex = index;
+        if (lastIndex === TabsIndexes.LocalGame) {
+            serverSettingsStore.saveAll();
+        }
+
+        return true;
+    }
+
+    // We're handling this logic from here, so that we don't have to worry about
+    // child components getting unmounted before promises resolve/reject. Accessing
+    // props in child components after they are unmounted leads to memory leaks.
+    // App component will always be mounted.
+    const startLocalGame = (): void => {
+        serverSettingsStore.saveAll()
+        .then(() => {
+            localGameStore.startLocalGame(
+                Number(serverSettingsStore.settings.network.port),
+                (errorMessage: string) => {
+                    toast.error("Local game failed:\n" + errorMessage);
+                }
+            );
+        })
+        .catch((errorMessage: string) => {
+            toast.error("Could not save server settings:\n" + errorMessage);
+        });
+    }
+
     React.useEffect(() => {
         window.electron.interceptCloseRequest(() => {
             /* Technically, this shouldn't be necessary when the "detached" option passed
@@ -103,34 +131,6 @@ const App: React.FC = () => {
             }
         });
     }, []);
-
-    const handleTabChange = (index: number, lastIndex: number): boolean => {
-        uiStore.selectedTabIndex = index;
-        if (lastIndex === TabsIndexes.LocalGame) {
-            serverSettingsStore.saveAll();
-        }
-
-        return true;
-    }
-
-    // We're handling this logic from here, so that we don't have to worry about
-    // child components getting unmounted before promises resolve/reject. Accessing
-    // props in child components after they are unmounted leads to memory leaks.
-    // App component will always be mounted.
-    const startLocalGame = (): void => {
-        serverSettingsStore.saveAll()
-        .then(() => {
-            localGameStore.startLocalGame(
-                Number(serverSettingsStore.settings.network.port),
-                (errorMessage: string) => {
-                    toast.error("Local game failed:\n" + errorMessage);
-                }
-            );
-        })
-        .catch((errorMessage: string) => {
-            toast.error("Could not save server settings:\n" + errorMessage);
-        });
-    }
 
     return (
         <main>

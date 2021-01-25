@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { observer } from "mobx-react";
 import React, { useRef } from "react";
 import Spinner from "src/components/Common/Spinner";
+import { soldatLinkToString } from "src/soldatLink";
 import LobbyServersStore from "src/stores/lobby/servers"
 import { Server } from "src/types"
 
@@ -34,7 +35,10 @@ const ServerDetailsCell: React.FC<ServerDetailsCellProps> = props => {
         </div>
     )
 
-    const joinLink = `soldat://${props.server.ip}/${props.server.port}`;
+    const joinLink = soldatLinkToString({
+        ip: props.server.ip,
+        port: props.server.port.toString(),
+    });
     const joinLinkInput = useRef(null);
     const handleCopyLinkButtonClick = (): void => {
         joinLinkInput.current.select();

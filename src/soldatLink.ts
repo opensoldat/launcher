@@ -1,14 +1,15 @@
 const SOLDAT_PROTOCOL = "soldat";
 const SOLDAT_LINK_PREFIX = `${SOLDAT_PROTOCOL}://`;
-
-function isSoldatLink(value: string): boolean {
-    return value?.startsWith(SOLDAT_LINK_PREFIX);
-}
+const PORT_SEPARATOR = ":", PASSWORD_SEPARATOR = "/";
 
 interface SoldatLink {
     ip: string;
-    port: string;
-    password: string;
+    port?: string;
+    password?: string;
+}
+
+function isSoldatLink(value: string): boolean {
+    return value?.startsWith(SOLDAT_LINK_PREFIX);
 }
 
 function parseSoldatLink(value: string): SoldatLink {
@@ -17,9 +18,8 @@ function parseSoldatLink(value: string): SoldatLink {
     }
 
     const link = value.slice(SOLDAT_LINK_PREFIX.length);
-    const portSeparator = ":", passwordSeparator = "/";
-    const portSeparatorIdx = link.indexOf(portSeparator);
-    const passwordSeparatorIdx = link.indexOf(passwordSeparator);
+    const portSeparatorIdx = link.indexOf(PORT_SEPARATOR);
+    const passwordSeparatorIdx = link.indexOf(PASSWORD_SEPARATOR);
 
     let ip = "";
     if (portSeparatorIdx >= 0) {
@@ -49,8 +49,27 @@ function parseSoldatLink(value: string): SoldatLink {
     return { ip, port, password }
 }
 
+function soldatLinkToString(link: SoldatLink): string {
+    if (!link) {
+        return "";
+    }
+
+    let res = SOLDAT_LINK_PREFIX;
+    if (link.ip?.length > 0) {
+        res += link.ip;
+    }
+    if (link.port?.length > 0) {
+        res += `${PORT_SEPARATOR}${link.port}`;
+    }
+    if (link.password?.length > 0) {
+        res += `${PASSWORD_SEPARATOR}${link.password}`;
+    }
+    return res;
+}
+
 export {
     isSoldatLink,
     parseSoldatLink,
+    soldatLinkToString,
     SOLDAT_PROTOCOL
 }
