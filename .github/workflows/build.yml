@@ -1,0 +1,35 @@
+name: build
+on: push
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install packages
+        run: npm ci
+
+      - name: Build launcher
+        run: npm run make
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: soldat-launcher-linux
+          path: out/make/zip/linux/x64/
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install packages
+        run: npm ci
+
+      - name: Build launcher
+        run: npm run make
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: soldat-launcher-windows
+          path: out/make/zip/win32/x64/
