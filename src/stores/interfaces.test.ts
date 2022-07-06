@@ -1,3 +1,4 @@
+import { setImmediate } from "timers";
 import InterfacesStore from "./interfaces";
 import ClientLaunchSettingsStore from "./launcher/clientLaunchSettings";
 
