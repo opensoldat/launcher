@@ -9,16 +9,7 @@ rules.push({
 
 rules.push({
     test: /\.(ttf|png|bmp)$/,
-    use: [
-        {
-            loader: "file-loader",
-            options: {
-                // Fix for assets files (.png, .ttf) not being found when running executable.
-                // See https://github.com/electron-userland/electron-forge/issues/1196
-                publicPath: ".."
-            }
-        }
-    ]
+    type: "asset/resource"
 });
 
 module.exports = {
