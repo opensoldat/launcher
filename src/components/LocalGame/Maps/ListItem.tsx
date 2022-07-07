@@ -8,6 +8,8 @@ type MapsListItemProps = {
     highlighted: boolean;
     map: Map;
     onClick: (map: Map) => void;
+
+    children?: React.ReactNode;
 };
 
 const MapsListItem: React.FC<MapsListItemProps> = props => {

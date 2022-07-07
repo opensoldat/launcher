@@ -17,7 +17,9 @@ const ServerNameCell: React.FC<ServerNameCellProps> = props => (
     <div className="server-name-cell">
         <FlagIcon
             code={props.server.country as FlagIconCode}
-            className="flag-icon" />
+            className="flag-icon"
+            width={24}
+            height={18} />
 
         <span className="server-name">
             {props.server.name}

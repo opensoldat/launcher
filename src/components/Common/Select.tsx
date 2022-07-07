@@ -1,6 +1,5 @@
-import React, { CSSProperties } from "react";
-import ReactSelect, {Props as ReactSelectProps, StylesConfig } from "react-select";
-import { ThemeConfig } from "react-select/src/theme";
+import React from "react";
+import ReactSelect, {Props as ReactSelectProps, StylesConfig, ThemeConfig } from "react-select";
 import { SelectOption } from "src/types";
 
 /* This is a wrapper for react-select. It provides styling compatible
@@ -41,11 +40,11 @@ interface SelectProps extends ReactSelectProps {
 
 const Select: React.FC<SelectProps> = props => {
     const customStyles: StylesConfig<SelectOption, boolean> = {
-        container: (defaultStyles: CSSProperties) => ({
+        container: (defaultStyles) => ({
             ...defaultStyles,
             width: "100%"
         }),
-        control: (defaultStyles: CSSProperties) => ({
+        control: (defaultStyles) => ({
             ...defaultStyles,
             boxShadow: "none",
             minHeight: "2rem",
@@ -56,41 +55,42 @@ const Select: React.FC<SelectProps> = props => {
             // The lag was noticeable with select fields inside tooltips.
             transition: "visibility 0s"
         }),
-        indicatorsContainer: (defaultStyles: CSSProperties) => ({
+        indicatorsContainer: (defaultStyles) => ({
             ...defaultStyles,
             height: "2rem"
         }),
         indicatorSeparator: () => ({
             display: "none"
         }),
-        input: (defaultStyles: CSSProperties) => ({
+        input: (defaultStyles) => ({
             ...defaultStyles,
             padding: 0,
             margin: 0
         }),
-        menu: (defaultStyles: CSSProperties) => ({
+        menu: (defaultStyles) => ({
             ...defaultStyles,
             fontSize: "1em",
             marginTop: 0,
             marginBottom: 0
         }),
-        menuList: (defaultStyles: CSSProperties) => ({
+        menuList: (defaultStyles) => ({
             ...defaultStyles,
             paddingTop: 0,
             paddingBottom: 0
         }),
-        option: (defaultStyles: CSSProperties) => ({
+        option: (defaultStyles) => ({
             ...defaultStyles,
             color: "black",
             fontSize: "1em"
         }),
-        singleValue: (defaultStyles: CSSProperties) => ({
+        singleValue: (defaultStyles) => ({
             ...defaultStyles,
             height: "100%",
             lineHeight: "2rem",
+            textAlign: "center",
             verticalAlign: "middle"
         }),
-        valueContainer: (defaultStyles: CSSProperties) => ({
+        valueContainer: (defaultStyles) => ({
             ...defaultStyles,
             height: "2rem",
             padding: "0px 4px",

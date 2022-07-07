@@ -9,6 +9,8 @@ type TooltipProps = {
     id?: string;
     place?: "top" | "bottom" | "left" | "right";
     tooltipRef?: React.RefObject<ReactTooltip>;
+
+    children: React.ReactNode;
 }
 
 /* This component is a wrapper for ReactTooltip, mostly for the sake

@@ -6,6 +6,8 @@ import "./List.css";
 type MapsListProps = {
     emptyMessage: string;
     isLoading: boolean;
+
+    children: React.ReactNode;
 }
 
 const MapsList: React.FC<MapsListProps> = props => {

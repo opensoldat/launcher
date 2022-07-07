@@ -83,6 +83,7 @@
 
 .servers-table tbody tr {
     background-color: rgba(42, 45, 50, 0.8);
+    height: 45px;
 }
 
 .servers-table tbody tr.clickable:hover {

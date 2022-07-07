@@ -10,6 +10,7 @@ type CollapsableProps = {
 
     className?: string;
     headerContent: React.ReactNode;
+    children: React.ReactNode;
 }
 
 const Collapsable: React.FC<CollapsableProps> = props => {
