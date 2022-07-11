@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { action, observable, makeObservable } from "mobx";
 import GameSettings from "src/settings/client/game";
 
 class GameSettingsStore {
@@ -31,6 +31,10 @@ class GameSettingsStore {
 
     @action restoreDefaultSettings = (): void => {
         this.settings = new GameSettings();
+    }
+
+    constructor() {
+        makeObservable(this);
     }
 }
 

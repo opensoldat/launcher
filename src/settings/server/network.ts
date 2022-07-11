@@ -1,5 +1,5 @@
 import { defaultsDeep } from "lodash";
-import { computed, observable } from "mobx";
+import { computed, observable, makeObservable } from "mobx";
 import { ServerConfig } from "src/api/soldat/configs/types";
 import validateNumber from "src/validation/number";
 
@@ -15,6 +15,7 @@ class NetworkSettings implements NetworkSettingsData {
     @observable port: string;
 
     constructor(config?: ServerConfig) {
+        makeObservable(this);
         this.port = config?.cvars.net_port;
 
         defaultsDeep(this, defaultNetworkSettings);

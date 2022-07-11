@@ -1,5 +1,5 @@
 import { defaults } from "lodash";
-import { observable, computed, action } from "mobx";
+import { observable, computed, action, makeObservable } from "mobx";
 import { parseSoldatLink } from "src/soldatLink";
 import validateNumber from "src/validation/number";
 
@@ -20,6 +20,10 @@ class ConnectFormStore implements ConnectFormData {
     @observable port: string;
     @observable password: string;
 
+    constructor() {
+        makeObservable(this);
+    }
+
     getData(): ConnectFormData {
         return {
             ip: this.ip,
@@ -27,7 +31,7 @@ class ConnectFormStore implements ConnectFormData {
             password: this.password
         };
     }
-    
+
     @action setData(data: ConnectFormData): void {
         this.ip = data?.ip;
         this.port = data?.port;

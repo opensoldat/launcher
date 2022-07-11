@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { action, observable, makeObservable } from "mobx";
 import ConnectFormStore, { ConnectFormData } from "./connectForm";
 import ClientLaunchSettingsStore, { ClientLaunchSettings } from "./clientLaunchSettings";
 import ServerLaunchSettingsStore, { ServerLaunchSettings } from "./serverLaunchSettings";
@@ -16,6 +16,10 @@ class LauncherDataStore {
 
     @observable isLoading = false;
     @observable gotData = false;
+
+    constructor() {
+        makeObservable(this);
+    }
 
     @action loadData(): void {
         this.isLoading = true;

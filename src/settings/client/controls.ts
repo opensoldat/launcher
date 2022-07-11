@@ -1,5 +1,5 @@
 import { defaults, unionBy } from "lodash";
-import { observable, toJS } from "mobx";
+import { observable, toJS, makeObservable } from "mobx";
 import shortid from "shortid";
 
 import { CommonGameCommands, CommonKeyBinding } from "src/types";
@@ -68,6 +68,7 @@ class ControlsSettings implements ControlsSettingsData {
     @observable mouseSensitivity: number;
 
     constructor(config?: ControlsConfig) {
+        makeObservable(this);
         this.bindings = unionBy(
             config?.bindings,
             defaultControls.bindings,

@@ -1,4 +1,4 @@
-import { observable, action } from "mobx";
+import { observable, action, makeObservable } from "mobx";
 import ClientLaunchSettingsStore from "./launcher/clientLaunchSettings";
 import ServerLaunchSettingsStore from "./launcher/serverLaunchSettings";
 
@@ -16,6 +16,7 @@ class LocalGameStore {
     constructor(
         clientLaunchSettingsStore: ClientLaunchSettingsStore,
         serverLaunchSettingsStore: ServerLaunchSettingsStore) {
+        makeObservable(this);
         this.clientLaunchSettingsStore = clientLaunchSettingsStore;
         this.serverLaunchSettingsStore = serverLaunchSettingsStore;
     }

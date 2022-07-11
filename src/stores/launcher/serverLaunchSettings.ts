@@ -1,5 +1,5 @@
 import { defaults } from "lodash";
-import { action, computed, observable } from "mobx";
+import { action, computed, observable, makeObservable } from "mobx";
 
 export interface ServerLaunchSettings {
     // TODO: consider allowing users to specify paths (fs_userpath, fs_basepath).
@@ -12,6 +12,10 @@ const defaultLaunchSettings: ServerLaunchSettings = {
 
 class ServerLaunchSettingsStore implements ServerLaunchSettings {
     @observable customArguments: string;
+
+    constructor() {
+        makeObservable(this);
+    }
 
     getSettings(): ServerLaunchSettings {
         return {

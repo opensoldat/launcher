@@ -1,4 +1,4 @@
-import { observable, computed } from "mobx";
+import { observable, computed, makeObservable } from "mobx";
 import { Server, GameModes } from "../../types";
 
 export enum PlayersFilterOptions {
@@ -45,6 +45,7 @@ class ServerFiltersStore {
     };
 
     constructor() {
+        makeObservable(this);
         this.setDefaultFilters();
     }
 

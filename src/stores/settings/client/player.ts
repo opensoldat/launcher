@@ -1,10 +1,14 @@
-import { action, observable } from "mobx";
+import { action, observable, makeObservable } from "mobx";
 import PlayerSettings from "../../../settings/client/player";
 
 class PlayerSettingsStore {
     @observable settings: PlayerSettings;
     @observable isLoading = false;
     @observable isSaving = false;
+
+    constructor() {
+        makeObservable(this);
+    }
 
     @action loadSettings(): void {
         this.isLoading = true;

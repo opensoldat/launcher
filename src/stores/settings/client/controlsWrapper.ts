@@ -1,4 +1,4 @@
-import { action, computed, observable } from "mobx";
+import { action, computed, observable, makeObservable } from "mobx";
 import ControlsSettings from "src/settings/client/controls";
 import CustomBindings from "src/settings/client/customBindings";
 import { KeyBinding } from "src/types";
@@ -9,6 +9,11 @@ class ControlsWrapperStore {
 
     @observable isLoading = false;
     @observable isSaving = false;
+
+    constructor() {
+        makeObservable(this);
+    }
+
     @computed get gotData(): boolean {
         return this.controlsSettings != null && this.customBindings != null
     }

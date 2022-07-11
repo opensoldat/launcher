@@ -1,5 +1,5 @@
 import { defaults } from "lodash";
-import { action, computed, observable } from "mobx";
+import { action, computed, observable, makeObservable } from "mobx";
 
 export interface ClientLaunchSettings {
     localMount: boolean;
@@ -18,6 +18,10 @@ class ClientLaunchSettingsStore implements ClientLaunchSettings {
     @observable localMount: boolean;
     @observable mod: string;
     @observable customArguments: string;
+
+    constructor() {
+        makeObservable(this);
+    }
 
     getSettings(): ClientLaunchSettings {
         return {

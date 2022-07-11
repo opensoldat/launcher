@@ -1,5 +1,5 @@
 import { defaultsDeep } from "lodash";
-import { observable } from "mobx";
+import { observable, makeObservable } from "mobx";
 
 import { HexColor, Resolution } from "src/types";
 import { GraphicsConfig } from "src/api/soldat/configs/types";
@@ -94,6 +94,7 @@ class GraphicsSettings implements GraphicsSettingsData {
     @observable dithering: boolean;
 
     constructor(config?: GraphicsConfig) {
+        makeObservable(this);
         this.displayMode = toNumber(config?.cvars.r_fullscreen);
         this.resolution = {
             width: toNumber(config?.cvars.r_screenwidth),
@@ -115,7 +116,7 @@ class GraphicsSettings implements GraphicsSettingsData {
         this.maxFPS = toNumber(config?.cvars.r_maxfps);
         this.weatherEffects = toBool(config?.cvars.r_weathereffects);
         this.smoothEdges = toBool(config?.cvars.r_smoothedges);
-  
+
         this.interfaceStyle = config?.cvars.ui_style;
         this.scaleInterface = toBool(config?.cvars.r_scaleinterface);
         this.playerIndicator = toBool(config?.cvars.ui_playerindicator);

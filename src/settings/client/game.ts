@@ -1,5 +1,5 @@
 import { defaults } from "lodash";
-import { observable } from "mobx";
+import { observable, makeObservable } from "mobx";
 import { GameConfig } from "src/api/soldat/configs/types";
 import { toBool, toString } from "../convertUtils";
 
@@ -36,8 +36,9 @@ class GameSettings implements GameSettingsData {
     @observable allowServerMods: boolean;
 
     constructor(config?: GameConfig) {
-//        this.language = config.cvars.cl_lang;
-//        this.actionSnap = toBool(config.cvars.cl_actionsnap);
+        makeObservable(this);
+        //        this.language = config.cvars.cl_lang;
+        //        this.actionSnap = toBool(config.cvars.cl_actionsnap);
         this.allowServerMods = toBool(config?.cvars.cl_servermods);
         this.screenShake = toBool(config?.cvars.cl_screenshake);
         this.screenshotAfterRound = toBool(config?.cvars.cl_endscreenshot);

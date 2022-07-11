@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { action, observable, makeObservable } from "mobx";
 import GraphicsSettings from "src/settings/client/graphics";
 
 class GraphicsSettingsStore {
@@ -31,6 +31,10 @@ class GraphicsSettingsStore {
 
     @action restoreDefaultSettings = (): void => {
         this.settings = new GraphicsSettings();
+    }
+
+    constructor() {
+        makeObservable(this);
     }
 }
 

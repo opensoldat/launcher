@@ -1,4 +1,4 @@
-import { observable, action, computed } from "mobx";
+import { observable, action, computed, makeObservable } from "mobx";
 import { Server, GameModes } from "../../types";
 import ServersSortStore from "./sort";
 import ServerFiltersStore from "./filters";
@@ -41,6 +41,10 @@ class LobbyServersStore {
 
     filtersStore = new ServerFiltersStore();
     sortStore = new ServersSortStore();
+
+    constructor() {
+        makeObservable(this);
+    }
 
     @action fetchPlayersList(serverIp: string, serverPort: string): Promise<void> {
         const apiUrl = `https://api.soldat.pl/v0/server/${serverIp}/${serverPort}/players`;

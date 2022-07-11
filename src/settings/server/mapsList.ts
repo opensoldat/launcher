@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { action, observable, makeObservable } from "mobx";
 import shortid from "shortid";
 
 import { Map } from "src/types";
@@ -9,6 +9,7 @@ class ServerMapsList {
     @observable maps: Map[];
 
     constructor(mapsNames: string[]) {
+        makeObservable(this);
         if (!mapsNames) {
             mapsNames = defaultMapsNames;
         }

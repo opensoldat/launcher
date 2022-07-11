@@ -1,4 +1,4 @@
-import { action, computed, observable } from "mobx";
+import { action, computed, observable, makeObservable } from "mobx";
 import { SelectOption } from "src/types";
 
 class ModsStore {
@@ -6,6 +6,11 @@ class ModsStore {
     // archive files with .smod extension in mods directory.
     @observable modsNames: string[];
     @observable isLoading = false;
+
+    constructor() {
+        makeObservable(this);
+    }
+
     @computed get gotMods(): boolean {
         return this.modsNames != null;
     }

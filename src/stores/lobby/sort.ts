@@ -1,9 +1,13 @@
-import { observable, action } from "mobx";
+import { observable, action, makeObservable } from "mobx";
 import { Server, GameModes } from "../../types";
 
 class ServersSortStore {
     @observable columnName = "Players";
     @observable isDescending = true;
+
+    constructor() {
+        makeObservable(this);
+    }
 
     @action applySort(columnName: string): void {
         // Just toggle the order of sorting if user tries to apply

@@ -22,7 +22,8 @@
             "DOM",
             "ES2020.Promise"
         ],
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "useDefineForClassFields": true
     },
     "include": [
         "src/**/*"

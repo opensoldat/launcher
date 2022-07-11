@@ -1,4 +1,4 @@
-import { action, observable, toJS } from "mobx";
+import { action, observable, toJS, makeObservable } from "mobx";
 import shortid from "shortid";
 
 import { SoldatConfig } from "src/api/soldat/configs/types";
@@ -54,6 +54,7 @@ class CustomBindings {
     @observable bindings: KeyBinding[];
 
     constructor(config?: SoldatConfig) {
+        makeObservable(this);
         if (config == null) {
             this.bindings = defaultCustomBindings;
             return;

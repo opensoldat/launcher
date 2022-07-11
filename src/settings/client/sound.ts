@@ -1,5 +1,5 @@
 import { defaults } from "lodash";
-import { observable } from "mobx";
+import { observable, makeObservable } from "mobx";
 import { SoundConfig } from "src/api/soldat/configs/types";
 import { toBool, toNumber, toString } from "../convertUtils";
 
@@ -22,6 +22,7 @@ class SoundSettings implements SoundSettingsData {
     @observable explosionsSoundEffects: boolean;
 
     constructor(config?: SoundConfig) {
+        makeObservable(this);
         this.volume = toNumber(config?.cvars.snd_volume);
         this.battleSoundEffects = toBool(config?.cvars.snd_effects_battle);
         this.explosionsSoundEffects = toBool(config?.cvars.snd_effects_explosions);

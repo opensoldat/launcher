@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { action, observable, makeObservable } from "mobx";
 import { computedFn } from "mobx-utils";
 import ClientLaunchSettingsStore from "./launcher/clientLaunchSettings";
 
@@ -17,6 +17,7 @@ class OnlineGamesStore {
     readonly clientLaunchSettingsStore: ClientLaunchSettingsStore;
 
     constructor(clientLaunchSettingsStore?: ClientLaunchSettingsStore) {
+        makeObservable(this);
         this.clientLaunchSettingsStore = clientLaunchSettingsStore;
     }
 

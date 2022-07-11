@@ -1,4 +1,4 @@
-import { action, computed, observable } from "mobx";
+import { action, computed, observable, makeObservable } from "mobx";
 import ClientLaunchSettingsStore from "./launcher/clientLaunchSettings";
 import { SelectOption } from "src/types";
 
@@ -32,6 +32,7 @@ class InterfacesStore {
     @observable isLoading = false;
 
     constructor(clientLaunchSettingsStore: ClientLaunchSettingsStore) {
+        makeObservable(this);
         this.clientLaunchSettingsStore = clientLaunchSettingsStore;
     }
 

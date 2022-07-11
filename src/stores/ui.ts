@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { observable, makeObservable } from "mobx";
 import {
     DemosPageUiState,
     LobbyPageUiState,
@@ -37,6 +37,10 @@ class UiStore {
     @observable settingsPage: SettingsPageUiState = {
         selectedTabIndex: SettingsPageTabsIndexes.Player
     };
+
+    constructor() {
+        makeObservable(this);
+    }
 }
 
 export default UiStore;

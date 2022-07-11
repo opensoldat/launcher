@@ -1,8 +1,12 @@
-import { action, computed, observable } from "mobx";
+import { action, computed, observable, makeObservable } from "mobx";
 
 class DemosStore {
     @observable demoFilesNames: string[];
     @observable isLoading = false;
+
+    constructor() {
+        makeObservable(this);
+    }
 
     @computed get gotDemos(): boolean {
         return this.demoFilesNames != null;

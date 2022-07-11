@@ -1,4 +1,4 @@
-import { action, computed, observable } from "mobx";
+import { action, computed, observable, makeObservable } from "mobx";
 import shortid from "shortid";
 
 import { Map } from "../types";
@@ -44,6 +44,10 @@ class MapsStore {
     ];
     @observable mapArchivesNames: string[];
     @observable isLoading = false;
+
+    constructor() {
+        makeObservable(this);
+    }
 
     @computed get availableMaps(): Map[] {
         return this.defaultMapsNames
