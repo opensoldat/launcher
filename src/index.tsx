@@ -13,7 +13,7 @@
  */
 
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { configure as configureMobX } from "mobx";
 
 import App from "./components/App";
@@ -30,4 +30,5 @@ configureMobX({
     enforceActions: "never"
 });
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const root = ReactDOM.createRoot(document.getElementById("app"));
+root.render(<App />);
