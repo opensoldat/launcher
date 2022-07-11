@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocalStore, observer } from "mobx-react";
+import { observer, useLocalObservable } from "mobx-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
@@ -158,7 +158,7 @@ const KeyInput: React.FC<KeyInputProps> = props => {
      * So, instead, we are relying on MobX for this, so that we get both predictable,
      * synchronous state updates, while also maintaining reactivity for rendering.
      */
-    const keyModifiers = useLocalStore<KeyModifiersState>(
+    const keyModifiers = useLocalObservable<KeyModifiersState>(
         () => ({
             alt: false,
             ctrl: false,
