@@ -35,13 +35,11 @@ class SoundSettings implements SoundSettingsData {
         // Theoretically Soldat should handle such scenarios just fine.
         return {
             bindings: null,
-            /* eslint-disable @typescript-eslint/camelcase */
             cvars: {
                 snd_volume: toString(this.volume),
                 snd_effects_battle: toString(this.battleSoundEffects),
                 snd_effects_explosions: toString(this.explosionsSoundEffects)
             }
-            /* eslint-enable @typescript-eslint/camelcase */
         }
     }
 }

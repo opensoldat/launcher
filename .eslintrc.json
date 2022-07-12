@@ -6,15 +6,13 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:import/errors",
-        "plugin:import/warnings",
+        "plugin:import/recommended",
+        "plugin:import/typescript",
         "plugin:react/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "rules": {
-        "react/prop-types": 0
     },
     "settings": {
         "import/resolver": {

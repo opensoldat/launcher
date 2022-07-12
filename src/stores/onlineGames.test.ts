@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
-
 import OnlineGamesStore from "./onlineGames";
 import { EventEmitter } from "events";
 import child_process from "child_process";

@@ -133,7 +133,6 @@ class GraphicsSettings implements GraphicsSettingsData {
         // Theoretically Soldat should handle such scenarios just fine.
         return {
             bindings: null,
-            /* eslint-disable @typescript-eslint/camelcase */
             cvars: {
                 r_fullscreen: toString(this.displayMode),
                 r_renderwidth: "0",
@@ -165,7 +164,6 @@ class GraphicsSettings implements GraphicsSettingsData {
                 r_swapeffect: toString(this.verticalSync),
                 r_dithering: toString(this.dithering)
             }
-            /* eslint-enable @typescript-eslint/camelcase */
         }
     }
 }

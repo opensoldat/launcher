@@ -49,7 +49,6 @@ class GameSettings implements GameSettingsData {
     toConfig(): GameConfig {
         return {
             bindings: null,
-            /* eslint-disable @typescript-eslint/camelcase */
             cvars: {
 //                cl_lang: toString(this.language),
 //                cl_actionsnap: toString(this.actionSnap),
@@ -57,7 +56,6 @@ class GameSettings implements GameSettingsData {
                 cl_screenshake: toString(this.screenShake),
                 cl_servermods: toString(this.allowServerMods)
             }
-            /* eslint-enable @typescript-eslint/camelcase */
         }
     }
 }

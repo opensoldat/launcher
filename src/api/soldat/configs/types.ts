@@ -9,7 +9,6 @@ export interface SoldatConfig {
     };
 }
 
-/* eslint-disable @typescript-eslint/camelcase */
 export interface ControlsConfig extends SoldatConfig {
     bindings: CommonKeyBinding[];
     cvars: {
@@ -129,4 +128,3 @@ export interface ServerConfig extends SoldatConfig {
         net_port: string;
     };
 }
-/* eslint-enable @typescript-eslint/camelcase */

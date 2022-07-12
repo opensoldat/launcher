@@ -92,7 +92,6 @@ class ControlsSettings implements ControlsSettingsData {
         return {
             bindings: toJS(this.bindings),
             cvars: {
-                // eslint-disable-next-line @typescript-eslint/camelcase
                 cl_sensitivity: toString(this.mouseSensitivity / 100.0)
             }
         }
