@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import { isDevelopment } from "./environment";
 import { isSoldatLink, SOLDAT_PROTOCOL } from "./soldatLink";
+import IconImage from "../assets/icon.png";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -24,7 +25,8 @@ const createWindow = (): void => {
             preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
             
             contextIsolation: true
-        }
+        },
+        icon: path.join(__dirname, IconImage)
     });
 
     mainWindow.removeMenu();

@@ -20,7 +20,8 @@
     "config": {
         "forge": {
             "packagerConfig": {
-                "extraResource": "opensoldat"
+                "extraResource": "opensoldat",
+                "icon": "assets/icon"
             },
             "makers": [
                 {
