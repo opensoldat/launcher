@@ -171,7 +171,7 @@ const ControlsPanel: React.FC<ControlsPanelProps> = props => {
                         <div className="title">CUSTOM BINDINGS</div>
 
                         <div className="custom-bindings-description">
-                            The list below lets you configure hotkeys for Soldat commands. You can
+                            The list below lets you configure hotkeys for OpenSoldat commands. You can
                             use any command that you would normally type in the game (by using
                             the {getCommonBinding(CommonGameCommands.Cmd).key || "/"} key). To view
                             the list of available commands, type &quot;cmdlist&quot; as a command inside the game. 

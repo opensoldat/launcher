@@ -7,8 +7,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Make placeholder directory for Soldat game
-        run: mkdir soldat
+      - name: Make placeholder directory for OpenSoldat game
+        run: mkdir opensoldat
 
       - name: Install packages
         run: npm ci
@@ -18,7 +18,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: soldat-launcher-linux
+          name: launcher-linux
           path: out/make/zip/linux/x64/
 
   windows:
@@ -26,8 +26,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Make placeholder directory for Soldat game
-        run: mkdir soldat
+      - name: Make placeholder directory for OpenSoldat game
+        run: mkdir opensoldat
 
       - name: Install packages
         run: npm ci
@@ -37,5 +37,5 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: soldat-launcher-windows
+          name: launcher-windows
           path: out/make/zip/win32/x64/

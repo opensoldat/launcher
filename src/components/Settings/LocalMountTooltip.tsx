@@ -15,10 +15,10 @@ const LocalMountTooltip: React.FC<LocalMountTooltipProps> = props => {
             <div>
                 This option is for modding purposes.
                 <div>
-                    When disabled, Soldat will load game&apos;s files from soldat.smod file.
+                    When disabled, OpenSoldat will load game&apos;s files from soldat.smod file.
                 </div>
                 <div>
-                    When enabled, files will be loaded directly from Soldat&apos;s directory.
+                    When enabled, files will be loaded directly from OpenSoldat&apos;s directory.
                     When enabling this option, make sure you also unzip soldat.smod file.
                 </div>
             </div>

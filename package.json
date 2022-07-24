@@ -1,8 +1,8 @@
 {
-    "name": "soldat-launcher",
-    "productName": "soldat-launcher",
-    "version": "1.0.0",
-    "description": "Launcher for Soldat",
+    "name": "opensoldat-launcher",
+    "productName": "OpenSoldat",
+    "version": "1.8.0",
+    "description": "Launcher for OpenSoldat",
     "main": ".webpack/main",
     "scripts": {
         "start": "electron-forge start",
@@ -20,13 +20,13 @@
     "config": {
         "forge": {
             "packagerConfig": {
-                "extraResource": "soldat"
+                "extraResource": "opensoldat"
             },
             "makers": [
                 {
                     "name": "@electron-forge/maker-squirrel",
                     "config": {
-                        "name": "soldat_launcher"
+                        "name": "opensoldat_launcher"
                     }
                 },
                 {

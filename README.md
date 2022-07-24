@@ -1,6 +1,6 @@
-# Soldat Launcher
+# OpenSoldat Launcher
 
-Launcher for Soldat game, a replacement for the old GUI that was removed with Soldat 1.8.
+Launcher for [OpenSoldat](https://github.com/opensoldat/opensoldat) game, a replacement for the old GUI that was removed in version 1.8.
 
 It's an Electron app, written in Typescript with [React](https://reactjs.org/) and [MobX](https://mobx.js.org).
 
@@ -43,14 +43,11 @@ npm run test
 npm run lint
 ```
 
-This project is meant to be used together with Soldat binaries. By default, the launcher will expect to find a directory called "soldat" at the root of this project. It should contain all files that Soldat needs to operate (binaries for both server and client, dynamic libraries, soldat.smod file and font for the client). When making a release build (with ```npm run make```), this "soldat" directory will be copied to Electron's resources folder. If you want, you can customize the path to Soldat by editing src/api/soldat/paths.ts file.
+This project is meant to be used together with OpenSoldat binaries. By default, the launcher will expect to find a directory called `opensoldat` at the root of this project. It should contain all files that OpenSoldat needs to operate (binaries for both server and client, dynamic libraries, soldat.smod file and font for the client). When making a release build (with ```npm run make```), this `opensoldat` directory will be copied to Electron's resources folder.
 
 When running the app with ```npm start```, you can type ```rs``` in the same terminal to quickly restart it.
 
 ## License
 The launcher is licensed under [MIT](./LICENSE) license.
 
-Files in the "assets" directory were taken from [Soldat's base repository](https://github.com/Soldat/base) and are licensed under [CC BY 4.0](https://github.com/Soldat/base/blob/master/LICENSE.md). Their original author is Michał Marcinkowski. No changes were made to the files.
-
-## Support me
-If you like this project and would like to support me, please consider donating. You can do so with [PayPal](https://paypal.me/janrozanski).
+Files in the `assets` directory were taken from [OpenSoldat's base repository](https://github.com/opensoldat/base) and are licensed under [CC BY 4.0](https://github.com/opensoldat/base/blob/master/LICENSE.txt). Their original author is Michał Marcinkowski. No changes were made to the files.

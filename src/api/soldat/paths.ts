@@ -2,11 +2,11 @@ import path from "path";
 import { isProduction } from "src/environment";
 
 const soldatPaths = {
-    clientDirectory: isProduction ? path.resolve(process.resourcesPath, "soldat") : "./soldat",
-    serverDirectory: isProduction ? path.resolve(process.resourcesPath, "soldat") : "./soldat",
+    clientDirectory: isProduction ? path.resolve(process.resourcesPath, "opensoldat") : "./opensoldat",
+    serverDirectory: isProduction ? path.resolve(process.resourcesPath, "opensoldat") : "./opensoldat",
 
     get clientExecutable(): string {
-        let clientExecutableFilename = "soldat";
+        let clientExecutableFilename = "opensoldat";
         if (process.platform === "win32") {
             clientExecutableFilename += ".exe";
         }
@@ -68,7 +68,7 @@ const soldatPaths = {
     },
 
     get serverExecutable(): string {
-        let serverExecutableFilename = "soldatserver";
+        let serverExecutableFilename = "opensoldatserver";
         if (process.platform === "win32") {
             serverExecutableFilename += ".exe";
         }

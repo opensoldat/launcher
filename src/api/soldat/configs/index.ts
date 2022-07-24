@@ -26,7 +26,7 @@ const makeConfigsFolders = (): Promise<void> => {
     return Promise.all([checkClientExe, checkServerExe])
         .catch(() => {
             return Promise.reject(
-                Error("Soldat was not found in target directory, skipping configs folder creation.")
+                Error("OpenSoldat was not found in expected directory.")
             )
         })
         .then(() => {
