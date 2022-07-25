@@ -44,6 +44,7 @@ const start = (
     }
 
     const clientProcess = spawn(soldatPaths.clientExecutable, [
+        "-fs_portable 1",
         joinArguments,
         launchArguments
     ], { detached: detachedProcess });
