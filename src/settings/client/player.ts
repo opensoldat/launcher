@@ -21,8 +21,8 @@ export enum HairStyles {
 
 export enum HeadStyles {
     None = 0,
-    Helmet = 34,
-    Hat = 124
+    Helmet = 1,
+    Hat = 2
 }
 
 export enum SecondaryWeapons {
