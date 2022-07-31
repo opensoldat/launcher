@@ -100,6 +100,10 @@ class LobbyServersStore {
         this.servers = [];
         this.isFetching = true;
         return new Promise((resolve, reject) => {
+            this.isFetching = false;
+            reject("Lobby server has not been implemented yet");
+
+            /* TODO: reenable once lobby is ready
             fetch(lobbyUrl)
             .then(response => {
                 if (!response.ok) {
@@ -138,7 +142,7 @@ class LobbyServersStore {
                 this.servers = [];
                 console.error(error);
                 reject("An error occurred when connecting to lobby.");
-            });
+            });*/
         });
     }
 

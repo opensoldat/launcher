@@ -2,6 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
 
 import FiltersTooltip from "./FiltersTooltip";
 import SearchBar from "src/components/Common/SearchBar";
@@ -19,7 +20,10 @@ const ServersTableActions: React.FC<ServersTableActionsProps> = props => {
     }
 
     const refreshServers = (): void => {
-        props.serversStore.fetchServers();
+        props.serversStore.fetchServers()
+        .catch(function(errorMessage: string) {
+            toast.error(errorMessage, { autoClose: 2500 });
+        })
     }
 
     return (
