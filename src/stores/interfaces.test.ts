@@ -4,7 +4,7 @@ import ClientLaunchSettingsStore from "./launcher/clientLaunchSettings";
 
 describe("Select options", () => {
     let clientLaunchSettingsStore: ClientLaunchSettingsStore;
-    const flushPromises = (): Promise<NodeJS.Immediate> => new Promise(setImmediate);
+    const flushPromises = (): Promise<void> => new Promise(setImmediate);
     const defaultInterface = "storm";
 
     beforeAll(() => {
