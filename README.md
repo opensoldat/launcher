@@ -37,7 +37,7 @@ npm start
 npm run make
 
 # Runs tests.
-npm run test
+npm test
 
 # Runs ESLint.
 npm run lint
