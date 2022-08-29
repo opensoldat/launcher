@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
+import net from "net";
 import { isDevelopment } from "./environment";
 import { isSoldatLink, SOLDAT_PROTOCOL } from "./soldatLink";
 import IconImage from "../assets/icon.png";
@@ -130,6 +131,23 @@ ipcMain.on("forceClose", () => {
 ipcMain.on("interceptClose", () => {
     interceptClose = true;
 });
+
+const handleGameIpc = (socket: net.Socket) => {
+    console.log("New IPC connection");
+
+    socket.setEncoding("utf-8");
+
+    socket.on("data", data => {
+        console.log("Received from client", data);
+        socket.write("cl_player_name Test");
+    });
+    socket.on("end", () => {
+        console.log("Client disconnected");
+    });
+};
+
+const gameIpcServer = net.createServer(handleGameIpc);
+gameIpcServer.listen(23093);
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
