@@ -1,6 +1,6 @@
 const rules = require("./webpack.rules");
 const plugins = require("./webpack.plugins");
-const path = require("path");
+const alias = require('./webpack.alias');
 
 rules.push({
     test: /\.css$/,
@@ -16,12 +16,9 @@ module.exports = {
     module: {
         rules,
     },
-    plugins: plugins,
+    plugins,
     resolve: {
-        alias: {
-            src: path.resolve(__dirname, "src/"),
-            assets: path.resolve(__dirname, "assets/")
-        },
+        alias,
         extensions: [".js", ".ts", ".jsx", ".tsx", ".css"]
     },
     /* By default, in development mode, electron-webpack uses eval() calls for source maps.

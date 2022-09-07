@@ -1,9 +1,9 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import net from "net";
-import { isDevelopment } from "./environment";
-import { isSoldatLink, SOLDAT_PROTOCOL } from "./soldatLink";
-import IconImage from "../assets/icon.png";
+import { isDevelopment } from "../environment";
+import { isSoldatLink, SOLDAT_PROTOCOL } from "../soldatLink";
+import IconImage from "assets/icon.png";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
