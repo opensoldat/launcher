@@ -40,6 +40,10 @@ const GameplayForm: React.FC<GameplayFormProps> = props => {
                 gameplay.sniperLine = checked;
                 break;
 
+            case "stationary-guns":
+                gameplay.stationaryGuns = checked;
+                break;
+
             case "survival-destroy-weapons":
                 gameplay.styles.survivalDestroyWeaponsAfterRound = checked;
                 break;
@@ -244,7 +248,7 @@ const GameplayForm: React.FC<GameplayFormProps> = props => {
 
             <div className="field">
                 <label className="label" htmlFor="sniper-line">
-                    Sniper line
+                    Allow sniper line
                 </label>
                 <div className="user-input">
                     <Checkbox
@@ -252,6 +256,20 @@ const GameplayForm: React.FC<GameplayFormProps> = props => {
                         id="sniper-line"
                         name="sniper-line"
                         checked={gameplay.sniperLine}
+                        onToggle={handleCheckboxToggle} />
+                </div>
+            </div>
+
+            <div className="field">
+                <label className="label" htmlFor="stationary-guns">
+                    Stationary guns
+                </label>
+                <div className="user-input">
+                    <Checkbox
+                        colorTheme="dark"
+                        id="stationary-guns"
+                        name="stationary-guns"
+                        checked={gameplay.stationaryGuns}
                         onToggle={handleCheckboxToggle} />
                 </div>
             </div>

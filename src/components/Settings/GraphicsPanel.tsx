@@ -84,6 +84,10 @@ const GraphicsPanel: React.FC<GraphicsPanelProps> = props => {
         graphicsSettings.playerIndicator = checked;
     }
 
+    const handleClientSniperlineToggle = (checked: boolean): void => {
+        graphicsSettings.clientSniperline = checked;
+    }
+
     const handleKillsListToggle = (checked: boolean): void => {
         graphicsSettings.killsList = checked;
     }
@@ -330,6 +334,21 @@ const GraphicsPanel: React.FC<GraphicsPanelProps> = props => {
                                     colorTheme="dark"
                                     checked={graphicsSettings.playerIndicator}
                                     onToggle={handlePlayerIndicatorToggle} />
+                            </div>
+                        </div>
+
+                        <div className="field">
+                            <label
+                                className="label"
+                                htmlFor="client-sniperline">
+                                Display sniperline (if server allows it)
+                            </label>
+                            <div className="user-input">
+                                <Checkbox
+                                    id="client-sniperline"
+                                    colorTheme="dark"
+                                    checked={graphicsSettings.clientSniperline}
+                                    onToggle={handleClientSniperlineToggle} />
                             </div>
                         </div>
 

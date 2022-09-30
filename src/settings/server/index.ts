@@ -62,6 +62,7 @@ export interface GameplaySettings {
     bulletTime: boolean;
     friendlyFire: boolean;
     sniperLine: boolean;
+    stationaryGuns: boolean;
 }
 
 export enum BonusFrequencies {
@@ -119,7 +120,8 @@ const defaultServerSettings: ServerSettingsData = {
 
         bulletTime: false,
         friendlyFire: false,
-        sniperLine: false
+        sniperLine: true,
+        stationaryGuns: true
     },
     bots: {
         noTeam: 4,
@@ -179,6 +181,7 @@ class ServerSettings implements ServerSettingsData {
             bulletTime: toBool(config?.cvars.sv_bullettime),
             friendlyFire: toBool(config?.cvars.sv_friendlyfire),
             sniperLine: toBool(config?.cvars.sv_sniperline),
+            stationaryGuns: toBool(config?.cvars.sv_stationaryguns),
         };
 
         this.bots = {
@@ -253,6 +256,7 @@ class ServerSettings implements ServerSettingsData {
                 sv_bullettime: toString(this.gameplay.bulletTime),
                 sv_friendlyfire: toString(this.gameplay.friendlyFire),
                 sv_sniperline: toString(this.gameplay.sniperLine),
+                sv_stationaryguns: toString(this.gameplay.stationaryGuns),
     
                 bots_random_alpha: toString(this.bots.alpha),
                 bots_random_bravo: toString(this.bots.bravo),
