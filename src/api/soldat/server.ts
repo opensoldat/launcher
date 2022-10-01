@@ -43,10 +43,15 @@ const start = (
 
     // For now this seems to get the job done, even though a proper
     // communication system might be better...
+    let stdoutOutput = "";
     serverProcess.stdout.setEncoding("utf8");
     serverProcess.stdout.on("data", (output: string) => {
-        if (output.includes("[NET] Game networking initialized.")) {
-            onReady();
+        if (!stdoutOutput.includes("[NET] Game networking initialized.")) {
+            stdoutOutput += output;
+
+            if (stdoutOutput.includes("[NET] Game networking initialized.")) {
+                onReady();
+            }
         }
     });
 

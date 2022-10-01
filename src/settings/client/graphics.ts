@@ -36,6 +36,7 @@ interface GraphicsSettingsData {
     interfaceStyle: string;
     scaleInterface: boolean;
     playerIndicator: boolean;
+    clientSniperline: boolean;
     killsList: boolean;
 
     verticalSync: boolean;
@@ -63,6 +64,7 @@ const defaultGraphicsSettings: GraphicsSettingsData = {
 
     interfaceStyle: "Default",
     playerIndicator: true,
+    clientSniperline: false,
     scaleInterface: true,
     killsList: true,
 
@@ -88,6 +90,7 @@ class GraphicsSettings implements GraphicsSettingsData {
     @observable interfaceStyle: string;
     @observable scaleInterface: boolean;
     @observable playerIndicator: boolean;
+    @observable clientSniperline: boolean;
     @observable killsList: boolean;
 
     @observable verticalSync: boolean;
@@ -120,6 +123,7 @@ class GraphicsSettings implements GraphicsSettingsData {
         this.interfaceStyle = config?.cvars.ui_style;
         this.scaleInterface = toBool(config?.cvars.r_scaleinterface);
         this.playerIndicator = toBool(config?.cvars.ui_playerindicator);
+        this.clientSniperline = toBool(config?.cvars.ui_sniperline);
         this.killsList = toBool(config?.cvars.ui_killconsole);
 
         this.verticalSync = toBool(config?.cvars.r_swapeffect);
@@ -159,6 +163,7 @@ class GraphicsSettings implements GraphicsSettingsData {
                 ui_style: this.interfaceStyle,
                 r_scaleinterface: toString(this.scaleInterface),
                 ui_playerindicator: toString(this.playerIndicator),
+                ui_sniperline: toString(this.clientSniperline),
                 ui_killconsole: toString(this.killsList),
     
                 r_swapeffect: toString(this.verticalSync),

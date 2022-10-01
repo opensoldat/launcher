@@ -48,6 +48,7 @@ export interface GraphicsConfig extends SoldatConfig {
         ui_style: string;
         r_scaleinterface: string;
         ui_playerindicator: string;
+        ui_sniperline: string;
         ui_killconsole: string;
 
         r_swapeffect: string;
@@ -87,6 +88,7 @@ export interface ServerConfig extends SoldatConfig {
         sv_bullettime: string;
         sv_friendlyfire: string;
         sv_sniperline: string;
+        sv_stationaryguns: string;
 
         sv_survivalmode: string;
         sv_survivalmode_clearweapons: string;
