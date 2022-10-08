@@ -1,4 +1,4 @@
 // This allows us to use import Image from "path/to/image.png".
 
-declare module "*.png"
-declare module "*.bmp"
+declare module "*.png";
+declare module "*.bmp";

@@ -1,31 +1,23 @@
 {
-    "compilerOptions": {
-        "allowJs": true,
-        "module": "commonjs",
-        "target": "es6",
-        "jsx": "react",
-        "skipLibCheck": true,
-        "esModuleInterop": true,
-        "noImplicitAny": true,
-        "sourceMap": true,
-        "baseUrl": ".",
-        "outDir": "dist",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "paths": {
-            "*": [
-                "node_modules/*",
-                "*"
-            ]
-        },
-        "lib": [
-            "DOM",
-            "ES2020.Promise"
-        ],
-        "experimentalDecorators": true,
-        "useDefineForClassFields": true
+  "compilerOptions": {
+    "allowJs": true,
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "paths": {
+      "*": ["node_modules/*", "*"]
     },
-    "include": [
-        "src/**/*"
-    ]
+    "lib": ["DOM", "ES2020.Promise"],
+    "experimentalDecorators": true,
+    "useDefineForClassFields": true
+  },
+  "include": ["src/**/*"]
 }

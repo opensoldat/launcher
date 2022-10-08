@@ -1,33 +1,33 @@
 .demos-page {
-    /* Minor tweak for small window sizes */
-    white-space: nowrap;
+  /* Minor tweak for small window sizes */
+  white-space: nowrap;
 }
 
 .demos-page .panel {
-    max-height: calc(100vh - 12rem);
-    overflow-y: auto;
+  max-height: calc(100vh - 12rem);
+  overflow-y: auto;
 }
 
 .demos-page .demos-list-actions {
-    display: flex;
-    margin-bottom: 1em;
+  display: flex;
+  margin-bottom: 1em;
 }
 
 .demos-page .demos-list-actions .demo-search-bar {
-    flex: 1;
-    margin-right: 1em;
+  flex: 1;
+  margin-right: 1em;
 }
 
 .demos-page button {
-    font-size: medium;
+  font-size: medium;
 }
 
 .demos-page button .icon {
-    margin-right: 0.5em;
+  margin-right: 0.5em;
 }
 
 .demos-page .action-buttons {
-    display: flex;
-    margin-top: 1em;
-    justify-content: flex-end;
+  display: flex;
+  margin-top: 1em;
+  justify-content: flex-end;
 }

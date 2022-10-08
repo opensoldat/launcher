@@ -2,36 +2,36 @@ import { defaults } from "lodash";
 import { action, computed, observable, makeObservable } from "mobx";
 
 export interface ServerLaunchSettings {
-    // TODO: consider allowing users to specify paths (fs_userpath, fs_basepath).
-    customArguments: string;
+  // TODO: consider allowing users to specify paths (fs_userpath, fs_basepath).
+  customArguments: string;
 }
 
 const defaultLaunchSettings: ServerLaunchSettings = {
-    customArguments: ""
+  customArguments: "",
 };
 
 class ServerLaunchSettingsStore implements ServerLaunchSettings {
-    @observable customArguments: string;
+  @observable customArguments: string;
 
-    constructor() {
-        makeObservable(this);
-    }
+  constructor() {
+    makeObservable(this);
+  }
 
-    getSettings(): ServerLaunchSettings {
-        return {
-            customArguments: this.customArguments
-        }
-    }
+  getSettings(): ServerLaunchSettings {
+    return {
+      customArguments: this.customArguments,
+    };
+  }
 
-    @action setSettings(settings: ServerLaunchSettings): void {
-        this.customArguments = settings?.customArguments;
+  @action setSettings(settings: ServerLaunchSettings): void {
+    this.customArguments = settings?.customArguments;
 
-        defaults(this, defaultLaunchSettings);
-    }
+    defaults(this, defaultLaunchSettings);
+  }
 
-    @computed get launchArguments(): string {
-        return this.customArguments;
-    }
+  @computed get launchArguments(): string {
+    return this.customArguments;
+  }
 }
 
 export default ServerLaunchSettingsStore;

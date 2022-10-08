@@ -1,43 +1,43 @@
 import { Map } from ".";
 
 export enum TabsIndexes {
-    Lobby = 0,
-    LocalGame,
-    Demos,
-    Settings
+  Lobby = 0,
+  LocalGame,
+  Demos,
+  Settings,
 }
 
 export interface DemosPageUiState {
-    searchTerm: string;
-    selectedDemoFileName: string;
+  searchTerm: string;
+  selectedDemoFileName: string;
 }
 
 export interface LobbyPageUiState {
-    showServerDetails: {
-        [key: string]: boolean;
-    };
+  showServerDetails: {
+    [key: string]: boolean;
+  };
 }
 
 export interface LocalGamePageUiState {
-    gameplaySettingsCollapsed: boolean;
-    mapsSettingsCollapsed: boolean;
-    mapsSelection: MapsSelectionUiState;
-    botsSettingsCollapsed: boolean;
-    bonusesSettingsCollapsed: boolean;
-    advancedSettingsCollapsed: boolean;
+  gameplaySettingsCollapsed: boolean;
+  mapsSettingsCollapsed: boolean;
+  mapsSelection: MapsSelectionUiState;
+  botsSettingsCollapsed: boolean;
+  bonusesSettingsCollapsed: boolean;
+  advancedSettingsCollapsed: boolean;
 }
 
 export interface MapsSelectionUiState {
-    searchFilter: string;
-    highlightedMap: Map;
+  searchFilter: string;
+  highlightedMap: Map;
 }
 
 export enum SettingsPageTabsIndexes {
-    Player = 0,
-    Controls,
-    Graphics
+  Player = 0,
+  Controls,
+  Graphics,
 }
 
 export interface SettingsPageUiState {
-    selectedTabIndex: SettingsPageTabsIndexes;
+  selectedTabIndex: SettingsPageTabsIndexes;
 }

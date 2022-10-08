@@ -1,15 +1,15 @@
 .players-list {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .server-details-cell .copy-button {
-    cursor: pointer;
-    margin-left: 0.5em;
-    display: flex;
-    align-items: center;
+  cursor: pointer;
+  margin-left: 0.5em;
+  display: flex;
+  align-items: center;
 }
 
 .server-details-cell {
-    margin-left: 2em;
+  margin-left: 2em;
 }

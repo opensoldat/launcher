@@ -1,42 +1,41 @@
 import { action, computed, observable, makeObservable } from "mobx";
 
 class DemosStore {
-    @observable demoFilesNames: string[];
-    @observable isLoading = false;
+  @observable demoFilesNames: string[];
+  @observable isLoading = false;
 
-    constructor() {
-        makeObservable(this);
+  constructor() {
+    makeObservable(this);
+  }
+
+  @computed get gotDemos(): boolean {
+    return this.demoFilesNames != null;
+  }
+
+  filterDemos(searchTerm: string): string[] {
+    if (!this.demoFilesNames) {
+      return [];
     }
 
-    @computed get gotDemos(): boolean {
-        return this.demoFilesNames != null;
-    }
+    return this.demoFilesNames.filter((fileName) => {
+      return fileName.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+  }
 
-    filterDemos(searchTerm: string): string[] {
-        if (!this.demoFilesNames) {
-            return [];
-        }
+  @action loadDemos(): void {
+    this.isLoading = true;
 
-        return this.demoFilesNames.filter(fileName => {
-            return fileName.toLowerCase().includes(searchTerm.toLowerCase());
-        });
-    }
+    window.soldat.demos.listFilesNames().then(
+      action((filesNames) => {
+        this.demoFilesNames = filesNames;
+        this.isLoading = false;
+      })
+    );
+  }
 
-    @action loadDemos(): void {
-        this.isLoading = true;
-
-        window.soldat.demos.listFilesNames()
-        .then(
-            action(filesNames => {
-                this.demoFilesNames = filesNames;
-                this.isLoading = false;
-            })
-        );
-    }
-
-    playDemo(fileName: string, onPlaybackFailed: (error: Error) => void): void {
-        window.soldat.demos.play(fileName, onPlaybackFailed);
-    }
+  playDemo(fileName: string, onPlaybackFailed: (error: Error) => void): void {
+    window.soldat.demos.play(fileName, onPlaybackFailed);
+  }
 }
 
 export default DemosStore;

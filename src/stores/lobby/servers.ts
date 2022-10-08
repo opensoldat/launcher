@@ -8,102 +8,105 @@ type LobbyGameMode = "CTF" | "DM" | "HTF" | "INF" | "PM" | "RM" | "TM";
 // Follows structure of response that we get from lobby api.
 // https://wiki.soldat.pl/index.php/Lobby_HTTP_API
 interface LobbyServer {
-    AC: boolean;
-    Advanced: boolean;
-    BonusFreq: number;
-    ConnectionType: number;
-    Country: string;
-    CurrentMap: string;
-    Dedicated: boolean;
-    GameStyle: LobbyGameMode;
-    IP: string;
-    Info: string;
-    MaxPlayers: number;
-    Name: string;
-    NumBots: number;
-    NumPlayers: number;
-    OS: string;
-    Port: number;
-    Private: boolean;
-    Realistic: boolean;
-    Respawn: number;
-    Survival: boolean;
-    Version: string;
-    WM: boolean;
+  AC: boolean;
+  Advanced: boolean;
+  BonusFreq: number;
+  ConnectionType: number;
+  Country: string;
+  CurrentMap: string;
+  Dedicated: boolean;
+  GameStyle: LobbyGameMode;
+  IP: string;
+  Info: string;
+  MaxPlayers: number;
+  Name: string;
+  NumBots: number;
+  NumPlayers: number;
+  OS: string;
+  Port: number;
+  Private: boolean;
+  Realistic: boolean;
+  Respawn: number;
+  Survival: boolean;
+  Version: string;
+  WM: boolean;
 }
 
 class LobbyServersStore {
-    @observable servers: Server[] = undefined;
-    @observable isFetching = false;
+  @observable servers: Server[] = undefined;
+  @observable isFetching = false;
 
-    @observable playersLists: { [key: string]: string[] } = {};
-    @observable isFetchingPlayersList: { [key: string]: boolean } = {};
+  @observable playersLists: { [key: string]: string[] } = {};
+  @observable isFetchingPlayersList: { [key: string]: boolean } = {};
 
-    filtersStore = new ServerFiltersStore();
-    sortStore = new ServersSortStore();
+  filtersStore = new ServerFiltersStore();
+  sortStore = new ServersSortStore();
 
-    constructor() {
-        makeObservable(this);
-    }
+  constructor() {
+    makeObservable(this);
+  }
 
-    @action fetchPlayersList(serverIp: string, serverPort: string): Promise<void> {
-        const apiUrl = `https://api.soldat.pl/v0/server/${serverIp}/${serverPort}/players`;
-        const serverId = serverIp + serverPort;
+  @action fetchPlayersList(
+    serverIp: string,
+    serverPort: string
+  ): Promise<void> {
+    const apiUrl = `https://api.soldat.pl/v0/server/${serverIp}/${serverPort}/players`;
+    const serverId = serverIp + serverPort;
 
-        this.isFetchingPlayersList[serverId] = true;
-        return fetch(apiUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Could not retrieve players' list.");
-                }
-                return response.json();
-            })
-            .then(
-                action(response => {
-                    this.playersLists[serverId] = response.Players;
-                })
-            )
-            .catch(
-                action(() => {
-                    this.playersLists[serverId] = null;
-                })
-            )
-            .finally(
-                action(() => {
-                    this.isFetchingPlayersList[serverId] = false;
-                })
-            );
-    }
-
-    @action fetchServers(): Promise<void> {
-        const lobbyUrl = "https://api.soldat.pl/v0/servers";
-
-        function getGameMode(lobbyGameMode: LobbyGameMode): GameModes {
-            switch (lobbyGameMode) {
-                case "CTF":
-                    return GameModes.CaptureTheFlag;
-                case "DM":
-                    return GameModes.DeathMatch;
-                case "HTF":
-                    return GameModes.HoldTheFlag;
-                case "INF":
-                    return GameModes.Infiltration;
-                case "PM":
-                    return GameModes.PointMatch;
-                case "RM":
-                    return GameModes.RamboMatch;
-                case "TM":
-                    return GameModes.TeamDeathMatch;
-            }
+    this.isFetchingPlayersList[serverId] = true;
+    return fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Could not retrieve players' list.");
         }
+        return response.json();
+      })
+      .then(
+        action((response) => {
+          this.playersLists[serverId] = response.Players;
+        })
+      )
+      .catch(
+        action(() => {
+          this.playersLists[serverId] = null;
+        })
+      )
+      .finally(
+        action(() => {
+          this.isFetchingPlayersList[serverId] = false;
+        })
+      );
+  }
 
-        this.servers = [];
-        this.isFetching = true;
-        return new Promise((resolve, reject) => {
-            this.isFetching = false;
-            reject("Lobby server has not been implemented yet");
+  @action fetchServers(): Promise<void> {
+    const lobbyUrl = "https://api.soldat.pl/v0/servers";
 
-            /* TODO: reenable once lobby is ready
+    function getGameMode(lobbyGameMode: LobbyGameMode): GameModes {
+      switch (lobbyGameMode) {
+        case "CTF":
+          return GameModes.CaptureTheFlag;
+        case "DM":
+          return GameModes.DeathMatch;
+        case "HTF":
+          return GameModes.HoldTheFlag;
+        case "INF":
+          return GameModes.Infiltration;
+        case "PM":
+          return GameModes.PointMatch;
+        case "RM":
+          return GameModes.RamboMatch;
+        case "TM":
+          return GameModes.TeamDeathMatch;
+      }
+    }
+
+    this.servers = [];
+    this.isFetching = true;
+    return new Promise((resolve, reject) => {
+      this.isFetching = false;
+      reject("Lobby server has not been implemented yet");
+
+      /* TODO: reenable once lobby is ready
             fetch(lobbyUrl)
             .then(response => {
                 if (!response.ok) {
@@ -143,19 +146,19 @@ class LobbyServersStore {
                 console.error(error);
                 reject("An error occurred when connecting to lobby.");
             });*/
-        });
+    });
+  }
+
+  // Applies both filtering and sorting.
+  @computed get filteredServers(): Server[] {
+    if (this.servers == null) {
+      return [];
     }
 
-    // Applies both filtering and sorting.
-    @computed get filteredServers(): Server[] {
-        if (this.servers == null) {
-            return [];
-        }
-
-        return this.servers
-            .filter(server => this.filtersStore.filter(server))
-            .sort((serverA, serverB) => this.sortStore.sort(serverA, serverB));
-    }
+    return this.servers
+      .filter((server) => this.filtersStore.filter(server))
+      .sort((serverA, serverB) => this.sortStore.sort(serverA, serverB));
+  }
 }
 
 export default LobbyServersStore;

@@ -1,47 +1,47 @@
 .connect-form {
-    display: flex;
-    overflow: hidden;
+  display: flex;
+  overflow: hidden;
 }
 
 .connect-form .field input[type="text"] {
-    height: 2em;
-    width: 100%;
-    font-size: 1em;
-    box-sizing: border-box;
-    padding: 6px;
-    border-radius: 3px;
-    border: 1px;
+  height: 2em;
+  width: 100%;
+  font-size: 1em;
+  box-sizing: border-box;
+  padding: 6px;
+  border-radius: 3px;
+  border: 1px;
 
-    margin-top: 0.4em;
+  margin-top: 0.4em;
 }
 
 .connect-form .field {
-    flex: 1;
+  flex: 1;
 }
 
 .connect-form .field:not(:last-child) {
-    margin-right: 1em;
+  margin-right: 1em;
 }
 
 .connect-form .field label {
-    display: inline-block;
-    white-space: nowrap;
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .connect-form .field.button-field {
-    margin-top: auto;
+  margin-top: auto;
 }
 
 .connect-form .field .button {
-    font-size: 1em;
-    width: 100%;
+  font-size: 1em;
+  width: 100%;
 
-    margin-bottom: 1.5em; /* Should match error message's height + margin-top. */
+  margin-bottom: 1.5em; /* Should match error message's height + margin-top. */
 }
 
 .connect-form .error-message {
-    height: 1.25em;
-    color: #ff5c5c;
-    margin-top: 0.25em;
-    white-space: nowrap;
+  height: 1.25em;
+  color: #ff5c5c;
+  margin-top: 0.25em;
+  white-space: nowrap;
 }

@@ -1,15 +1,15 @@
 .demos-list {
-    min-height: 2.5em;
-    border: 1px solid #828282;
+  min-height: 2.5em;
+  border: 1px solid #828282;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .demos-list .demos-list-item:first-child {
-    border-top: 0px;
+  border-top: 0px;
 }
 
 .demos-list .centered-container {
-    margin: auto;
+  margin: auto;
 }

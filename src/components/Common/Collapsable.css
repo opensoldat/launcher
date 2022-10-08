@@ -1,17 +1,17 @@
 .collapsable > .header {
-    cursor: pointer;
+  cursor: pointer;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .collapsable .collapsed-icon {
-    display: inline-block;
-    margin-left: 1em;
-    margin-right: 1em;
-    min-width: 1em;
+  display: inline-block;
+  margin-left: 1em;
+  margin-right: 1em;
+  min-width: 1em;
 }
 
 .collapsable > .content {
-    padding: 1em;
+  padding: 1em;
 }

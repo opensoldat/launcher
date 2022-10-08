@@ -5,11 +5,11 @@ import PlayerSettingsStore from "./player";
 import SoundSettingsStore from "./sound";
 
 class ClientSettingsStore {
-    controlsWrapperStore = new ControlsWrapperStore();
-    gameSettingsStore = new GameSettingsStore();
-    graphicsSettingsStore = new GraphicsSettingsStore();
-    playerSettingsStore = new PlayerSettingsStore();
-    soundSettingsStore = new SoundSettingsStore();
+  controlsWrapperStore = new ControlsWrapperStore();
+  gameSettingsStore = new GameSettingsStore();
+  graphicsSettingsStore = new GraphicsSettingsStore();
+  playerSettingsStore = new PlayerSettingsStore();
+  soundSettingsStore = new SoundSettingsStore();
 }
 
 export default ClientSettingsStore;

@@ -1,37 +1,37 @@
 .filters-tooltip {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .filters-tooltip .filter-field {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.6em;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.6em;
 }
 
 .filters-tooltip .filter-field .label {
-    margin-right: 1.5em;
-    width: 6em;
-    text-align: right;
+  margin-right: 1.5em;
+  width: 6em;
+  text-align: right;
 }
 
 .filters-tooltip .filter-field .user-input {
-    flex: 1;
-    min-width: 14em;
+  flex: 1;
+  min-width: 14em;
 }
 
 .filters-tooltip .buttons {
-    margin-top: 0.8em;
-    padding-top: 0.8em;
-    border-top: 1px solid #cccccc;
+  margin-top: 0.8em;
+  padding-top: 0.8em;
+  border-top: 1px solid #cccccc;
 
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .filters-tooltip .buttons .button {
-    font-size: 1em;
+  font-size: 1em;
 }
 
 .filters-tooltip .buttons .button:not(:last-child) {
-    margin-right: 1em;
+  margin-right: 1em;
 }
