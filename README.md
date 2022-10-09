@@ -4,6 +4,9 @@ Launcher for [OpenSoldat](https://github.com/opensoldat/opensoldat) game, a repl
 
 It's an Electron app, written in Typescript with [React](https://reactjs.org/) and [MobX](https://mobx.js.org).
 
+We use [Prettier](https://prettier.io/) to format the code - please remember to run `npm run format` before committing.
+Or better yet, set up your editor to run it for you when saving files.
+
 ## Available features
 
 - List, sort and filter available servers, and join online games from _Lobby_ tab
@@ -43,7 +46,10 @@ npm run make
 # Runs tests.
 npm test
 
-# Runs ESLint.
+# Formats the code with Prettier. Remember to run it before committing!
+npm run format
+
+# Analyzes the code with ESLint.
 npm run lint
 ```
 
