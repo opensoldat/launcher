@@ -4,26 +4,26 @@ import { ServerConfig } from "src/api/soldat/configs/types";
 import validateNumber from "src/validation/number";
 
 interface NetworkSettingsData {
-    port: string;
+  port: string;
 }
 
 const defaultNetworkSettings: NetworkSettingsData = {
-    port: "23074"
+  port: "23074",
 };
 
 class NetworkSettings implements NetworkSettingsData {
-    @observable port: string;
+  @observable port: string;
 
-    constructor(config?: ServerConfig) {
-        makeObservable(this);
-        this.port = config?.cvars.net_port;
+  constructor(config?: ServerConfig) {
+    makeObservable(this);
+    this.port = config?.cvars.net_port;
 
-        defaultsDeep(this, defaultNetworkSettings);
-    }
+    defaultsDeep(this, defaultNetworkSettings);
+  }
 
-    @computed get portError(): string {
-        return validateNumber(this.port, 1, 65535);
-    }
+  @computed get portError(): string {
+    return validateNumber(this.port, 1, 65535);
+  }
 }
 
 export default NetworkSettings;

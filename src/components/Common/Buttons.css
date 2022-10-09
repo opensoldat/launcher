@@ -1,56 +1,56 @@
 .button {
-    cursor: pointer;
-    padding: 0.375rem 0.75rem;
-    border-radius: 0.25rem;
-    border: 1px solid transparent;
+  cursor: pointer;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  border: 1px solid transparent;
 }
 
 .button:disabled {
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 .green-button {
-    color: #ffffff;
-    background-color: #5cb85c;
-    border-color: #4cae4c;
+  color: #ffffff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
 }
 
 .green-button:hover {
-    background-color: #449d44;
-    border-color: #398439;
+  background-color: #449d44;
+  border-color: #398439;
 }
 
 .green-button:active {
-    background-color: #398439;
-    border-color: #255625;
+  background-color: #398439;
+  border-color: #255625;
 }
 
 .red-button {
-    color: #ffffff;
-    background-color: #dc3545;
-    border-color: #dc3545;
+  color: #ffffff;
+  background-color: #dc3545;
+  border-color: #dc3545;
 }
 
 .red-button:hover {
-    background-color: #c82333;
-    border-color: #bd2130;
+  background-color: #c82333;
+  border-color: #bd2130;
 }
 
 .red-button:active {
-    background-color: #bd2130;
-    border-color: #b21f2e;
+  background-color: #bd2130;
+  border-color: #b21f2e;
 }
 
 .grey-button {
-    background-color: #efefef;
-    border-color: #bbbbbb;
+  background-color: #efefef;
+  border-color: #bbbbbb;
 }
 
 .grey-button:hover {
-    background-color: #dbdbdb;
-    border-color: #b8b8b8;
+  background-color: #dbdbdb;
+  border-color: #b8b8b8;
 }
 
 .grey-button:active {
-    background-color: #c2c2c2;
+  background-color: #c2c2c2;
 }

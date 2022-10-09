@@ -1,15 +1,15 @@
 .map-preview {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overscroll-behavior: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overscroll-behavior: contain;
 
-    border: 1px solid #808080;
+  border: 1px solid #808080;
 }
 
 .map-preview iframe {
-    border: 0;
+  border: 0;
 
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }

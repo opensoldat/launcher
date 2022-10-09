@@ -1,87 +1,91 @@
 .form .field {
-    width: 100%;
-    display: flex;
-    align-items: flex-start;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
 }
 
 .form .field > .label {
-    flex: 0 0 55%;
-    background-color: #282828;
-    height: 2rem;
-    line-height: 2rem;
-    padding-left: 0.5rem;
-    overflow: hidden;
-    white-space: nowrap;
+  flex: 0 0 55%;
+  background-color: #282828;
+  height: 2rem;
+  line-height: 2rem;
+  padding-left: 0.5rem;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .form .field .label-with-info {
-    display: inline-flex;
-    align-items: center;
+  display: inline-flex;
+  align-items: center;
 }
 
 .form .field .label-with-info .info-icon {
-    margin-left: 1em;
+  margin-left: 1em;
 }
 
 .form .field .user-input {
-    margin-left: 1rem;
-    flex: 1;
-    min-height: 2rem;
-    min-width: 0;
+  margin-left: 1rem;
+  flex: 1;
+  min-height: 2rem;
+  min-width: 0;
 
-    /* Provides positioning for validation error message. */
-    display: flex;
-    flex-direction: column;
+  /* Provides positioning for validation error message. */
+  display: flex;
+  flex-direction: column;
 
-    /* Vertical alignment for checkboxes inside form. */
-    justify-content: center;
+  /* Vertical alignment for checkboxes inside form. */
+  justify-content: center;
 }
 
 .form .field .user-input .inline {
-    display: inline-flex;
+  display: inline-flex;
 }
 
 .form .field:not(:last-child) {
-    padding-bottom: 0.5em;
-    margin-bottom: 0.5em;
-    border-bottom: 1px solid #828282; 
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 1px solid #828282;
 }
 
-.form .user-input input, select, .color-input, .dropdown {
-    width: 100%;
-    /* Label's and input's height should match. */
-    height: 2rem;
-    box-sizing: border-box;
+.form .user-input input,
+select,
+.color-input,
+.dropdown {
+  width: 100%;
+  /* Label's and input's height should match. */
+  height: 2rem;
+  box-sizing: border-box;
 }
 
-.form .user-input .full-width, .resolution-select {
-    width: 100%;
+.form .user-input .full-width,
+.resolution-select {
+  width: 100%;
 }
 
 .form .user-input input {
-    text-align: center;
-    font-size: 1em;
+  text-align: center;
+  font-size: 1em;
 }
 
 .form .user-input.checkboxes-list .checkbox-container {
-    /* Should match height of form field's label */
-    height: 2rem;
+  /* Should match height of form field's label */
+  height: 2rem;
 }
 
 /* We don't want top margin when the fields group is
  * first element inside form */
 .form .fields-group:not(:first-child) {
-    margin-top: 2.5rem;
+  margin-top: 2.5rem;
 }
 
 .form .fields-group .title {
-    border-bottom: 1px solid #828282;
-    margin-bottom: 0.5rem;
-    padding-bottom: 0.5rem;
+  border-bottom: 1px solid #828282;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .form .error-message {
-    color: #ff5c5c;
-    font-size: 1rem;
-    margin-top: 3px;
+  color: #ff5c5c;
+  font-size: 1rem;
+  margin-top: 3px;
 }

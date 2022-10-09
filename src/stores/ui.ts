@@ -1,46 +1,46 @@
 import { observable, makeObservable } from "mobx";
 import {
-    DemosPageUiState,
-    LobbyPageUiState,
-    LocalGamePageUiState,
-    SettingsPageUiState,
-    SettingsPageTabsIndexes,
-    TabsIndexes,
+  DemosPageUiState,
+  LobbyPageUiState,
+  LocalGamePageUiState,
+  SettingsPageUiState,
+  SettingsPageTabsIndexes,
+  TabsIndexes,
 } from "../types/ui";
 
 class UiStore {
-    @observable selectedTabIndex = TabsIndexes.Lobby;
+  @observable selectedTabIndex = TabsIndexes.Lobby;
 
-    @observable demosPage: DemosPageUiState = {
-        searchTerm: "",
-        selectedDemoFileName: ""
-    };
+  @observable demosPage: DemosPageUiState = {
+    searchTerm: "",
+    selectedDemoFileName: "",
+  };
 
-    @observable lobbyPage: LobbyPageUiState = {
-        showServerDetails: {}
-    };
+  @observable lobbyPage: LobbyPageUiState = {
+    showServerDetails: {},
+  };
 
-    @observable localGamePage: LocalGamePageUiState = {
-        gameplaySettingsCollapsed: false,
-        
-        mapsSettingsCollapsed: true,
-        mapsSelection: {
-            searchFilter: "",
-            highlightedMap: null
-        },
+  @observable localGamePage: LocalGamePageUiState = {
+    gameplaySettingsCollapsed: false,
 
-        botsSettingsCollapsed: true,
-        bonusesSettingsCollapsed: true,
-        advancedSettingsCollapsed: true
-    };
+    mapsSettingsCollapsed: true,
+    mapsSelection: {
+      searchFilter: "",
+      highlightedMap: null,
+    },
 
-    @observable settingsPage: SettingsPageUiState = {
-        selectedTabIndex: SettingsPageTabsIndexes.Player
-    };
+    botsSettingsCollapsed: true,
+    bonusesSettingsCollapsed: true,
+    advancedSettingsCollapsed: true,
+  };
 
-    constructor() {
-        makeObservable(this);
-    }
+  @observable settingsPage: SettingsPageUiState = {
+    selectedTabIndex: SettingsPageTabsIndexes.Player,
+  };
+
+  constructor() {
+    makeObservable(this);
+  }
 }
 
 export default UiStore;

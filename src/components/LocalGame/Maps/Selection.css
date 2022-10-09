@@ -1,44 +1,44 @@
 .map-selection-container {
-    display: flex;
+  display: flex;
 }
 
 .map-selection-container .map-selection {
-    flex: 0 0 40%;
+  flex: 0 0 40%;
 }
 
 .map-selection-container .map-preview {
-    margin-left: 1em;
-    flex: 1;
+  margin-left: 1em;
+  flex: 1;
 
-    overflow: auto;
+  overflow: auto;
 }
 
 .map-selection input {
-    width:100%;
-    box-sizing: border-box;
+  width: 100%;
+  box-sizing: border-box;
 
-    height: 2em;
-    font-size: 0.9em;
-    padding-left: 1.3em;
+  height: 2em;
+  font-size: 0.9em;
+  padding-left: 1.3em;
 }
 
 .map-selection .maps-list-actions {
-    display: flex;
+  display: flex;
 }
 
-.map-selection .maps-list-actions .maps-search-bar{
-    flex: 1;
-    margin-right: 0.2em;
+.map-selection .maps-list-actions .maps-search-bar {
+  flex: 1;
+  margin-right: 0.2em;
 }
 
 .map-selection .maps-list-container {
-    margin-top: 1em;
+  margin-top: 1em;
 }
 
 .maps-list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }

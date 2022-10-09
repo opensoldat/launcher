@@ -1,16 +1,16 @@
-.resolution-select .custom-resolution-fields  {
-    margin-top: 0.5em;
+.resolution-select .custom-resolution-fields {
+  margin-top: 0.5em;
 
-    display: inline-flex;
-    align-items: center;
-    width: 100%;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
 }
 
 .resolution-select .custom-resolution-fields input {
-    flex: 1;
+  flex: 1;
 }
 
 .resolution-select .custom-resolution-fields .separator {
-    flex: 0.3;
-    text-align: center;
+  flex: 0.3;
+  text-align: center;
 }

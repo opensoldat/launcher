@@ -1,26 +1,26 @@
 .settings-panel-container .action-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1em;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1em;
 
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .settings-panel-container .action-buttons .button {
-    font-size: 1.1rem;
-    height: 2.3em;
-    white-space: nowrap;
+  font-size: 1.1rem;
+  height: 2.3em;
+  white-space: nowrap;
 }
 
 /* Right-align if there is only one button. */
 .settings-panel-container .action-buttons .button:only-child {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 .settings-panel-container .action-buttons .button:not(:last-child) {
-    margin-right: 1em;
+  margin-right: 1em;
 }
 
 .settings-panel-container .centered-spinner {
-    text-align: center;
+  text-align: center;
 }

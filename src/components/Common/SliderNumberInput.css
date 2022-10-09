@@ -1,19 +1,19 @@
 .slider-number-input-container {
-    display: flex;
-    height: 100%;
-    width: 100%;
+  display: flex;
+  height: 100%;
+  width: 100%;
 }
 
 .slider-number-input-container .slider-container {
-    flex: 1;
+  flex: 1;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .slider-number-input-container .number-input-container {
-    flex: 0 0 20%;
-    min-width: 3em;
+  flex: 0 0 20%;
+  min-width: 3em;
 
-    margin-left: 1em;
+  margin-left: 1em;
 }

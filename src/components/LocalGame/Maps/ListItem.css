@@ -1,59 +1,57 @@
 .maps-list .item {
-    cursor: pointer;
+  cursor: pointer;
 
-    height: 2em;
+  height: 2em;
 
-    border-left: 0px;
-    border-right: 0px;
+  border-left: 0px;
+  border-right: 0px;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .maps-list .item .map-name {
-    flex: 1;
-    margin-left: 1em;
+  flex: 1;
+  margin-left: 1em;
 }
 
 .maps-list .item .actions {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .maps-list .item:hover .actions {
-    visibility: visible;
-    float: right;
-    margin-right: 0.5em;
+  visibility: visible;
+  float: right;
+  margin-right: 0.5em;
 }
 
-
-
 .maps-list .item {
-    color: #ffffff;
-    background-color: #282828;
+  color: #ffffff;
+  background-color: #282828;
 
-    border-top: 1px solid #828282;
-    border-bottom: 1px solid #828282;
-    margin-bottom: -1px;
+  border-top: 1px solid #828282;
+  border-bottom: 1px solid #828282;
+  margin-bottom: -1px;
 }
 
 .maps-list .item:hover {
-    background-color: #3e444d;
+  background-color: #3e444d;
 }
 
 /* We don't want to style the item when
  * a child element is clicked */
 .maps-list .item:active:not(:focus-within) {
-    background-color: #30353b;
+  background-color: #30353b;
 }
 
 .maps-list .item.highlighted {
-    background-color: #495059;
+  background-color: #495059;
 }
 
 .maps-list .item.highlighted:hover {
-    background-color: #3e444d;
+  background-color: #3e444d;
 }
 
 .maps-list .item.highlighted:active:not(:focus-within) {
-    background-color: #3a3f47;
+  background-color: #3a3f47;
 }

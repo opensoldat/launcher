@@ -1,25 +1,25 @@
 .maps-list {
-    height: 10em;
+  height: 10em;
 
-    /* We display the scrollbar by default.
+  /* We display the scrollbar by default.
      * Otherwise maps list would adjust its width
      * whenever scrollbar appears, which doesn't look great. */
-    overflow-y: scroll;
+  overflow-y: scroll;
 
-    border: 1px solid #828282;
+  border: 1px solid #828282;
 }
 
 .maps-list .item:first-child {
-    border-top: 0px;
+  border-top: 0px;
 }
 
 .maps-list .empty-message {
-    color: #a0a0a0;
+  color: #a0a0a0;
 }
 
 .maps-list .centered-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }

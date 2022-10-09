@@ -6,51 +6,51 @@ import { Map } from "src/types";
 const defaultMapsNames = ["ctf_Ash"];
 
 class ServerMapsList {
-    @observable maps: Map[];
+  @observable maps: Map[];
 
-    constructor(mapsNames: string[]) {
-        makeObservable(this);
-        if (!mapsNames) {
-            mapsNames = defaultMapsNames;
-        }
-
-        this.maps = mapsNames.map(mapName => {
-            return {
-                id: shortid.generate(),
-                name: mapName
-            }
-        });
+  constructor(mapsNames: string[]) {
+    makeObservable(this);
+    if (!mapsNames) {
+      mapsNames = defaultMapsNames;
     }
 
-    @action add(mapName: string): Map {
-        const newMap: Map = {
-            id: shortid.generate(),
-            name: mapName
-        };
+    this.maps = mapsNames.map((mapName) => {
+      return {
+        id: shortid.generate(),
+        name: mapName,
+      };
+    });
+  }
 
-        this.maps.push(newMap);
-        return newMap;
-    }
+  @action add(mapName: string): Map {
+    const newMap: Map = {
+      id: shortid.generate(),
+      name: mapName,
+    };
 
-    @action clear(): void {
-        this.maps.length = 0;
-    }
+    this.maps.push(newMap);
+    return newMap;
+  }
 
-    @action remove(mapId: string): void {
-        const index = this.maps.findIndex(map => map.id === mapId);
-        this.maps.splice(index, 1);
-    }
+  @action clear(): void {
+    this.maps.length = 0;
+  }
 
-    get firstMap(): Map {
-        if (this.maps.length === 0) {
-            return null;
-        }
-        return this.maps[0];
-    }
+  @action remove(mapId: string): void {
+    const index = this.maps.findIndex((map) => map.id === mapId);
+    this.maps.splice(index, 1);
+  }
 
-    get mapsNames(): string[] {
-        return this.maps.map(x => x.name);
+  get firstMap(): Map {
+    if (this.maps.length === 0) {
+      return null;
     }
+    return this.maps[0];
+  }
+
+  get mapsNames(): string[] {
+    return this.maps.map((x) => x.name);
+  }
 }
 
 export default ServerMapsList;

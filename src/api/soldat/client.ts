@@ -17,61 +17,65 @@ const clients = new Map<string, ChildProcess>();
  * In case of local game, we have to kill the server process (otherwise user
  * would have to kill it on his own from task manager), so we might as well
  * kill the client connected to it. In this case, we pass false for "detachedProcess".
- * 
+ *
  * This function returns the unique identifier of the client being launched.
  */
 const start = (
-    ip: string,
-    port: number,
-    password: string,
-    launchArguments: string,
-    onFailed: (clientId: string, error: Error) => void,
-    onTerminated: (clientId: string) => void,
-    detachedProcess: boolean
- ): string => {
-    if (!isIPv4(ip)) {
-        throw Error("Invalid IP address passed to client launcher.");
-    }
-    
-    if (typeof(port) !== "number" || !isFinite(port) || Math.round(port) !== port) {
-        throw Error("Invalid port parameter passed to client launcher.");
-    }
+  ip: string,
+  port: number,
+  password: string,
+  launchArguments: string,
+  onFailed: (clientId: string, error: Error) => void,
+  onTerminated: (clientId: string) => void,
+  detachedProcess: boolean
+): string => {
+  if (!isIPv4(ip)) {
+    throw Error("Invalid IP address passed to client launcher.");
+  }
 
-    const clientId = shortid.generate();
-    let joinArguments = "-join " + ip + " " + port.toString();
-    if (password && password.length > 0) {
-        joinArguments += " " + password;
-    }
+  if (
+    typeof port !== "number" ||
+    !isFinite(port) ||
+    Math.round(port) !== port
+  ) {
+    throw Error("Invalid port parameter passed to client launcher.");
+  }
 
-    const clientProcess = spawn(soldatPaths.clientExecutable, [
-        "-fs_portable 1",
-        joinArguments,
-        launchArguments
-    ], { detached: detachedProcess });
+  const clientId = shortid.generate();
+  let joinArguments = "-join " + ip + " " + port.toString();
+  if (password && password.length > 0) {
+    joinArguments += " " + password;
+  }
 
-    clientProcess.on("close", () => {
-        onTerminated(clientId);
-    });
+  const clientProcess = spawn(
+    soldatPaths.clientExecutable,
+    ["-fs_portable 1", joinArguments, launchArguments],
+    { detached: detachedProcess }
+  );
 
-    clientProcess.on("error", (error) => {
-        onFailed(clientId, error);
-    });
+  clientProcess.on("close", () => {
+    onTerminated(clientId);
+  });
 
-    clients.set(clientId, clientProcess);
-    return clientId;
-}
+  clientProcess.on("error", (error) => {
+    onFailed(clientId, error);
+  });
+
+  clients.set(clientId, clientProcess);
+  return clientId;
+};
 
 const stop = (clientId: string): void => {
-    if (clientId == null || !clients.has(clientId)) {
-        return;
-    }
+  if (clientId == null || !clients.has(clientId)) {
+    return;
+  }
 
-    const clientProcess = clients.get(clientId);
-    if (!clientProcess.killed) {
-        clientProcess.kill();
-    }
+  const clientProcess = clients.get(clientId);
+  if (!clientProcess.killed) {
+    clientProcess.kill();
+  }
 
-    clients.delete(clientId);
-}
+  clients.delete(clientId);
+};
 
 export { start, stop };

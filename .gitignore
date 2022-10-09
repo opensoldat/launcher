@@ -82,6 +82,9 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+# Visual Studio Code
+.vscode/
+
 # Webpack
 .webpack/
 

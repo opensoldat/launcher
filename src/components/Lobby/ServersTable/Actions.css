@@ -1,41 +1,41 @@
 .servers-table-actions {
-    display: flex;
-    margin-bottom: 1em;
+  display: flex;
+  margin-bottom: 1em;
 }
 
 .servers-table-actions .quick-search-bar {
-    flex: 1;
+  flex: 1;
 }
 
 .servers-table-actions .buttons-container {
-    margin-left: 1em;
+  margin-left: 1em;
 
-    white-space: nowrap;
-    overflow: hidden;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .servers-table-actions .buttons-container button {
-    display: inline-flex;
-    align-items: center;
+  display: inline-flex;
+  align-items: center;
 
-    height: 100%;
-    font-size: medium;
+  height: 100%;
+  font-size: medium;
 }
 
 .servers-table-actions .buttons-container button:not(:last-child) {
-    margin-right: 1em;
+  margin-right: 1em;
 }
 
 .servers-table-actions .buttons-container button .icon {
-    margin-right: 0.5em;
+  margin-right: 0.5em;
 }
 
 .servers-table-actions .buttons-container .active-filters-count {
-    margin-left: 0.5em;
-    background-color: white;
-    color: black;
-    font-size: 0.9em;
+  margin-left: 0.5em;
+  background-color: white;
+  color: black;
+  font-size: 0.9em;
 
-    padding: 0 0.3em;
-    border-radius: 1em;
+  padding: 0 0.3em;
+  border-radius: 1em;
 }

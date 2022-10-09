@@ -11,58 +11,61 @@ import LobbyServersStore from "../../../stores/lobby/servers";
 import "./Actions.css";
 
 type ServersTableActionsProps = {
-    serversStore: LobbyServersStore;
-}
+  serversStore: LobbyServersStore;
+};
 
-const ServersTableActions: React.FC<ServersTableActionsProps> = props => {
-    const handleQuickSearchChange = (newSearchTerm: string): void => {
-        props.serversStore.filtersStore.quickSearch = newSearchTerm;
-    }
+const ServersTableActions: React.FC<ServersTableActionsProps> = (props) => {
+  const handleQuickSearchChange = (newSearchTerm: string): void => {
+    props.serversStore.filtersStore.quickSearch = newSearchTerm;
+  };
 
-    const refreshServers = (): void => {
-        props.serversStore.fetchServers()
-        .catch(function(errorMessage: string) {
-            toast.error(errorMessage, { autoClose: 2500 });
-        })
-    }
+  const refreshServers = (): void => {
+    props.serversStore.fetchServers().catch(function (errorMessage: string) {
+      toast.error(errorMessage, { autoClose: 2500 });
+    });
+  };
 
-    return (
-        <div className="servers-table-actions">
-            <SearchBar
-                className="quick-search-bar"
-                placeholder="Quick search... (server name, map name, IP)"
-                value={props.serversStore.filtersStore.quickSearch}
-                onChange={handleQuickSearchChange} />
+  return (
+    <div className="servers-table-actions">
+      <SearchBar
+        className="quick-search-bar"
+        placeholder="Quick search... (server name, map name, IP)"
+        value={props.serversStore.filtersStore.quickSearch}
+        onChange={handleQuickSearchChange}
+      />
 
-            <div className="buttons-container">
-                <button
-                    className="button green-button"
-                    data-tip
-                    data-event="click"
-                    data-for="server-filters-tooltip">
-                    <FontAwesomeIcon icon={faFilter} className="icon" />
-                    Filter
-                    {props.serversStore.filtersStore.activeFiltersCount > 0 &&
-                    <span className="active-filters-count">
-                        {props.serversStore.filtersStore.activeFiltersCount}
-                    </span>
-                    }
-                </button>
+      <div className="buttons-container">
+        <button
+          className="button green-button"
+          data-tip
+          data-event="click"
+          data-for="server-filters-tooltip"
+        >
+          <FontAwesomeIcon icon={faFilter} className="icon" />
+          Filter
+          {props.serversStore.filtersStore.activeFiltersCount > 0 && (
+            <span className="active-filters-count">
+              {props.serversStore.filtersStore.activeFiltersCount}
+            </span>
+          )}
+        </button>
 
-                <button
-                    className="button green-button"
-                    onClick={refreshServers}
-                    disabled={props.serversStore.isFetching}>
-                    <FontAwesomeIcon icon={faSyncAlt} className="icon" />
-                    Refresh
-                </button>
-            </div>
+        <button
+          className="button green-button"
+          onClick={refreshServers}
+          disabled={props.serversStore.isFetching}
+        >
+          <FontAwesomeIcon icon={faSyncAlt} className="icon" />
+          Refresh
+        </button>
+      </div>
 
-            <FiltersTooltip
-                id="server-filters-tooltip"
-                serverFiltersStore={props.serversStore.filtersStore} />
-        </div>
-    )
-}
+      <FiltersTooltip
+        id="server-filters-tooltip"
+        serverFiltersStore={props.serversStore.filtersStore}
+      />
+    </div>
+  );
+};
 
 export default observer(ServersTableActions);
