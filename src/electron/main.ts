@@ -1,8 +1,17 @@
 import { app, BrowserWindow, ipcMain } from "electron";
+import {EventEmitter} from "events";
 import path from "path";
+
+import { isDevelopment } from "src/environment";
+import { isSoldatLink, SOLDAT_PROTOCOL } from "src/soldatLink";
+
+import GameIdentityEventHandler from "./gameIdentityEventHandler";
 import GameIpcServer from "./gameIpcServer";
-import { isDevelopment } from "../environment";
-import { isSoldatLink, SOLDAT_PROTOCOL } from "../soldatLink";
+import GameProcessManager from "./gameProcessManager";
+import GameVault from "./gameVault";
+import InternalEventBus from "./internalEventBus";
+import LocalGameManager from "./localGameManager";
+
 import IconImage from "assets/icon.png";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -138,7 +147,13 @@ ipcMain.on("interceptClose", () => {
 app.on("ready", () => {
     createWindow();
 
-    const gameIpcServer = new GameIpcServer(mainWindow.webContents);
+    const eventBus = new EventEmitter() as InternalEventBus;
+    const gameVault = new GameVault(mainWindow.webContents);
+    const gameProcessManager = new GameProcessManager(gameVault, mainWindow.webContents);
+    const localGameManager = new LocalGameManager(eventBus, gameProcessManager, gameVault, mainWindow.webContents);
+
+    const gameIdentityEventHandler = new GameIdentityEventHandler(eventBus, gameVault);
+    const gameIpcServer = new GameIpcServer(eventBus);
     gameIpcServer.start(23093);
 
     // We need the renderer to be able to react, so we wait

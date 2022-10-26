@@ -21,6 +21,7 @@ import OnlineGamesStore from "../stores/onlineGames";
 import ServerSettingsStore from "../stores/settings/server";
 import UiStore from "../stores/ui";
 
+import { GameProcessFailed } from "src/electronIpcMessages";
 import { TabsIndexes } from "src/types/ui";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -75,10 +76,7 @@ const App: React.FC = () => {
         serverSettingsStore.saveAll()
         .then(() => {
             localGameStore.startLocalGame(
-                Number(serverSettingsStore.settings.network.port),
-                (errorMessage: string) => {
-                    toast.error("Local game failed:\n" + errorMessage);
-                }
+                Number(serverSettingsStore.settings.network.port)
             );
         })
         .catch((errorMessage: string) => {
@@ -95,6 +93,11 @@ const App: React.FC = () => {
              * TODO: notify users about this, and ask them to confirm they want to close
              * (modal dialog).
              */
+
+            // TODO: given that we are quitting the app, and that we rely on Electron's IPC
+            // to stop the local game, I wonder if main process will manage to kill the
+            // actual processes in time. We may need to wait for confirmation that local game
+            // was killed. Alternatively, we can think of stopping it from main process.
             localGameStore.stopLocalGame();
 
             const promises = [];
@@ -130,6 +133,14 @@ const App: React.FC = () => {
                 handleTabChange(TabsIndexes.Lobby, uiStore.selectedTabIndex);
             }
         });
+
+        window.gameProcess.onFailed((message: GameProcessFailed) => {
+            toast.error(`Game process failed!\n${message.errorMessage}`);
+        })
+
+        window.localGame.onStartTimeout(() => {
+            toast.error("Launching of local game timed out.");
+        })
     }, []);
 
     return (

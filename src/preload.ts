@@ -54,6 +54,7 @@ import { play as playDemo } from "./api/soldat/demos";
 
 import { listFilesNames, listSubdirectoriesNames } from "./api/directoryListing";
 import { soldatPaths } from "./api/soldat/paths";
+import { ElectronIpcChannels, GameProcessFailed, GameProcessSpawned, StartLocalGameMessage } from "./electronIpcMessages";
 
 declare global {
     interface Window {
@@ -63,9 +64,22 @@ declare global {
             onSoldatLink: (handleSoldatLink: (soldatLink: string) => void) => void;
         };
 
+        gameProcess: {
+            onFailed: (handleGameProcessFailed: (message: GameProcessFailed) => void) => void;
+            onSpawned: (handleGameProcessSpawned: (message: GameProcessSpawned) => void) => void;
+        };
+
         launcher: {
             loadData: () => Promise<string>;
             saveData: (fileContent: string) => Promise<void>;
+        };
+
+        localGame: {
+            sendStartMessage: (message: StartLocalGameMessage) => void;
+            sendStopMessage: () => void;
+            onStarted: (handleLocalGameStarted: () => void) => void;
+            onStartTimeout: (handleLocalGameStartTimeout: () => void) => void
+            onStopped: (handleLocalGameStopped: () => void) => void;
         };
 
         soldat: {
@@ -156,6 +170,43 @@ contextBridge.exposeInMainWorld(
             ipcRenderer.on("soldatLink", (event, link) => {
                 handleSoldatLink(link);
             });
+        }
+    }
+)
+
+contextBridge.exposeInMainWorld(
+    "gameProcess",
+    {
+        onFailed: (handler: (message: GameProcessFailed) => void): void => {
+            ipcRenderer.on(ElectronIpcChannels.GameProcessFailed, (event, message: GameProcessFailed) => {
+                handler(message);
+            });
+        },
+        onSpawned: (handler: (message: GameProcessSpawned) => void): void => {
+            ipcRenderer.on(ElectronIpcChannels.GameProcessSpawned, (event, message: GameProcessSpawned) => {
+                handler(message);
+            });
+        }
+    }
+)
+
+contextBridge.exposeInMainWorld(
+    "localGame",
+    {
+        sendStartMessage: (message: StartLocalGameMessage): void => {
+            ipcRenderer.send(ElectronIpcChannels.StartLocalGame, message);
+        },
+        sendStopMessage: (): void => {
+            ipcRenderer.send(ElectronIpcChannels.StopLocalGame);
+        },
+        onStarted: (handler: () => void): void => {
+            ipcRenderer.on(ElectronIpcChannels.LocalGameStarted, handler);
+        },
+        onStartTimeout: (handler: () => void): void => {
+            ipcRenderer.on(ElectronIpcChannels.LocalGameStartTimeout, handler);
+        },
+        onStopped: (handler: () => void): void => {
+            ipcRenderer.on(ElectronIpcChannels.LocalGameStopped, handler);
         }
     }
 )

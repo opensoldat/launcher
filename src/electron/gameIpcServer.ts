@@ -1,19 +1,17 @@
-import { CommandsMessage, ElectronIpcChannels } from "src/electronIpcMessages";
+import { ipcMain, IpcMainEvent } from "electron";
 import net from "net";
-import { ipcMain, IpcMainEvent, WebContents } from "electron";
 
-interface GameIpcConnection {
-    socket: net.Socket;
-}
+import { CommandsMessage, ElectronIpcChannels } from "src/electronIpcMessages";
+import { GameMessage, GameMessageIds, IdentityMessage } from "./gameIpcMessages";
+import InternalEventBus from "./internalEventBus";
+import { InternalEventIds } from "./internalEvents";
 
 class GameIpcServer {
-    private connections: GameIpcConnection[];
+    private readonly eventBus: InternalEventBus;
     private ipcServer: net.Server;
-    private readonly mainWindow: WebContents;
 
-    constructor(mainWindow: WebContents) {
-        this.connections = [];
-        this.mainWindow = mainWindow;
+    constructor(eventBus: InternalEventBus) {
+        this.eventBus = eventBus;
 
         ipcMain.on(ElectronIpcChannels.Commands, this.handleCommandsMessage);
 
@@ -33,10 +31,10 @@ class GameIpcServer {
         console.log("[GameIPC] New connection from game");
 
         socket.setEncoding("utf-8");
-        this.connections.push({ socket });
     
         socket.on("data", (data: string) => {
-            // TODO: handle incomplete messages.
+            // TODO: handle incomplete messages. Note that every socket will need
+            // its own buffering. We could store the received buffer in GameInstance.
             console.log("[GameIPC] Received message:", data);
 
             let message;
@@ -53,14 +51,45 @@ class GameIpcServer {
             }
 
             switch (message.id) {
-
+                case GameMessageIds.Identity:
+                    this.eventBus.emit(InternalEventIds.ReceivedGameIdentity, {
+                        ...message as IdentityMessage,
+                        socket
+                    });
+                    break;
+                
+                // Do we care about validation if message came from server/client?
+                case GameMessageIds.ServerReadyForClients:
+                    this.eventBus.emit(InternalEventIds.ServerReadyForClients, {
+                        socket
+                    });
+                    break;
+                
+                case GameMessageIds.ShowSettings:
+                    this.handleShowSettingsMessage(message as GameMessage);
+                    break;
             }
 
             socket.write('{"id":"COMMANDS", "commands": ["sv_lobby 0", "sv_radio 1"]}');
         });
+
         socket.on("end", () => {
             console.log("[GameIPC] Game disconnected");
         });
+
+        socket.on("error", err => {
+            console.warn(`[GameIPC] Socket error: ${err.message}`);
+        });
+
+        socket.on("close", () => {
+            console.log("[GameIPC] Connection closed");
+            // TODO: Raise event, so we can handle game instances without process
+        })
+    }
+
+    private handleShowSettingsMessage(message: GameMessage) {
+        // TODO: bring back main window to focus, and send message to renderer,
+        // so it can update its state to show settings tab
     }
 }
 
