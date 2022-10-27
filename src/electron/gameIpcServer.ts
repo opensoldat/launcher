@@ -5,6 +5,7 @@ import { CommandsMessage, ElectronIpcChannels } from "src/electronIpcMessages";
 import { GameMessage, GameMessageIds, IdentityMessage } from "./gameIpcMessages";
 import InternalEventBus from "./internalEventBus";
 import { InternalEventIds } from "./internalEvents";
+import logger from "./logger";
 
 class GameIpcServer {
     private readonly eventBus: InternalEventBus;
@@ -28,25 +29,25 @@ class GameIpcServer {
     }
 
     private handleGameIpc(socket: net.Socket) {
-        console.log("[GameIPC] New connection from game");
+        logger.info("[GameIPC] New connection from game");
 
         socket.setEncoding("utf-8");
     
         socket.on("data", (data: string) => {
             // TODO: handle incomplete messages. Note that every socket will need
             // its own buffering. We could store the received buffer in GameInstance.
-            console.log("[GameIPC] Received message:", data);
+            logger.info(`[GameIPC] Received message: ${data}`);
 
             let message;
             try {
                 message = JSON.parse(data);
             } catch (e) {
-                console.log("[GameIPC] Could not parse received message as JSON");
+                logger.warn("[GameIPC] Could not parse received message as JSON");
                 return;
             }
 
             if (!message?.id) {
-                console.log("[GameIPC] Received message doesn't have an id");
+                logger.warn("[GameIPC] Received message doesn't have an id");
                 return;
             }
 
@@ -74,15 +75,15 @@ class GameIpcServer {
         });
 
         socket.on("end", () => {
-            console.log("[GameIPC] Game disconnected");
+            //console.log("[GameIPC] Game disconnected");
         });
 
         socket.on("error", err => {
-            console.warn(`[GameIPC] Socket error: ${err.message}`);
+            logger.warn(`[GameIPC] Socket error: ${err.message}`);
         });
 
         socket.on("close", () => {
-            console.log("[GameIPC] Connection closed");
+            logger.info("[GameIPC] Connection closed");
             // TODO: Raise event, so we can handle game instances without process
         })
     }

@@ -4,6 +4,7 @@ import GameProcessManager from "./gameProcessManager";
 import GameVault from "./gameVault";
 import InternalEventBus from "./internalEventBus";
 import { InternalEventIds, ServerReadyForClientsEvent } from "./internalEvents";
+import logger from "./logger";
 
 class LocalGameManager {
     private readonly eventBus: InternalEventBus;
@@ -38,7 +39,8 @@ class LocalGameManager {
     }
 
     private handleStartLocalGameMessage(event: IpcMainEvent, message: StartLocalGameMessage) {
-        console.log("Starting local game");
+        logger.info("[LocalGameManager] Starting local game...");
+
         this.clientLaunchArguments = message.clientLaunchArguments;
         this.serverPort = message.serverPort;
         this.started = true;
@@ -58,7 +60,7 @@ class LocalGameManager {
         // Make sure the message came from the local server we just started.
         // This is for cases where you start a server manually, without using launcher.
         if (!this.started) {
-            console.warn("A local server is ready for connections, but we're not starting a local game.");
+            logger.warn("[LocalGameManager] A local server is ready for connections, but we're not starting a local game.");
             return;
         }
         const senderGameInstance = this.gameVault.getBySocket(event.socket);
@@ -84,6 +86,7 @@ class LocalGameManager {
     }
 
     private handleClientSpawned() {
+        logger.info("[LocalGameManager] Local game started");
         this.mainWindow.send(ElectronIpcChannels.LocalGameStarted);
     }
 
@@ -93,11 +96,9 @@ class LocalGameManager {
 
     private stopLocalGame() {
         if (!this.started) {
-            console.warn("Stopping local game while it's not running!");
             return;
         }
 
-        console.log("Stopping local game");
         const clientInstance = this.gameVault.getById(this.clientInstanceId);
         if (clientInstance?.childProcess && !clientInstance.childProcess.killed) {
             clientInstance.childProcess.kill();
@@ -111,6 +112,7 @@ class LocalGameManager {
 
         this.started = false;
         this.mainWindow.send(ElectronIpcChannels.LocalGameStopped);
+        logger.info("[LocalGameManager] Local game stopped");
     }
 
     private clearStartTimeout() {

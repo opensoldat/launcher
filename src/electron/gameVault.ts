@@ -2,6 +2,7 @@ import { WebContents } from "electron";
 import net from "net";
 import { ElectronIpcChannels } from "src/electronIpcMessages";
 import { GameInstance } from "./gameInstance";
+import logger from "./logger";
 
 /**
  * This class is meant to be the only storage for GameInstances.
@@ -27,6 +28,9 @@ class GameVault {
     addInstance(gameInstance: GameInstance) {
         this.gameInstances.push(gameInstance);
 
+        logger.info(`[GameVault] Added game instance (id: ${gameInstance.id}, ` +
+            `process type: ${gameInstance.processType})`);
+
         this.mainWindow.send(ElectronIpcChannels.AddedGameInstance, {
             gameInstanceId: gameInstance.id,
             processType: gameInstance.processType
@@ -38,10 +42,13 @@ class GameVault {
 
         const index = this.gameInstances.indexOf(gameInstance);
         if (index === -1) {
-            console.warn("Trying to remove a game instance that doesn't exist!");
+            logger.error("[GameVault] Trying to remove a game instance that doesn't exist!");
             return;
         }
         this.gameInstances.splice(index, 1);
+
+        logger.info(`[GameVault] Removed game instance (id: ${gameInstance.id}, ` +
+            `process type: ${gameInstance.processType})`);
 
         this.mainWindow.send(ElectronIpcChannels.RemovedGameInstance, {
             gameInstanceId: instanceId,
