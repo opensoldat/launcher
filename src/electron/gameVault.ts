@@ -11,62 +11,72 @@ import logger from "./logger";
  * must not store references to GameInstances. The reasoning is that GameInstances
  * can be added and removed at any time - by keeping a reference to a GameInstance,
  * the other classes wouldn't know if the instance is still alive or not.
- * 
+ *
  * The GameVault is designed to always be up-to-date when it comes to GameInstances.
  * As such, it has the responsibility of notifying the renderer process when instances
  * are added or removed.
  */
 class GameVault {
-    private gameInstances: GameInstance[];
-    private readonly mainWindow: WebContents;
+  private gameInstances: GameInstance[];
+  private readonly mainWindow: WebContents;
 
-    constructor(mainWindow: WebContents) {
-        this.gameInstances = [];
-        this.mainWindow = mainWindow;
+  constructor(mainWindow: WebContents) {
+    this.gameInstances = [];
+    this.mainWindow = mainWindow;
+  }
+
+  addInstance(gameInstance: GameInstance) {
+    this.gameInstances.push(gameInstance);
+
+    logger.info(
+      `[GameVault] Added game instance (id: ${gameInstance.id}, ` +
+        `process type: ${gameInstance.processType})`
+    );
+
+    this.mainWindow.send(ElectronIpcChannels.AddedGameInstance, {
+      gameInstanceId: gameInstance.id,
+      processType: gameInstance.processType,
+    });
+  }
+
+  removeInstance(gameInstance: GameInstance) {
+    const instanceId = gameInstance.id;
+
+    const index = this.gameInstances.indexOf(gameInstance);
+    if (index === -1) {
+      logger.error(
+        "[GameVault] Trying to remove a game instance that doesn't exist!"
+      );
+      return;
     }
+    this.gameInstances.splice(index, 1);
 
-    addInstance(gameInstance: GameInstance) {
-        this.gameInstances.push(gameInstance);
+    logger.info(
+      `[GameVault] Removed game instance (id: ${gameInstance.id}, ` +
+        `process type: ${gameInstance.processType})`
+    );
 
-        logger.info(`[GameVault] Added game instance (id: ${gameInstance.id}, ` +
-            `process type: ${gameInstance.processType})`);
+    this.mainWindow.send(ElectronIpcChannels.RemovedGameInstance, {
+      gameInstanceId: instanceId,
+    });
+  }
 
-        this.mainWindow.send(ElectronIpcChannels.AddedGameInstance, {
-            gameInstanceId: gameInstance.id,
-            processType: gameInstance.processType
-        });
-    }
+  getById(gameInstanceId: string): GameInstance {
+    return this.gameInstances.find(
+      (instance) => instance.id === gameInstanceId
+    );
+  }
 
-    removeInstance(gameInstance: GameInstance) {
-        const instanceId = gameInstance.id;
+  getByProcessId(processId: number) {
+    return this.gameInstances.find(
+      (instance) =>
+        instance.childProcess && instance.childProcess.pid == processId
+    );
+  }
 
-        const index = this.gameInstances.indexOf(gameInstance);
-        if (index === -1) {
-            logger.error("[GameVault] Trying to remove a game instance that doesn't exist!");
-            return;
-        }
-        this.gameInstances.splice(index, 1);
-
-        logger.info(`[GameVault] Removed game instance (id: ${gameInstance.id}, ` +
-            `process type: ${gameInstance.processType})`);
-
-        this.mainWindow.send(ElectronIpcChannels.RemovedGameInstance, {
-            gameInstanceId: instanceId,
-        });
-    }
-
-    getById(gameInstanceId: string): GameInstance {
-        return this.gameInstances.find(instance => instance.id === gameInstanceId);
-    }
-
-    getByProcessId(processId: number) {
-        return this.gameInstances.find(instance =>
-            instance.childProcess && instance.childProcess.pid == processId);
-    }
-
-    getBySocket(socket: net.Socket) {
-        return this.gameInstances.find(instance => instance.ipcSocket === socket);
-    }
+  getBySocket(socket: net.Socket) {
+    return this.gameInstances.find((instance) => instance.ipcSocket === socket);
+  }
 }
 
 export default GameVault;

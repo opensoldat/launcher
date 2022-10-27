@@ -1,8 +1,8 @@
 .game-styles-tooltip .list .list-item .content > .label {
-    min-width: 5em;
+  min-width: 5em;
 }
 
 .game-styles-tooltip .list .list-item .content .description {
-    margin-left: 0.8em;
-    max-width: 15em;
+  margin-left: 0.8em;
+  max-width: 15em;
 }

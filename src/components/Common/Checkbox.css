@@ -1,71 +1,71 @@
 .checkbox-container {
-    cursor: pointer;
-    display: inline-flex;
-    align-self: flex-start;
-    align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
 }
 
 /* Hide the browser's default checkbox */
 .checkbox-container input {
-    opacity: 0;
-    cursor: pointer;
-    position: absolute;
-    left: -9999px;
-    z-index: -1;
+  opacity: 0;
+  cursor: pointer;
+  position: absolute;
+  left: -9999px;
+  z-index: -1;
 }
 
 /* Create a custom checkbox */
 .checkbox-container .checkbox {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-    height: 1.2em;
-    width: 1.2em;
+  height: 1.2em;
+  width: 1.2em;
 }
 
 .checkbox-container .checkbox .check-icon {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .checkbox-container input:checked ~ .checkbox .check-icon {
-    /* Inheriting visibility should handle scenario with
+  /* Inheriting visibility should handle scenario with
      * checkbox inside tooltips. Without inheriting, the
      * checkbox icon would still be shown, despite the tooltip
      * being hidden. */
-    visibility: inherit;
+  visibility: inherit;
 }
 
 .checkbox-container .right-label {
-    margin-left: 0.7em;
-    flex: 1;
+  margin-left: 0.7em;
+  flex: 1;
 }
 
 .checkbox-container .left-label {
-    margin-right: 0.7em;
-    flex: 1;
+  margin-right: 0.7em;
+  flex: 1;
 }
 
 /* Color themes */
 .checkbox-container.dark .checkbox {
-    background-color: #282828;
-    border: 1px solid #828282;
+  background-color: #282828;
+  border: 1px solid #828282;
 }
 
 .checkbox-container.dark:hover .checkbox {
-    background-color: #424954;
+  background-color: #424954;
 }
 
 .checkbox-container.dark .checkbox .check-icon {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .checkbox-container.light .checkbox {
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
 }
 
 .checkbox-container.light:hover .checkbox {
-    background-color: #f2f2f2;
-    border: 1px solid #b3b3b3;
+  background-color: #f2f2f2;
+  border: 1px solid #b3b3b3;
 }

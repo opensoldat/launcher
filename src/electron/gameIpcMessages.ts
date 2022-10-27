@@ -6,7 +6,7 @@ enum GameMessageIds {
   // Messages we receive from game:
   Identity = "IDENTITY",
   ServerReadyForClients = "READY_FOR_CLIENTS",
-  ShowSettings = "SHOW_SETTINGS"
+  ShowSettings = "SHOW_SETTINGS",
 }
 
 interface GameMessage {

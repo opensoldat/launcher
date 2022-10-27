@@ -1,17 +1,17 @@
 @font-face {
-    font-family: play-regular;
-    src: url("../../assets/play-regular.ttf") format("truetype");
-    font-weight: 600;
-    font-style: normal;
+  font-family: play-regular;
+  src: url("../../assets/play-regular.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
 }
 
 body {
-    background-color: black;
-    color: #F0FFFF; /* Default text color */
-    font-family: play-regular, sans-serif;
-    /* Don't allow users to select text by default;
+  background-color: black;
+  color: #f0ffff; /* Default text color */
+  font-family: play-regular, sans-serif;
+  /* Don't allow users to select text by default;
     * It doesn't look great if you can highlight GUI elements. */
-    -webkit-user-select: none;
+  -webkit-user-select: none;
 }
 
 /* We want the app to have native feel, so we remove
@@ -20,110 +20,111 @@ body {
  * because of its consequences on accessibility,
  * but I think it's ok in this case. */
 :focus {
-    outline: none;
+  outline: none;
 }
 
 .background {
-    position: fixed;
-    left: 0;
-    right: 0;
-    background-image: url("../../assets/background.png");
-    min-height: 100%;
-    min-width: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-image: url("../../assets/background.png");
+  min-height: 100%;
+  min-width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 
-    filter: blur(12px);
-    transform: scale(1.1);  /* Hide ugly edges of blurred image */
+  filter: blur(12px);
+  transform: scale(1.1); /* Hide ugly edges of blurred image */
 }
 
 #app {
-    position: fixed;
-    left: 0;
-    right: 0;
+  position: fixed;
+  left: 0;
+  right: 0;
 }
 
-button, input {
-    font-family: inherit;
+button,
+input {
+  font-family: inherit;
 }
 
 .navigation-bar-container {
-    display: flex;
-    justify-content: center;
-    margin-left: 50px;
-    margin-right: 50px;
+  display: flex;
+  justify-content: center;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 .navigation-bar {
-    display: flex;
-    justify-content: space-between;
-    list-style-type: none;
-    padding-left: 0px;
-    max-width: 30em;
-    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  padding-left: 0px;
+  max-width: 30em;
+  width: 100%;
 }
 
 .navigation-bar-tab {
-    font-size: x-large;
+  font-size: x-large;
 }
 
 .navigation-bar-tab:hover {
-    filter: brightness(85%);
-    cursor: pointer;
+  filter: brightness(85%);
+  cursor: pointer;
 }
 
 .navigation-bar-tab:active {
-    filter: brightness(70%);
+  filter: brightness(70%);
 }
 
 .navigation-bar-tab--selected {
-    color: #FFC76E;
+  color: #ffc76e;
 }
 
 .navigation-bar-content {
-    margin-left: 50px;
-    margin-right: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 main > .centered-spinner {
-    position: fixed;
-    top: 50%;
-    left: 50%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
 }
 
 ::-webkit-scrollbar {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 ::-webkit-scrollbar-track-piece {
-    background-color: #282828;
+  background-color: #282828;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #495059;
+  background-color: #495059;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #3e444d;
+  background-color: #3e444d;
 }
 
 ::-webkit-scrollbar-thumb:active {
-    background-color: #3a3f47;
+  background-color: #3a3f47;
 }
 
 ::-webkit-scrollbar-track-piece:vertical,
 ::-webkit-scrollbar-thumb:vertical {
-    border-left: 1px solid #828282;
+  border-left: 1px solid #828282;
 }
 
 ::-webkit-scrollbar-track-piece:horizontal,
 ::-webkit-scrollbar-thumb:horizontal {
-    border-top: 1px solid #828282;
+  border-top: 1px solid #828282;
 }
 
 ::-webkit-scrollbar-corner {
-    border-top: 1px solid #828282;
-    border-left: 1px solid #828282;
+  border-top: 1px solid #828282;
+  border-left: 1px solid #828282;
 }

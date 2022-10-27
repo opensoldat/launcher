@@ -2,21 +2,28 @@ import net from "net";
 import { IdentityMessage } from "./gameIpcMessages";
 
 enum InternalEventIds {
-    ReceivedGameIdentity = "GAME_IDENTITY",
-    ServerReadyForClients = "SERVER_READY_FOR_CLIENTS"
+  ReceivedGameIdentity = "GAME_IDENTITY",
+  ServerReadyForClients = "SERVER_READY_FOR_CLIENTS",
 }
 
 interface GameIdentityEvent extends IdentityMessage {
-    socket: net.Socket;
+  socket: net.Socket;
 }
 
 interface ServerReadyForClientsEvent {
-    socket: net.Socket;
+  socket: net.Socket;
 }
 
 type InternalEvents = {
-    [InternalEventIds.ReceivedGameIdentity]: (event: GameIdentityEvent) => void;
-    [InternalEventIds.ServerReadyForClients]: (event: ServerReadyForClientsEvent) => void;
-}
+  [InternalEventIds.ReceivedGameIdentity]: (event: GameIdentityEvent) => void;
+  [InternalEventIds.ServerReadyForClients]: (
+    event: ServerReadyForClientsEvent
+  ) => void;
+};
 
-export { InternalEventIds, InternalEvents, GameIdentityEvent, ServerReadyForClientsEvent };
+export {
+  InternalEventIds,
+  InternalEvents,
+  GameIdentityEvent,
+  ServerReadyForClientsEvent,
+};

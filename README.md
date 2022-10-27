@@ -4,13 +4,18 @@ Launcher for [OpenSoldat](https://github.com/opensoldat/opensoldat) game, a repl
 
 It's an Electron app, written in Typescript with [React](https://reactjs.org/) and [MobX](https://mobx.js.org).
 
+We use [Prettier](https://prettier.io/) to format the code - please remember to run `npm run format` before committing.
+Or better yet, set up your editor to run it for you when saving files.
+
 ## Available features
-- List, sort and filter available servers, and join online games from *Lobby* tab
-- Configure and start a new local game from *Local* tab
-- List and play recorded demos from *Demos* tab
-- Configure client settings from *Settings* tab
+
+- List, sort and filter available servers, and join online games from _Lobby_ tab
+- Configure and start a new local game from _Local_ tab
+- List and play recorded demos from _Demos_ tab
+- Configure client settings from _Settings_ tab
 
 ## Screenshots
+
 <p>
     <img src="https://i.imgur.com/Qve2H0I.png" width="200">
     <img src="https://i.imgur.com/JFiXxDw.png" width="200">
@@ -24,11 +29,13 @@ It's an Electron app, written in Typescript with [React](https://reactjs.org/) a
 To run the app, you will need [Node.js](https://nodejs.org).
 
 To install dependencies, run this command from project's root directory:
+
 ```sh
 npm install
 ```
 
 Afterwards, you can run following commands:
+
 ```sh
 # Starts the app in development mode.
 npm start
@@ -39,15 +46,19 @@ npm run make
 # Runs tests.
 npm test
 
-# Runs ESLint.
+# Formats the code with Prettier. Remember to run it before committing!
+npm run format
+
+# Analyzes the code with ESLint.
 npm run lint
 ```
 
-This project is meant to be used together with OpenSoldat binaries. By default, the launcher will expect to find a directory called `opensoldat` at the root of this project. It should contain all files that OpenSoldat needs to operate (binaries for both server and client, dynamic libraries, soldat.smod file and font for the client). When making a release build (with ```npm run make```), this `opensoldat` directory will be copied to Electron's resources folder.
+This project is meant to be used together with OpenSoldat binaries. By default, the launcher will expect to find a directory called `opensoldat` at the root of this project. It should contain all files that OpenSoldat needs to operate (binaries for both server and client, dynamic libraries, soldat.smod file and font for the client). When making a release build (with `npm run make`), this `opensoldat` directory will be copied to Electron's resources folder.
 
-When running the app with ```npm start```, you can type ```rs``` in the same terminal to quickly restart it.
+When running the app with `npm start`, you can type `rs` in the same terminal to quickly restart it.
 
 ## License
+
 The launcher is licensed under [MIT](./LICENSE) license.
 
 Files in the `assets` directory were taken from [OpenSoldat's base repository](https://github.com/opensoldat/base) and are licensed under [CC BY 4.0](https://github.com/opensoldat/base/blob/master/LICENSE.txt). Their original author is Michał Marcinkowski. No changes were made to the files.
