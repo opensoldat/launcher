@@ -26,6 +26,7 @@ const createWindow = (): void => {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
 
       contextIsolation: true,
+      sandbox: false,
     },
     icon: path.join(__dirname, IconImage),
   });
