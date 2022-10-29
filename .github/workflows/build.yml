@@ -5,7 +5,7 @@ jobs:
   linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Make placeholder directory for OpenSoldat game
         run: mkdir opensoldat
@@ -16,7 +16,7 @@ jobs:
       - name: Build launcher
         run: npm run make
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: launcher-linux
           path: out/make/zip/linux/x64/
@@ -24,7 +24,7 @@ jobs:
   windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Make placeholder directory for OpenSoldat game
         run: mkdir opensoldat
@@ -35,7 +35,7 @@ jobs:
       - name: Build launcher
         run: npm run make
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: launcher-windows
           path: out/make/zip/win32/x64/
