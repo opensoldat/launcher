@@ -14,9 +14,9 @@ import SortableColumn from "./SortableColumn";
 import Spinner from "../../Common/Spinner";
 import Tooltip from "../../Common/Tooltip";
 
-import { GameModes, Server } from "../../../types";
-import LobbyServersStore from "../../../stores/lobby/servers";
-import OnlineGamesStore from "../../../stores/onlineGames";
+import { GameModes, Server } from "src/types";
+import GameVaultStore from "src/stores/gameVault";
+import LobbyServersStore from "src/stores/lobby/servers";
 
 import "./index.css";
 import "../../Common/Buttons.css";
@@ -24,7 +24,7 @@ import "../../Common/Buttons.css";
 type ServersTableProps = {
   onServerClick: (server: Server) => void;
   onServerDoubleClick: (server: Server) => void;
-  onlineGamesStore: OnlineGamesStore;
+  gameVaultStore: GameVaultStore;
   serversStore: LobbyServersStore;
   showServerDetails: { [key: string]: boolean };
 };
@@ -140,7 +140,7 @@ const ServersTable: React.FC<ServersTableProps> = (props) => {
                 <tr
                   className={
                     "clickable" +
-                    (props.onlineGamesStore.getClient(server.ip, server.port)
+                    (props.gameVaultStore.getClient(server.ip, server.port)
                       ? " connected"
                       : "")
                   }

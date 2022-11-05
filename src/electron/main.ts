@@ -5,6 +5,7 @@ import path from "path";
 import { isDevelopment } from "src/environment";
 import { isSoldatLink, SOLDAT_PROTOCOL } from "src/soldatLink";
 
+import GameClientsManager from "./gameClientsManager";
 import GameIdentityEventHandler from "./gameIdentityEventHandler";
 import GameIpcServer from "./gameIpcServer";
 import GameProcessManager from "./gameProcessManager";
@@ -154,6 +155,10 @@ app.on("ready", () => {
   const gameProcessManager = new GameProcessManager(
     gameVault,
     mainWindow.webContents
+  );
+  const gameClientsManager = new GameClientsManager(
+    gameVault,
+    gameProcessManager
   );
   const localGameManager = new LocalGameManager(
     eventBus,

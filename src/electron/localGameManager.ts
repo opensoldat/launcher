@@ -3,6 +3,8 @@ import {
   ElectronIpcChannels,
   StartLocalGameMessage,
 } from "src/electronIpcMessages";
+import GameProcessTypes from "src/gameProcessTypes";
+import GameInstanceBuilder from "./gameInstanceBuilder";
 import GameProcessManager from "./gameProcessManager";
 import GameVault from "./gameVault";
 import InternalEventBus from "./internalEventBus";
@@ -68,12 +70,19 @@ class LocalGameManager {
     this.serverPort = message.serverPort;
     this.started = true;
 
-    const serverInstance = this.gameProcessManager.spawnServer(
+    const serverProcess = this.gameProcessManager.spawnServer(
       message.serverLaunchArguments
     );
-    this.serverInstanceId = serverInstance.id;
-    serverInstance.childProcess.on("error", this.stopLocalGame);
-    serverInstance.childProcess.on("close", this.stopLocalGame);
+    serverProcess.on("error", this.stopLocalGame);
+    serverProcess.on("close", this.stopLocalGame);
+
+    const gameInstanceBuilder = new GameInstanceBuilder();
+    const gameInstance = gameInstanceBuilder
+      .withProcessType(GameProcessTypes.Server)
+      .withProcess(serverProcess)
+      .build();
+    this.gameVault.addInstance(gameInstance);
+    this.serverInstanceId = gameInstance.id;
 
     // This is so that we never wait forever for local game to start.
     // Such scenario could occur when local server can't connect to our IPC
@@ -99,17 +108,24 @@ class LocalGameManager {
     // point, so it should be safe to clear the timer.
     this.clearStartTimeout();
 
-    const clientInstance = this.gameProcessManager.spawnClient(
+    const clientProcess = this.gameProcessManager.spawnClient(
       "127.0.0.1",
       this.serverPort,
       null,
       this.clientLaunchArguments,
       false
     );
-    this.clientInstanceId = clientInstance.id;
-    clientInstance.childProcess.on("error", this.stopLocalGame);
-    clientInstance.childProcess.on("close", this.stopLocalGame);
-    clientInstance.childProcess.on("spawn", this.handleClientSpawned);
+    clientProcess.on("error", this.stopLocalGame);
+    clientProcess.on("close", this.stopLocalGame);
+    clientProcess.on("spawn", this.handleClientSpawned);
+
+    const gameInstanceBuilder = new GameInstanceBuilder();
+    const gameInstance = gameInstanceBuilder
+      .withProcessType(GameProcessTypes.Client)
+      .withProcess(clientProcess)
+      .build();
+    this.gameVault.addInstance(gameInstance);
+    this.clientInstanceId = gameInstance.id;
   }
 
   private handleClientSpawned() {

@@ -1,7 +1,8 @@
 import { WebContents } from "electron";
+import { ChildProcess } from "child_process";
 import net from "net";
 import { ElectronIpcChannels } from "src/electronIpcMessages";
-import { GameInstance } from "./gameInstance";
+import GameInstance from "./gameInstance";
 import logger from "./logger";
 
 /**
@@ -64,6 +65,12 @@ class GameVault {
   getById(gameInstanceId: string): GameInstance {
     return this.gameInstances.find(
       (instance) => instance.id === gameInstanceId
+    );
+  }
+
+  getByProcess(process: ChildProcess): GameInstance {
+    return this.gameInstances.find(
+      (instance) => instance.childProcess === process
     );
   }
 

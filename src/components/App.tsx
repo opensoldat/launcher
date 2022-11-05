@@ -11,13 +11,14 @@ import Spinner from "./Common/Spinner";
 
 import ClientSettingsStore from "../stores/settings/client";
 import DemosStore from "src/stores/demos";
+import GameVaultStore from "src/stores/gameVault";
 import InterfacesStore from "src/stores/interfaces";
 import LauncherDataStore from "src/stores/launcher/data";
 import LobbyServersStore from "../stores/lobby/servers";
 import LocalGameStore from "../stores/localGame";
 import MapsStore from "../stores/maps";
 import ModsStore from "src/stores/mods";
-import OnlineGamesStore from "../stores/onlineGames";
+import OnlineGamesStore from "src/stores/onlineGames";
 import ServerSettingsStore from "../stores/settings/server";
 import UiStore from "../stores/ui";
 
@@ -56,8 +57,13 @@ const App: React.FC = () => {
         launcherDataStore.serverLaunchSettingsStore
       )
   );
+  const [gameVaultStore] = React.useState(() => new GameVaultStore());
   const [onlineGamesStore] = React.useState(
-    () => new OnlineGamesStore(launcherDataStore.clientLaunchSettingsStore)
+    () =>
+      new OnlineGamesStore(
+        launcherDataStore.clientLaunchSettingsStore,
+        gameVaultStore
+      )
   );
 
   const [lobbyServersStore] = React.useState(() => new LobbyServersStore());
@@ -126,10 +132,7 @@ const App: React.FC = () => {
         onlineGamesStore.connect(
           launcherDataStore.connectFormStore.ip,
           Number(launcherDataStore.connectFormStore.port),
-          launcherDataStore.connectFormStore.password,
-          function (errorMessage) {
-            toast.error("Could not start game:\n" + errorMessage);
-          }
+          launcherDataStore.connectFormStore.password
         );
 
         // Navigate to Lobby tab.
@@ -171,6 +174,7 @@ const App: React.FC = () => {
             <TabPanel className="navigation-bar-content">
               <LobbyPage
                 connectFormStore={launcherDataStore.connectFormStore}
+                gameVaultStore={gameVaultStore}
                 onlineGamesStore={onlineGamesStore}
                 serversStore={lobbyServersStore}
                 uiState={uiStore.lobbyPage}

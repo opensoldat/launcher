@@ -43,10 +43,14 @@ import {
 } from "./api/directoryListing";
 import { soldatPaths } from "./api/soldat/paths";
 import {
+  AddedGameInstanceMessage,
   ElectronIpcChannels,
   GameProcessFailed,
   GameProcessSpawned,
+  RemovedGameInstanceMessage,
+  StartClientMessage,
   StartLocalGameMessage,
+  StopClientMessage,
 } from "./electronIpcMessages";
 
 declare global {
@@ -57,12 +61,27 @@ declare global {
       onSoldatLink: (handleSoldatLink: (soldatLink: string) => void) => void;
     };
 
+    gameClients: {
+      sendStartMessage: (message: StartClientMessage) => void;
+      sendStopMessage: (message: StopClientMessage) => void;
+    };
+
     gameProcess: {
       onFailed: (
         handleGameProcessFailed: (message: GameProcessFailed) => void
       ) => void;
       onSpawned: (
         handleGameProcessSpawned: (message: GameProcessSpawned) => void
+      ) => void;
+    };
+
+    gameVault: {
+      onAddedInstance: (
+        handleAddedGameInstance: (message: AddedGameInstanceMessage) => void
+      ) => void;
+
+      onRemovedInstance: (
+        handleRemovedGameInstance: (message: RemovedGameInstanceMessage) => void
       ) => void;
     };
 
@@ -165,6 +184,16 @@ contextBridge.exposeInMainWorld("electron", {
   },
 });
 
+contextBridge.exposeInMainWorld("gameClients", {
+  sendStartMessage: (message: StartClientMessage): void => {
+    ipcRenderer.send(ElectronIpcChannels.StartClient, message);
+  },
+
+  sendStopMessage: (message: StopClientMessage): void => {
+    ipcRenderer.send(ElectronIpcChannels.StopClient, message);
+  },
+});
+
 contextBridge.exposeInMainWorld("gameProcess", {
   onFailed: (handler: (message: GameProcessFailed) => void): void => {
     ipcRenderer.on(
@@ -178,6 +207,30 @@ contextBridge.exposeInMainWorld("gameProcess", {
     ipcRenderer.on(
       ElectronIpcChannels.GameProcessSpawned,
       (event, message: GameProcessSpawned) => {
+        handler(message);
+      }
+    );
+  },
+});
+
+contextBridge.exposeInMainWorld("gameVault", {
+  onAddedInstance: (
+    handler: (message: AddedGameInstanceMessage) => void
+  ): void => {
+    ipcRenderer.on(
+      ElectronIpcChannels.AddedGameInstance,
+      (event, message: AddedGameInstanceMessage) => {
+        handler(message);
+      }
+    );
+  },
+
+  onRemovedInstance: (
+    handler: (message: RemovedGameInstanceMessage) => void
+  ): void => {
+    ipcRenderer.on(
+      ElectronIpcChannels.RemovedGameInstance,
+      (event, message: RemovedGameInstanceMessage) => {
         handler(message);
       }
     );

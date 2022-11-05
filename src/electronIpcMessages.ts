@@ -3,6 +3,8 @@ import GameProcessTypes from "./gameProcessTypes";
 enum ElectronIpcChannels {
   // From renderer to main process.
   Commands = "COMMANDS",
+  StartClient = "START_CLIENT",
+  StopClient = "STOP_CLIENT",
   StartLocalGame = "START_LOCAL_GAME",
   StopLocalGame = "STOP_LOCAL_GAME",
 
@@ -26,6 +28,18 @@ enum CommandTarget {
 type CommandsMessage = {
   commands: string[];
   target: CommandTarget;
+};
+
+type StartClientMessage = {
+  gameInstanceId: string;
+  ip: string;
+  port: number;
+  password: string;
+  launchArguments: string;
+};
+
+type StopClientMessage = {
+  gameInstanceId: string;
 };
 
 type StartLocalGameMessage = {
@@ -55,11 +69,13 @@ type GameProcessFailed = {
 };
 
 export {
-  ElectronIpcChannels,
   CommandsMessage,
-  StartLocalGameMessage,
+  ElectronIpcChannels,
   GameProcessFailed,
   GameProcessSpawned,
+  StartClientMessage,
+  StopClientMessage,
+  StartLocalGameMessage,
   AddedGameInstanceMessage,
   RemovedGameInstanceMessage,
 };

@@ -1,4 +1,4 @@
-import { GameInstance } from "./gameInstance";
+import GameInstanceBuilder from "./gameInstanceBuilder";
 import GameVault from "./gameVault";
 import InternalEventBus from "./internalEventBus";
 import { GameIdentityEvent, InternalEventIds } from "./internalEvents";
@@ -24,7 +24,11 @@ class GameIdentityEventHandler {
     if (gameInstance) {
       gameInstance.ipcSocket = event.socket;
     } else {
-      gameInstance = new GameInstance(event.processType, null, event.socket);
+      const gameInstanceBuilder = new GameInstanceBuilder();
+      gameInstance = gameInstanceBuilder
+        .withProcessType(event.processType)
+        .withIpcSocket(event.socket)
+        .build();
       this.gameVault.addInstance(gameInstance);
     }
   }

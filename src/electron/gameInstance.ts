@@ -1,10 +1,11 @@
 import { ChildProcess } from "child_process";
 import net from "net";
-import shortid from "shortid";
 import GameProcessTypes from "src/gameProcessTypes";
 
 /**
  * This class represents a running game process (client or server).
+ * Use the GameInstanceBuilder class to create new instances.
+ *
  * Note that we also keep track of games that weren't spawned from launcher;
  * in such cases, the game connects to our IPC server, and that's the only
  * channel we have to control it.
@@ -20,24 +21,9 @@ class GameInstance {
 
   childProcess?: ChildProcess;
   processType: GameProcessTypes;
-  ipcSocket: net.Socket;
+  ipcSocket?: net.Socket;
 
   stderr: string = "";
-
-  constructor(
-    processType: GameProcessTypes,
-    process?: ChildProcess,
-    ipcSocket?: net.Socket
-  ) {
-    this.id = shortid.generate();
-    this.processType = processType;
-    if (process) {
-      this.childProcess = process;
-    }
-    if (ipcSocket) {
-      this.ipcSocket = ipcSocket;
-    }
-  }
 }
 
-export { GameInstance };
+export default GameInstance;

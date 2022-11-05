@@ -1,98 +1,49 @@
-import { action, observable, makeObservable } from "mobx";
-import { computedFn } from "mobx-utils";
+import { StartClientMessage, StopClientMessage } from "src/electronIpcMessages";
+import ClientInstance from "./clientInstance";
+import GameVaultStore from "./gameVault";
 import ClientLaunchSettingsStore from "./launcher/clientLaunchSettings";
 
-interface Client {
-  // Unique identifier, so that we know which client terminated.
-  id: string;
-
-  serverIp: string;
-  serverPort: number;
-
-  onError: (errorMessage: string) => void;
-}
-
 class OnlineGamesStore {
-  @observable readonly clients: Client[] = [];
   readonly clientLaunchSettingsStore: ClientLaunchSettingsStore;
+  readonly gameVaultStore: GameVaultStore;
 
-  constructor(clientLaunchSettingsStore?: ClientLaunchSettingsStore) {
-    makeObservable(this);
+  constructor(
+    clientLaunchSettingsStore: ClientLaunchSettingsStore,
+    gameVaultStore: GameVaultStore
+  ) {
     this.clientLaunchSettingsStore = clientLaunchSettingsStore;
+    this.gameVaultStore = gameVaultStore;
   }
 
-  @action connect = (
-    ip: string,
-    port: number,
-    password: string,
-    onError: (errorMessage: string) => void
-  ): void => {
-    try {
-      const clientId = window.soldat.client.start(
-        ip,
-        port,
-        password,
-        this.clientLaunchSettingsStore?.launchArguments,
-        this.onClientFailed,
-        this.onClientTerminated,
-        true
-      );
+  connect(ip: string, port: number, password: string): void {
+    const clientInstance = new ClientInstance();
+    clientInstance.ip = ip;
+    clientInstance.port = port;
+    this.gameVaultStore.addClient(clientInstance);
 
-      this.clients.push({
-        id: clientId,
-        serverIp: ip,
-        serverPort: port,
-        onError,
-      });
-    } catch (error) {
-      onError(error.message);
-    }
-  };
+    const startMessage: StartClientMessage = {
+      gameInstanceId: clientInstance.id,
+      ip,
+      port,
+      password,
+      launchArguments: this.clientLaunchSettingsStore.launchArguments,
+    };
+    window.gameClients.sendStartMessage(startMessage);
+  }
 
-  disconnect = (ip: string, port: number): void => {
-    const client = this.getClient(ip, port);
-    if (!client) {
+  // Note that if there are multiple clients for the same ip/port pair, then we
+  // only disconnect the first one we find.
+  disconnect(ip: string, port: number): void {
+    const clientInstance = this.gameVaultStore.getClient(ip, port);
+    if (!clientInstance) {
       return;
     }
 
-    window.soldat.client.stop(client.id);
-
-    // We don't remove client from clients list yet;
-    // it will be handled when client actually terminates,
-    // and the related callback gets called.
-  };
-
-  getClient = computedFn((serverIp: string, serverPort: number): Client => {
-    return this.clients.find(
-      (client) =>
-        client.serverIp === serverIp && client.serverPort === serverPort
-    );
-  });
-
-  getClientById = (clientId: string): Client => {
-    return this.clients.find((client) => client.id === clientId);
-  };
-
-  private onClientFailed = (clientId: string, error: Error): void => {
-    if (error) {
-      this.getClientById(clientId).onError(error.message);
-    }
-    this.removeClient(clientId);
-  };
-
-  private onClientTerminated = (clientId: string): void => {
-    this.removeClient(clientId);
-  };
-
-  @action private removeClient = (clientId: string): void => {
-    const clientIndex = this.clients.findIndex(
-      (client) => client.id === clientId
-    );
-    if (clientIndex === -1) {
-      return;
-    }
-    this.clients.splice(clientIndex, 1);
-  };
+    const stopMessage: StopClientMessage = {
+      gameInstanceId: clientInstance.id,
+    };
+    window.gameClients.sendStopMessage(stopMessage);
+  }
 }
 
 export default OnlineGamesStore;

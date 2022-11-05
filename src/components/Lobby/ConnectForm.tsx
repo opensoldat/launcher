@@ -1,9 +1,9 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { toast } from "react-toastify";
 
-import ConnectFormStore from "../../stores/launcher/connectForm";
-import OnlineGamesStore from "../../stores/onlineGames";
+import ConnectFormStore from "src/stores/launcher/connectForm";
+import GameVaultStore from "src/stores/gameVault";
+import OnlineGamesStore from "src/stores/onlineGames";
 
 import { isSoldatLink } from "src/soldatLink";
 
@@ -11,6 +11,7 @@ import "./ConnectForm.css";
 
 type ConnectFormProps = {
   connectFormStore: ConnectFormStore;
+  gameVaultStore: GameVaultStore;
   onlineGamesStore: OnlineGamesStore;
 };
 
@@ -64,10 +65,7 @@ const ConnectForm: React.FC<ConnectFormProps> = (props) => {
     props.onlineGamesStore.connect(
       props.connectFormStore.ip,
       Number(props.connectFormStore.port),
-      props.connectFormStore.password,
-      function (errorMessage: string) {
-        toast.error("Could not start game:\n" + errorMessage);
-      }
+      props.connectFormStore.password
     );
   };
 
@@ -127,7 +125,7 @@ const ConnectForm: React.FC<ConnectFormProps> = (props) => {
 
       <div className="field button-field">
         {props.connectFormStore.isValid() &&
-        props.onlineGamesStore.getClient(
+        props.gameVaultStore.getClient(
           props.connectFormStore.ip,
           Number(props.connectFormStore.port)
         ) ? (
