@@ -1,17 +1,17 @@
 import { app, BrowserWindow, ipcMain } from "electron";
-import { EventEmitter } from "events";
 import path from "path";
 
 import { isDevelopment } from "src/environment";
 import { isSoldatLink, SOLDAT_PROTOCOL } from "src/soldatLink";
 
+import ConnectionClosedHandler from "./gameIpc/connectionClosedHandler";
 import GameClientsManager from "./gameClientsManager";
-import GameIdentityEventHandler from "./gameIdentityEventHandler";
-import GameIpcServer from "./gameIpcServer";
+import GameIdentityHandler from "./gameIpc/gameIdentityHandler";
+import GameIpcServer from "./gameIpc/server";
 import GameProcessManager from "./gameProcessManager";
 import GameVault from "./gameVault";
-import InternalEventBus from "./internalEventBus";
 import LocalGameManager from "./localGameManager";
+import ShowSettingsHandler from "./gameIpc/showSettingsHandler";
 
 import IconImage from "assets/icon.png";
 
@@ -150,7 +150,6 @@ ipcMain.on("interceptClose", () => {
 app.on("ready", () => {
   createWindow();
 
-  const eventBus = new EventEmitter() as InternalEventBus;
   const gameVault = new GameVault(mainWindow.webContents);
   const gameProcessManager = new GameProcessManager(
     gameVault,
@@ -160,18 +159,23 @@ app.on("ready", () => {
     gameVault,
     gameProcessManager
   );
+
+  const connectionClosedHandler = new ConnectionClosedHandler(gameVault);
+  const gameIdentityHandler = new GameIdentityHandler(gameVault);
+  const showSettingsHandler = new ShowSettingsHandler();
+  const gameIpcServer = new GameIpcServer(
+    connectionClosedHandler,
+    gameIdentityHandler,
+    showSettingsHandler
+  );
+
   const localGameManager = new LocalGameManager(
-    eventBus,
+    gameIpcServer,
     gameProcessManager,
     gameVault,
     mainWindow.webContents
   );
 
-  const gameIdentityEventHandler = new GameIdentityEventHandler(
-    eventBus,
-    gameVault
-  );
-  const gameIpcServer = new GameIpcServer(eventBus);
   gameIpcServer.start(23093);
 
   // We need the renderer to be able to react, so we wait

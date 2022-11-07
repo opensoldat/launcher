@@ -1,5 +1,7 @@
 import GameProcessTypes from "src/gameProcessTypes";
 
+// These are the actual messages we exchange through game IPC.
+
 enum GameMessageIds {
   // Messages we send to game:
   Commands = "COMMANDS",

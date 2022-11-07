@@ -1,25 +1,35 @@
 import { ipcMain, IpcMainEvent } from "electron";
+import { EventEmitter } from "events";
 import net from "net";
+import TypedEmitter from "typed-emitter";
 
 import { CommandsMessage, ElectronIpcChannels } from "src/electronIpcMessages";
-import {
-  GameMessage,
-  GameMessageIds,
-  IdentityMessage,
-} from "./gameIpcMessages";
-import InternalEventBus from "./internalEventBus";
-import { InternalEventIds } from "./internalEvents";
-import logger from "./logger";
+import { GameIpcEventIds, GameIpcEvents } from "./events";
+import { GameMessageIds } from "./messages";
+import ConnectionClosedHandler from "./connectionClosedHandler";
+import GameIdentityHandler from "./gameIdentityHandler";
+import ShowSettingsHandler from "./showSettingsHandler";
+import logger from "../logger";
 
-class GameIpcServer {
-  private readonly eventBus: InternalEventBus;
+class GameIpcServer extends (EventEmitter as new () => TypedEmitter<GameIpcEvents>) {
   private ipcServer: net.Server;
 
-  constructor(eventBus: InternalEventBus) {
-    this.eventBus = eventBus;
+  private readonly connectionClosedHandler: ConnectionClosedHandler;
+  private readonly gameIdentityHandler: GameIdentityHandler;
+  private readonly showSettingsHandler: ShowSettingsHandler;
+
+  constructor(
+    connectionClosedHandler: ConnectionClosedHandler,
+    gameIdentityHandler: GameIdentityHandler,
+    showSettingsHandler: ShowSettingsHandler
+  ) {
+    super();
+
+    this.connectionClosedHandler = connectionClosedHandler;
+    this.gameIdentityHandler = gameIdentityHandler;
+    this.showSettingsHandler = showSettingsHandler;
 
     ipcMain.on(ElectronIpcChannels.Commands, this.handleCommandsMessage);
-
     this.handleGameIpc = this.handleGameIpc.bind(this);
   }
 
@@ -58,21 +68,18 @@ class GameIpcServer {
 
       switch (message.id) {
         case GameMessageIds.Identity:
-          this.eventBus.emit(InternalEventIds.ReceivedGameIdentity, {
-            ...(message as IdentityMessage),
-            socket,
-          });
+          this.gameIdentityHandler.handleMessage(message, socket);
           break;
 
         // Do we care about validation if message came from server/client?
         case GameMessageIds.ServerReadyForClients:
-          this.eventBus.emit(InternalEventIds.ServerReadyForClients, {
+          this.emit(GameIpcEventIds.ServerReadyForClients, {
             socket,
           });
           break;
 
         case GameMessageIds.ShowSettings:
-          this.handleShowSettingsMessage(message as GameMessage);
+          this.showSettingsHandler.handleMessage();
           break;
       }
 
@@ -91,13 +98,9 @@ class GameIpcServer {
 
     socket.on("close", () => {
       logger.info("[GameIPC] Connection closed");
-      // TODO: Raise event, so we can handle game instances without process
-    });
-  }
 
-  private handleShowSettingsMessage(message: GameMessage) {
-    // TODO: bring back main window to focus, and send message to renderer,
-    // so it can update its state to show settings tab
+      this.connectionClosedHandler.handleConnectionClosed(socket);
+    });
   }
 }
 

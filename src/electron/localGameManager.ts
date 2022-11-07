@@ -5,14 +5,13 @@ import {
 } from "src/electronIpcMessages";
 import GameProcessTypes from "src/gameProcessTypes";
 import GameInstanceBuilder from "./gameInstanceBuilder";
+import { GameIpcEventIds, ServerReadyForClientsEvent } from "./gameIpc/events";
+import GameIpcServer from "./gameIpc/server";
 import GameProcessManager from "./gameProcessManager";
 import GameVault from "./gameVault";
-import InternalEventBus from "./internalEventBus";
-import { InternalEventIds, ServerReadyForClientsEvent } from "./internalEvents";
 import logger from "./logger";
 
 class LocalGameManager {
-  private readonly eventBus: InternalEventBus;
   private readonly gameProcessManager: GameProcessManager;
   private readonly gameVault: GameVault;
   private readonly mainWindow: WebContents;
@@ -25,12 +24,11 @@ class LocalGameManager {
   private started: boolean;
 
   constructor(
-    eventBus: InternalEventBus,
+    gameIpcServer: GameIpcServer,
     gameProcessManager: GameProcessManager,
     gameVault: GameVault,
     mainWindow: WebContents
   ) {
-    this.eventBus = eventBus;
     this.gameProcessManager = gameProcessManager;
     this.gameVault = gameVault;
     this.mainWindow = mainWindow;
@@ -54,8 +52,8 @@ class LocalGameManager {
       ElectronIpcChannels.StopLocalGame,
       this.handleStopLocalGameMessage
     );
-    this.eventBus.on(
-      InternalEventIds.ServerReadyForClients,
+    gameIpcServer.on(
+      GameIpcEventIds.ServerReadyForClients,
       this.handleServerReadyForClientsEvent
     );
   }
