@@ -8,6 +8,7 @@ import { GameIpcEventIds, GameIpcEvents } from "./events";
 import { GameMessageIds } from "./messages";
 import ConnectionClosedHandler from "./connectionClosedHandler";
 import GameIdentityHandler from "./gameIdentityHandler";
+import JoinedServerHandler from "./joinedServerHandler";
 import ShowSettingsHandler from "./showSettingsHandler";
 import logger from "../logger";
 
@@ -16,17 +17,20 @@ class GameIpcServer extends (EventEmitter as new () => TypedEmitter<GameIpcEvent
 
   private readonly connectionClosedHandler: ConnectionClosedHandler;
   private readonly gameIdentityHandler: GameIdentityHandler;
+  private readonly joinedServerHandler: JoinedServerHandler;
   private readonly showSettingsHandler: ShowSettingsHandler;
 
   constructor(
     connectionClosedHandler: ConnectionClosedHandler,
     gameIdentityHandler: GameIdentityHandler,
+    joinedServerHandler: JoinedServerHandler,
     showSettingsHandler: ShowSettingsHandler
   ) {
     super();
 
     this.connectionClosedHandler = connectionClosedHandler;
     this.gameIdentityHandler = gameIdentityHandler;
+    this.joinedServerHandler = joinedServerHandler;
     this.showSettingsHandler = showSettingsHandler;
 
     ipcMain.on(ElectronIpcChannels.Commands, this.handleCommandsMessage);
@@ -69,6 +73,10 @@ class GameIpcServer extends (EventEmitter as new () => TypedEmitter<GameIpcEvent
       switch (message.id) {
         case GameMessageIds.Identity:
           this.gameIdentityHandler.handleMessage(message, socket);
+          break;
+
+        case GameMessageIds.JoinedServer:
+          this.joinedServerHandler.handleMessage(message, socket);
           break;
 
         // Do we care about validation if message came from server/client?

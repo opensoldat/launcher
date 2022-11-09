@@ -16,6 +16,7 @@ enum ElectronIpcChannels {
   LocalGameStarted = "LOCAL_GAME_STARTED",
   LocalGameStartTimeout = "LOCAL_GAME_START_TIMEOUT",
   LocalGameStopped = "LOCAL_GAME_STOPPED",
+  ClientJoinedServer = "CLIENT_JOINED_SERVER",
 }
 
 enum CommandTarget {
@@ -68,7 +69,14 @@ type GameProcessFailed = {
   errorMessage: string;
 };
 
+type ClientJoinedServer = {
+  gameInstanceId: string;
+  ip: string;
+  port: number;
+};
+
 export {
+  ClientJoinedServer,
   CommandsMessage,
   ElectronIpcChannels,
   GameProcessFailed,

@@ -32,7 +32,7 @@ class GameVaultStore {
     );
   }
 
-  private getClientById(id: string): ClientInstance {
+  getClientById(id: string): ClientInstance {
     return this.clients.find((clientInstance) => clientInstance.id === id);
   }
 

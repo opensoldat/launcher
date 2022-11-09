@@ -7,6 +7,7 @@ enum GameMessageIds {
   Commands = "COMMANDS",
   // Messages we receive from game:
   Identity = "IDENTITY",
+  JoinedServer = "JOIN_SERVER",
   ServerReadyForClients = "READY_FOR_CLIENTS",
   ShowSettings = "SHOW_SETTINGS",
 }
@@ -20,4 +21,9 @@ interface IdentityMessage extends GameMessage {
   processType: GameProcessTypes;
 }
 
-export { GameMessageIds, GameMessage, IdentityMessage };
+interface JoinedServerMessage extends GameMessage {
+  ip: string;
+  port: number;
+}
+
+export { GameMessageIds, GameMessage, IdentityMessage, JoinedServerMessage };

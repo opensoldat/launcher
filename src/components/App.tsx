@@ -11,6 +11,7 @@ import Spinner from "./Common/Spinner";
 
 import ClientSettingsStore from "../stores/settings/client";
 import DemosStore from "src/stores/demos";
+import GameIpcStore from "src/stores/gameIpc";
 import GameVaultStore from "src/stores/gameVault";
 import InterfacesStore from "src/stores/interfaces";
 import LauncherDataStore from "src/stores/launcher/data";
@@ -65,6 +66,7 @@ const App: React.FC = () => {
         gameVaultStore
       )
   );
+  const [gameIpcStore] = React.useState(() => new GameIpcStore(gameVaultStore));
 
   const [lobbyServersStore] = React.useState(() => new LobbyServersStore());
 

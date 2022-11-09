@@ -10,6 +10,7 @@ import GameIdentityHandler from "./gameIpc/gameIdentityHandler";
 import GameIpcServer from "./gameIpc/server";
 import GameProcessManager from "./gameProcessManager";
 import GameVault from "./gameVault";
+import JoinedServerHandler from "./gameIpc/joinedServerHandler";
 import LocalGameManager from "./localGameManager";
 import ShowSettingsHandler from "./gameIpc/showSettingsHandler";
 
@@ -162,10 +163,15 @@ app.on("ready", () => {
 
   const connectionClosedHandler = new ConnectionClosedHandler(gameVault);
   const gameIdentityHandler = new GameIdentityHandler(gameVault);
+  const joinedServerHandler = new JoinedServerHandler(
+    gameVault,
+    mainWindow.webContents
+  );
   const showSettingsHandler = new ShowSettingsHandler();
   const gameIpcServer = new GameIpcServer(
     connectionClosedHandler,
     gameIdentityHandler,
+    joinedServerHandler,
     showSettingsHandler
   );
 

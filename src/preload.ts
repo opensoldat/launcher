@@ -44,6 +44,7 @@ import {
 import { soldatPaths } from "./api/soldat/paths";
 import {
   AddedGameInstanceMessage,
+  ClientJoinedServer,
   ElectronIpcChannels,
   GameProcessFailed,
   GameProcessSpawned,
@@ -64,6 +65,12 @@ declare global {
     gameClients: {
       sendStartMessage: (message: StartClientMessage) => void;
       sendStopMessage: (message: StopClientMessage) => void;
+    };
+
+    gameIpc: {
+      onClientJoinedServer: (
+        handleClientJoinedServer: (message: ClientJoinedServer) => void
+      ) => void;
     };
 
     gameProcess: {
@@ -191,6 +198,19 @@ contextBridge.exposeInMainWorld("gameClients", {
 
   sendStopMessage: (message: StopClientMessage): void => {
     ipcRenderer.send(ElectronIpcChannels.StopClient, message);
+  },
+});
+
+contextBridge.exposeInMainWorld("gameIpc", {
+  onClientJoinedServer: (
+    handler: (message: ClientJoinedServer) => void
+  ): void => {
+    ipcRenderer.on(
+      ElectronIpcChannels.ClientJoinedServer,
+      (event, message: ClientJoinedServer) => {
+        handler(message);
+      }
+    );
   },
 });
 

@@ -1,4 +1,4 @@
-import { makeObservable, observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 import { nanoid } from "nanoid/non-secure";
 
 class ClientInstance {
@@ -9,6 +9,11 @@ class ClientInstance {
   constructor() {
     makeObservable(this);
     this.id = nanoid(8);
+  }
+
+  @action setServer(ip: string, port: number): void {
+    this.ip = ip;
+    this.port = port;
   }
 }
 
