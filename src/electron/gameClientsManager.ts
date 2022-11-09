@@ -6,6 +6,7 @@ import {
 } from "src/electronIpcMessages";
 import GameProcessTypes from "src/gameProcessTypes";
 import GameInstanceBuilder from "./gameInstanceBuilder";
+import GameIpcSender from "./gameIpc/sender";
 import GameProcessManager from "./gameProcessManager";
 import GameVault from "./gameVault";
 import logger from "./logger";
@@ -15,12 +16,18 @@ import logger from "./logger";
  * It's intended for online clients, and clients that play demos.
  */
 class GameClientsManager {
-  private readonly gameVault: GameVault;
+  private readonly gameIpcSender: GameIpcSender;
   private readonly gameProcessManager: GameProcessManager;
+  private readonly gameVault: GameVault;
 
-  constructor(gameVault: GameVault, gameProcessManager: GameProcessManager) {
-    this.gameVault = gameVault;
+  constructor(
+    gameIpcSender: GameIpcSender,
+    gameProcessManager: GameProcessManager,
+    gameVault: GameVault
+  ) {
+    this.gameIpcSender = gameIpcSender;
     this.gameProcessManager = gameProcessManager;
+    this.gameVault = gameVault;
 
     ipcMain.on(
       ElectronIpcChannels.StartClient,
@@ -74,7 +81,7 @@ class GameClientsManager {
     if (gameInstance.childProcess) {
       gameInstance.childProcess.kill();
     } else if (gameInstance.ipcSocket) {
-      // TODO: send /shutdown command to this client
+      this.gameIpcSender.sendShutdownCommand(gameInstance.ipcSocket);
     } else {
       logger.error("[GameClientsManager] Couldn't stop client.");
       return;

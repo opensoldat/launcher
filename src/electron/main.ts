@@ -7,6 +7,7 @@ import { isSoldatLink, SOLDAT_PROTOCOL } from "src/soldatLink";
 import ConnectionClosedHandler from "./gameIpc/connectionClosedHandler";
 import GameClientsManager from "./gameClientsManager";
 import GameIdentityHandler from "./gameIpc/gameIdentityHandler";
+import GameIpcSender from "./gameIpc/sender";
 import GameIpcServer from "./gameIpc/server";
 import GameProcessManager from "./gameProcessManager";
 import GameVault from "./gameVault";
@@ -156,9 +157,11 @@ app.on("ready", () => {
     gameVault,
     mainWindow.webContents
   );
+  const gameIpcSender = new GameIpcSender();
   const gameClientsManager = new GameClientsManager(
-    gameVault,
-    gameProcessManager
+    gameIpcSender,
+    gameProcessManager,
+    gameVault
   );
 
   const connectionClosedHandler = new ConnectionClosedHandler(gameVault);

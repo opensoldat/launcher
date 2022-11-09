@@ -12,6 +12,10 @@ enum GameMessageIds {
   ShowSettings = "SHOW_SETTINGS",
 }
 
+interface CommandsMessage extends GameMessage {
+  commands: string[];
+}
+
 interface GameMessage {
   id: string;
 }
@@ -26,4 +30,10 @@ interface JoinedServerMessage extends GameMessage {
   port: number;
 }
 
-export { GameMessageIds, GameMessage, IdentityMessage, JoinedServerMessage };
+export {
+  CommandsMessage,
+  GameMessageIds,
+  GameMessage,
+  IdentityMessage,
+  JoinedServerMessage,
+};
