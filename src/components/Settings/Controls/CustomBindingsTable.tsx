@@ -1,5 +1,5 @@
 import React from "react";
-import { observe } from "mobx";
+import { IArraySplice, observe } from "mobx";
 import { observer } from "mobx-react";
 
 import CustomBindingsTableRow from "./CustomBindingsTableRow";
@@ -22,8 +22,8 @@ const CustomBindingsTable: React.FC<CustomBindingsTableProps> = (props) => {
   const firstCommandInputRef = React.useRef<HTMLInputElement>(null);
   const justAddedBinding = React.useRef(false);
   React.useEffect(() => {
-    return observe(props.customBindings, (change: any) => {
-      if (change.addedCount > 0) {
+    return observe<KeyBinding>(props.customBindings, (change: IArraySplice<KeyBinding>) => {
+      if (change?.addedCount > 0) {
         justAddedBinding.current = true;
       } else {
         justAddedBinding.current = false;
