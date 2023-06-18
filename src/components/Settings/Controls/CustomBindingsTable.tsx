@@ -22,13 +22,16 @@ const CustomBindingsTable: React.FC<CustomBindingsTableProps> = (props) => {
   const firstCommandInputRef = React.useRef<HTMLInputElement>(null);
   const justAddedBinding = React.useRef(false);
   React.useEffect(() => {
-    return observe<KeyBinding>(props.customBindings, (change: IArraySplice<KeyBinding>) => {
-      if (change?.addedCount > 0) {
-        justAddedBinding.current = true;
-      } else {
-        justAddedBinding.current = false;
+    return observe<KeyBinding>(
+      props.customBindings,
+      (change: IArraySplice<KeyBinding>) => {
+        if (change?.addedCount > 0) {
+          justAddedBinding.current = true;
+        } else {
+          justAddedBinding.current = false;
+        }
       }
-    });
+    );
   }, [props.customBindings]);
 
   React.useEffect(() => {
