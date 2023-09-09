@@ -24,7 +24,7 @@ const defaultGameSettings: GameSettingsData = {
   //    actionSnap: false,
   allowServerMods: true,
   //    language: "en",
-  screenShake: true,
+  screenShake: false,
   screenshotAfterRound: false,
 };
 

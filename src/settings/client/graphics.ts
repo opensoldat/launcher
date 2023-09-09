@@ -56,7 +56,7 @@ const defaultGraphicsSettings: GraphicsSettingsData = {
   forcedBackgroundTopColor: "#0000FF",
 
   limitFPS: true,
-  maxFPS: 60,
+  maxFPS: 500,
 
   weatherEffects: true,
   smoothEdges: false,
@@ -67,7 +67,7 @@ const defaultGraphicsSettings: GraphicsSettingsData = {
   killsList: true,
 
   verticalSync: false,
-  dithering: false,
+  dithering: true,
 };
 
 class GraphicsSettings implements GraphicsSettingsData {
