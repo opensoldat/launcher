@@ -16,7 +16,7 @@ jobs:
       - name: Build launcher
         run: npm run make
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: launcher-linux
           path: out/make/zip/linux/x64/
@@ -35,7 +35,7 @@ jobs:
       - name: Build launcher
         run: npm run make
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: launcher-windows
           path: out/make/zip/win32/x64/
