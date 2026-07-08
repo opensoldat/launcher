@@ -5,7 +5,7 @@ import { isSoldatLink, SOLDAT_PROTOCOL } from "./soldatLink";
 import IconImage from "../assets/icon.png";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
-declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
+declare const MAIN_WINDOW_PRELOAD_PRELOAD_WEBPACK_ENTRY: string;
 
 let mainWindow: BrowserWindow;
 let interceptClose = false;
@@ -23,7 +23,7 @@ const createWindow = (): void => {
       /* Due to security reasons, we don't want to enable full Node.js support in renderer
        * processes. Instead, we'll expose our internal APIs with preload script. */
       nodeIntegration: false,
-      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      preload: MAIN_WINDOW_PRELOAD_PRELOAD_WEBPACK_ENTRY,
 
       contextIsolation: true,
       sandbox: false,

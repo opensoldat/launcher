@@ -27,6 +27,10 @@ module.exports = {
               html: "./src/index.html",
               js: "./src/index.tsx",
               name: "main_window",
+            },
+            {
+              name: "main_window_preload",
+              nodeIntegration: true,
               preload: {
                 js: "./src/preload.ts",
               },
