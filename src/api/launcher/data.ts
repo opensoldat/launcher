@@ -7,8 +7,8 @@ const filePath = path.resolve(
   "./launcher.json"
 );
 
-const loadData = function (): Promise<string> {
-  return fs.promises.readFile(filePath, { encoding: "utf8" }).catch((error) => {
+const loadData = function (): Promise<string | null> {
+  return fs.promises.readFile(filePath, { encoding: "utf8" }).catch((error): null => {
     console.warn("An error occurred when loading launcher's data", error);
     return null;
   });

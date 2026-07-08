@@ -12,13 +12,13 @@ import { configToFileData, parseConfigFileData, SoldatConfig } from "./parser";
 
 const loadConfig = <T extends SoldatConfig>(
   configFilePath: string
-): Promise<T> => {
+): Promise<T | null> => {
   return fs.promises
     .readFile(configFilePath, { encoding: "utf8" })
     .then((fileData) => {
       return parseConfigFileData(fileData) as T;
     })
-    .catch((error) => {
+    .catch((error): null => {
       console.warn("An error occurred when reading a config file: ", error);
       return null;
     });
@@ -112,13 +112,13 @@ const loadServerConfig = (): Promise<ServerConfig> => {
 const saveServerConfig = (config: ServerConfig): Promise<void> => {
   return saveConfig(soldatPaths.serverConfigFile, config);
 };
-const loadServerMapsList = (): Promise<string[]> => {
+const loadServerMapsList = (): Promise<string[] | null> => {
   return fs.promises
     .readFile(soldatPaths.serverMapsList, { encoding: "utf8" })
     .then((fileData) => {
       return fileData.split(/\r?\n/).filter((mapName) => mapName.length > 0);
     })
-    .catch((error) => {
+    .catch((error): null => {
       console.warn(
         "An error occurred when reading server's maps list file: ",
         error

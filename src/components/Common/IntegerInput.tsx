@@ -43,9 +43,10 @@ const IntegerInput: React.FC<IntegerInputProps> = (props) => {
   };
 
   const handleLostFocus = (): void => {
-    if (props.value < props.min) {
+    const numericValue = Number(props.value);
+    if (numericValue < props.min) {
       props.onValueChange(props.min, props.name);
-    } else if (props.value > props.max) {
+    } else if (numericValue > props.max) {
       props.onValueChange(props.max, props.name);
     }
   };

@@ -8,7 +8,7 @@ function listSubdirectoriesNames(directoryPath: string): Promise<string[]> {
     .then((entries) =>
       entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name)
     )
-    .catch(() => []);
+    .catch((): string[] => []);
 }
 
 function listFilesNames(
@@ -22,7 +22,7 @@ function listFilesNames(
         .filter((entry) => entry.isFile() && entry.name.endsWith(fileExtension))
         .map((entry) => entry.name.slice(0, -fileExtension.length))
     )
-    .catch(() => []);
+    .catch((): string[] => []);
 }
 
 export { listFilesNames, listSubdirectoriesNames };
