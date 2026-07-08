@@ -34,7 +34,7 @@ class LauncherDataStore {
         let data: LauncherData;
         try {
           data = JSON.parse(fileContent);
-        } catch (error) {
+        } catch {
           console.warn("Could not parse launcher's data");
         }
         return data;

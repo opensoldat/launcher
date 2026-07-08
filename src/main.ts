@@ -3,6 +3,7 @@ import path from "path";
 import { isDevelopment } from "./environment";
 import { isSoldatLink, SOLDAT_PROTOCOL } from "./soldatLink";
 import IconImage from "../assets/icon.png";
+import electronSquirrelStartup from "electron-squirrel-startup";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_PRELOAD_WEBPACK_ENTRY: string;
@@ -11,8 +12,7 @@ let mainWindow: BrowserWindow;
 let interceptClose = false;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require("electron-squirrel-startup")) {
-  // eslint-disable-line global-require
+if (electronSquirrelStartup) {
   app.quit();
 }
 

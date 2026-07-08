@@ -102,11 +102,11 @@ class GraphicsSettings implements GraphicsSettingsData {
     };
 
     this.backgroundSceneries = toBool(config?.cvars.r_renderbackground);
-    (this.forceBackground = toBool(config?.cvars.r_forcebg)),
-      (this.forcedBackgroundBottomColor = toHexColor(
-        config?.cvars.r_forcebg_color2,
-        SoldatColorFormats.ABGR
-      ));
+    this.forceBackground = toBool(config?.cvars.r_forcebg);
+    this.forcedBackgroundBottomColor = toHexColor(
+      config?.cvars.r_forcebg_color2,
+      SoldatColorFormats.ABGR
+    );
     this.forcedBackgroundTopColor = toHexColor(
       config?.cvars.r_forcebg_color1,
       SoldatColorFormats.ABGR

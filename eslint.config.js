@@ -59,7 +59,7 @@ module.exports = [
       sourceType: "commonjs",
     },
     rules: {
-      "@typescript-eslint/no-var-requires": "off",
+      "@typescript-eslint/no-require-imports": "off",
     },
   },
   prettierConfig,

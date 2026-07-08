@@ -79,23 +79,23 @@ class PlayerSettings implements PlayerSettingsData {
   constructor(config?: PlayerConfig) {
     makeObservable(this);
     this.nickname = config?.cvars.cl_player_name;
-    (this.hairColor = toHexColor(config?.cvars.cl_player_hair)),
-      (this.shirtColor = toHexColor(config?.cvars.cl_player_shirt)),
-      (this.skinColor = toHexColor(config?.cvars.cl_player_skin)),
-      (this.pantsColor = toHexColor(config?.cvars.cl_player_pants)),
-      (this.jetColor = toHexColor(config?.cvars.cl_player_jet)),
-      (this.headStyle = toNumber(
-        config?.cvars.cl_player_headstyle
-      ) as HeadStyles),
-      (this.hairStyle = toNumber(
-        config?.cvars.cl_player_hairstyle
-      ) as HairStyles),
-      (this.chainStyle = toNumber(
-        config?.cvars.cl_player_chainstyle
-      ) as ChainStyles),
-      (this.secondaryWeapon = toNumber(
-        config?.cvars.cl_player_secwep
-      ) as SecondaryWeapons);
+    this.hairColor = toHexColor(config?.cvars.cl_player_hair);
+    this.shirtColor = toHexColor(config?.cvars.cl_player_shirt);
+    this.skinColor = toHexColor(config?.cvars.cl_player_skin);
+    this.pantsColor = toHexColor(config?.cvars.cl_player_pants);
+    this.jetColor = toHexColor(config?.cvars.cl_player_jet);
+    this.headStyle = toNumber(
+      config?.cvars.cl_player_headstyle
+    ) as HeadStyles;
+    this.hairStyle = toNumber(
+      config?.cvars.cl_player_hairstyle
+    ) as HairStyles;
+    this.chainStyle = toNumber(
+      config?.cvars.cl_player_chainstyle
+    ) as ChainStyles;
+    this.secondaryWeapon = toNumber(
+      config?.cvars.cl_player_secwep
+    ) as SecondaryWeapons;
 
     defaults(this, defaultPlayerSettings);
   }
