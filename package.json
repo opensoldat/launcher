@@ -39,7 +39,7 @@
     "@types/shortid": "0.0.29",
     "@typescript-eslint/eslint-plugin": "^8.63.0",
     "@typescript-eslint/parser": "^8.63.0",
-    "css-loader": "^6.11.0",
+    "css-loader": "^7.1.4",
     "electron": "21.2.0",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^8.10.0",
@@ -64,7 +64,7 @@
     "react-toastify": "^11.1.0",
     "react-tooltip": "^6.0.8",
     "shortid": "^2.2.16",
-    "style-loader": "^3.3.4",
+    "style-loader": "^4.0.0",
     "ts-jest": "^29.4.11",
     "ts-loader": "^9.5.1",
     "typescript": "^5.9.3"
