@@ -1,7 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { toast } from "react-toastify";
-import ReactTooltip from "react-tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -39,13 +38,6 @@ const ServersTable: React.FC<ServersTableProps> = (props) => {
       toast.error(errorMessage, { autoClose: 2500 });
     });
   }
-
-  React.useEffect(() => {
-    // Workaround for tooltips not displaying when we add triggering elements
-    // at runtime (I'm referring to icons in table's cells - those are added
-    // only after receiving data from lobby).
-    ReactTooltip.rebuild();
-  }, [props.serversStore.filteredServers]);
 
   const handleServerClick = (event: React.MouseEvent, server: Server): void => {
     props.onServerClick(server);
@@ -124,8 +116,7 @@ const ServersTable: React.FC<ServersTableProps> = (props) => {
                   Game styles
                   <FontAwesomeIcon
                     className="icon"
-                    data-tip
-                    data-for="game-styles-tooltip"
+                    data-tooltip-id="game-styles-tooltip"
                     icon={faInfoCircle}
                     size="1x"
                   />

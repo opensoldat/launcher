@@ -1,5 +1,5 @@
 import React from "react";
-import ReactTooltip from "react-tooltip";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 import "./Tooltip.css";
 
@@ -8,7 +8,8 @@ type TooltipProps = {
   clickable?: boolean;
   id?: string;
   place?: "top" | "bottom" | "left" | "right";
-  tooltipRef?: React.RefObject<ReactTooltip>;
+  hidden?: boolean;
+  afterHide?: () => void;
 
   children: React.ReactNode;
 };
@@ -19,15 +20,13 @@ type TooltipProps = {
  * TooltipProps, or use ReactTooltip directly. */
 const Tooltip: React.FC<TooltipProps> = (props) => (
   <ReactTooltip
-    border
-    borderColor="#828282"
     className={"tooltip " + (props.className ? props.className : "")}
     clickable={props.clickable}
-    effect="solid"
     id={props.id}
     place={props.place || "top"}
-    ref={props.tooltipRef}
-    type="light"
+    variant="light"
+    hidden={props.hidden}
+    afterHide={props.afterHide}
   >
     {props.children}
   </ReactTooltip>

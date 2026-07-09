@@ -1,5 +1,4 @@
 import React from "react";
-import ReactTooltip from "react-tooltip";
 import { observer } from "mobx-react";
 
 import Checkbox from "../../Common/Checkbox";
@@ -20,16 +19,10 @@ type FiltersTooltipProps = {
 };
 
 const FiltersTooltip: React.FC<FiltersTooltipProps> = (props) => {
-  const tooltip = React.useRef(null);
+  const [isHidden, setIsHidden] = React.useState(false);
 
   const closeTooltip = (): void => {
-    /* react-tooltip hacky workaround.
-     * By default, react-tooltip checks if mouse is hovering
-     * on tooltip before hiding it (even when we call hide() manually).
-     * According to https://github.com/wwayne/react-tooltip/issues/449
-     * setting tooltipRef to null is the way to go... */
-    tooltip.current.tooltipRef = null;
-    ReactTooltip.hide();
+    setIsHidden(true);
   };
 
   const handleCheckboxToggle = (checked: boolean, fieldName?: string): void => {
@@ -76,7 +69,8 @@ const FiltersTooltip: React.FC<FiltersTooltipProps> = (props) => {
       clickable={true}
       id={props.id}
       place="bottom"
-      tooltipRef={tooltip}
+      hidden={isHidden}
+      afterHide={() => setIsHidden(false)}
     >
       <div className="filter-field">
         <label className="label"> Players </label>
