@@ -201,7 +201,7 @@ const App: React.FC = () => {
 
           <ToastContainer
             draggable={false}
-            bodyStyle={{
+            toastStyle={{
               fontFamily: "play-regular",
               wordBreak: "break-word",
               whiteSpace: "pre-wrap",
