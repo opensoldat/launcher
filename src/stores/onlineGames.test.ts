@@ -12,7 +12,7 @@ test("Adds new client on successful connect", () => {
   const errorCallback = jest.fn();
   store.connect("127.0.0.1", 23073, "", errorCallback);
   expect(store.clients).toHaveLength(1);
-  expect(errorCallback).not.toBeCalled();
+  expect(errorCallback).not.toHaveBeenCalled();
 });
 
 test("Removes client on disconnect", () => {
@@ -39,7 +39,7 @@ test("Removes client on disconnect", () => {
 
   const errorCallback = jest.fn();
   store.connect(ip, port, "", errorCallback);
-  expect(errorCallback).not.toBeCalled();
+  expect(errorCallback).not.toHaveBeenCalled();
   expect(store.clients).toHaveLength(1);
 
   store.disconnect(ip, port);
@@ -59,6 +59,6 @@ test("Removes client on client process error (crashes, for instance)", () => {
 
   clientChildProcess.emit("error", new Error("Test"));
 
-  expect(errorCallback).toBeCalledWith("Test");
+  expect(errorCallback).toHaveBeenCalledWith("Test");
   expect(store.clients).toHaveLength(0);
 });
