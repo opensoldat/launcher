@@ -54,14 +54,14 @@ class ServersSortStore {
       case "Map":
         ascendingResult = stringComparator(
           serverA.currentMap,
-          serverB.currentMap
+          serverB.currentMap,
         );
         break;
 
       case "GameMode":
         ascendingResult = stringComparator(
           GameModes[serverA.gameMode],
-          GameModes[serverB.gameMode]
+          GameModes[serverB.gameMode],
         );
         break;
 

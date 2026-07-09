@@ -6,7 +6,7 @@ type GameModeDescriptionProps = {
 };
 
 const GameModeDescription: React.FC<GameModeDescriptionProps> = (
-  props: GameModeDescriptionProps
+  props: GameModeDescriptionProps,
 ) => (
   <div>
     {props.gameMode === GameModes.CaptureTheFlag && (

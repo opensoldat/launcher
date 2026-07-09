@@ -157,7 +157,7 @@ class MapsStore {
       action((archivesNames) => {
         this.mapArchivesNames = archivesNames;
         this.isLoading = false;
-      })
+      }),
     );
   }
 }

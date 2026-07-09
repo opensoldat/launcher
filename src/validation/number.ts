@@ -1,7 +1,7 @@
 const validateNumber = function (
   value: string,
   min?: number,
-  max?: number
+  max?: number,
 ): string {
   if (!value || value.length === 0) {
     return "Can not be empty";

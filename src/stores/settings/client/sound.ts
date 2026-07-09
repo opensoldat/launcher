@@ -17,7 +17,7 @@ class SoundSettingsStore {
       action((config) => {
         this.settings = new SoundSettings(config);
         this.isLoading = false;
-      })
+      }),
     );
   }
 
@@ -29,7 +29,7 @@ class SoundSettingsStore {
       .finally(
         action(() => {
           this.isSaving = false;
-        })
+        }),
       );
   };
 

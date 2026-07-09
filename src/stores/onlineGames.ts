@@ -25,7 +25,7 @@ class OnlineGamesStore {
     ip: string,
     port: number,
     password: string,
-    onError: (errorMessage: string) => void
+    onError: (errorMessage: string) => void,
   ): void => {
     try {
       const clientId = window.soldat.client.start(
@@ -35,7 +35,7 @@ class OnlineGamesStore {
         this.clientLaunchSettingsStore?.launchArguments,
         this.onClientFailed,
         this.onClientTerminated,
-        true
+        true,
       );
 
       this.clients.push({
@@ -65,7 +65,7 @@ class OnlineGamesStore {
   getClient = computedFn((serverIp: string, serverPort: number): Client => {
     return this.clients.find(
       (client) =>
-        client.serverIp === serverIp && client.serverPort === serverPort
+        client.serverIp === serverIp && client.serverPort === serverPort,
     );
   });
 
@@ -86,7 +86,7 @@ class OnlineGamesStore {
 
   @action private removeClient = (clientId: string): void => {
     const clientIndex = this.clients.findIndex(
-      (client) => client.id === clientId
+      (client) => client.id === clientId,
     );
     if (clientIndex === -1) {
       return;

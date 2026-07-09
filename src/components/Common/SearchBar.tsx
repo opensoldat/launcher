@@ -14,7 +14,7 @@ type SearchBarProps = {
 
 const SearchBar: React.FC<SearchBarProps> = (props) => {
   const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ): void => {
     props.onChange(event.target.value);
   };

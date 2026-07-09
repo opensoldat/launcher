@@ -39,7 +39,7 @@ class ColorInput extends React.Component<ColorInputProps, ColorInputState> {
     }
   }
 
-  render(): JSX.Element {
+  render(): React.JSX.Element {
     const buttonStyle = {
       backgroundColor: this.props.color,
     };

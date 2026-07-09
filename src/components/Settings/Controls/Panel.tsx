@@ -37,21 +37,21 @@ const ControlsPanel: React.FC<ControlsPanelProps> = (props) => {
     (bindingId: string, newCommand: string): void => {
       customBindings.setCommand(bindingId, newCommand);
     },
-    [customBindings]
+    [customBindings],
   );
 
   const handleCustomDelete = React.useCallback(
     (bindingId: string): void => {
       customBindings.delete(bindingId);
     },
-    [customBindings]
+    [customBindings],
   );
 
   const handleKeyChange = React.useCallback(
     (bindingId: string, newKey: string): void => {
       props.controlsWrapperStore.setBindingKey(bindingId, newKey);
     },
-    [props.controlsWrapperStore]
+    [props.controlsWrapperStore],
   );
 
   const handleMouseSensitivityChange = (newValue: number): void => {
@@ -79,8 +79,8 @@ const ControlsPanel: React.FC<ControlsPanelProps> = (props) => {
 
   const renderCommonBindingField = (
     command: CommonGameCommands,
-    label: string
-  ): JSX.Element => {
+    label: string,
+  ): React.JSX.Element => {
     return (
       <CommonBindingField
         key={command}
@@ -138,15 +138,15 @@ const ControlsPanel: React.FC<ControlsPanelProps> = (props) => {
               {renderCommonBindingField(CommonGameCommands.Reload, "Reload")}
               {renderCommonBindingField(
                 CommonGameCommands.ChangeWeapon,
-                "Switch weapon"
+                "Switch weapon",
               )}
               {renderCommonBindingField(
                 CommonGameCommands.DropWeapon,
-                "Drop weapon"
+                "Drop weapon",
               )}
               {renderCommonBindingField(
                 CommonGameCommands.ThrowGrenade,
-                "Throw grenade"
+                "Throw grenade",
               )}
             </div>
 
@@ -156,7 +156,7 @@ const ControlsPanel: React.FC<ControlsPanelProps> = (props) => {
               {renderCommonBindingField(CommonGameCommands.Chat, "Chat")}
               {renderCommonBindingField(
                 CommonGameCommands.TeamChat,
-                "Team chat"
+                "Team chat",
               )}
               {renderCommonBindingField(CommonGameCommands.Radio, "Radio menu")}
               {renderCommonBindingField(CommonGameCommands.Cmd, "Command")}
@@ -167,36 +167,36 @@ const ControlsPanel: React.FC<ControlsPanelProps> = (props) => {
 
               {renderCommonBindingField(
                 CommonGameCommands.SwitchCameraToRedFlag,
-                "Switch camera to red flag"
+                "Switch camera to red flag",
               )}
               {renderCommonBindingField(
                 CommonGameCommands.SwitchCameraToBlueFlag,
-                "Switch camera to blue flag"
+                "Switch camera to blue flag",
               )}
               {renderCommonBindingField(
                 CommonGameCommands.SwitchCameraToYellowFlag,
-                "Switch camera to yellow flag (point match)"
+                "Switch camera to yellow flag (point match)",
               )}
 
               {renderCommonBindingField(
                 CommonGameCommands.SwitchCameraToPlayer1,
-                "Switch camera to player with ID 1"
+                "Switch camera to player with ID 1",
               )}
               {renderCommonBindingField(
                 CommonGameCommands.SwitchCameraToPlayer2,
-                "Switch camera to player with ID 2"
+                "Switch camera to player with ID 2",
               )}
               {renderCommonBindingField(
                 CommonGameCommands.SwitchCameraToPlayer3,
-                "Switch camera to player with ID 3"
+                "Switch camera to player with ID 3",
               )}
               {renderCommonBindingField(
                 CommonGameCommands.SwitchCameraToPlayer4,
-                "Switch camera to player with ID 4"
+                "Switch camera to player with ID 4",
               )}
               {renderCommonBindingField(
                 CommonGameCommands.SwitchCameraToPlayer5,
-                "Switch camera to player with ID 5"
+                "Switch camera to player with ID 5",
               )}
             </div>
 
@@ -205,32 +205,32 @@ const ControlsPanel: React.FC<ControlsPanelProps> = (props) => {
 
               {renderCommonBindingField(
                 CommonGameCommands.ThrowFlag,
-                "Throw flag"
+                "Throw flag",
               )}
               {renderCommonBindingField(
                 CommonGameCommands.WeaponsMenu,
-                "Toggle weapons menu"
+                "Toggle weapons menu",
               )}
               {renderCommonBindingField(
                 CommonGameCommands.FragsList,
-                "Frags list"
+                "Frags list",
               )}
               {renderCommonBindingField(
                 CommonGameCommands.StatsMenu,
-                "Stats menu"
+                "Stats menu",
               )}
               {renderCommonBindingField(CommonGameCommands.MiniMap, "Mini map")}
               {renderCommonBindingField(
                 CommonGameCommands.GameStats,
-                "Game stats menu"
+                "Game stats menu",
               )}
               {renderCommonBindingField(
                 CommonGameCommands.RecordDemo,
-                "Record demo"
+                "Record demo",
               )}
               {renderCommonBindingField(
                 CommonGameCommands.Screenshot,
-                "Take screenshot"
+                "Take screenshot",
               )}
             </div>
 

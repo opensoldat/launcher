@@ -9,7 +9,7 @@ type LaunchArgumentsTooltipProps = {
 };
 
 const LaunchArgumentsTooltip: React.FC<LaunchArgumentsTooltipProps> = (
-  props
+  props,
 ) => (
   <Tooltip className="launch-arguments-tooltip" id={props.id}>
     This option is for power users. The value will be passed to {props.target}

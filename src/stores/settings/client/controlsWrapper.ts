@@ -24,18 +24,18 @@ class ControlsWrapperStore {
     const loadSettings = window.soldat.client.loadControlsConfig().then(
       action((config) => {
         this.controlsSettings = new ControlsSettings(config);
-      })
+      }),
     );
     const loadCustomBindings = window.soldat.client
       .loadCustomBindingsConfig()
       .then(
         action((config) => {
           this.customBindings = new CustomBindings(config);
-        })
+        }),
       );
 
     Promise.all([loadSettings, loadCustomBindings]).finally(
-      action(() => (this.isLoading = false))
+      action(() => (this.isLoading = false)),
     );
   }
 
@@ -48,10 +48,10 @@ class ControlsWrapperStore {
     this.isSaving = true;
 
     const saveSettings = window.soldat.client.saveControlsConfig(
-      this.controlsSettings.toConfig()
+      this.controlsSettings.toConfig(),
     );
     const saveCustomBindings = window.soldat.client.saveCustomBindingsConfig(
-      this.customBindings.toConfig()
+      this.customBindings.toConfig(),
     );
 
     return Promise.all([saveSettings, saveCustomBindings])

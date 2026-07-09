@@ -66,7 +66,7 @@ class ConnectFormStore implements ConnectFormData {
     // Can't use isIPv4 from "net" directly here due to Node.js integration being turned off.
     if (
       !/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
-        this.ip
+        this.ip,
       )
     ) {
       return "Invalid IP address";

@@ -38,7 +38,7 @@ describe("Select options", () => {
         expect.objectContaining({
           value: defaultInterface,
         }),
-      ])
+      ]),
     );
 
     expect(interfacesStore.selectOptions).toEqual(
@@ -46,7 +46,7 @@ describe("Select options", () => {
         expect.objectContaining({
           value: "directory1",
         }),
-      ])
+      ]),
     );
   });
 
@@ -71,7 +71,7 @@ describe("Select options", () => {
         expect.objectContaining({
           value: "directory2",
         }),
-      ])
+      ]),
     );
 
     expect(interfacesStore.selectOptions).toEqual(
@@ -79,7 +79,7 @@ describe("Select options", () => {
         expect.objectContaining({
           value: defaultInterface,
         }),
-      ])
+      ]),
     );
   });
 
@@ -95,14 +95,14 @@ describe("Select options", () => {
         expect.objectContaining({
           value: "directory1",
         }),
-      ])
+      ]),
     );
     expect(interfacesStore.selectOptions).toEqual(
       expect.not.arrayContaining([
         expect.objectContaining({
           value: defaultInterface,
         }),
-      ])
+      ]),
     );
 
     clientLaunchSettingsStore.localMount = false;
@@ -111,14 +111,14 @@ describe("Select options", () => {
         expect.objectContaining({
           value: defaultInterface,
         }),
-      ])
+      ]),
     );
     expect(interfacesStore.selectOptions).toEqual(
       expect.not.arrayContaining([
         expect.objectContaining({
           value: "directory1",
         }),
-      ])
+      ]),
     );
   });
 });

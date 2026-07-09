@@ -29,7 +29,7 @@ class DemosStore {
       action((filesNames) => {
         this.demoFilesNames = filesNames;
         this.isLoading = false;
-      })
+      }),
     );
   }
 

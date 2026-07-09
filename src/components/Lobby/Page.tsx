@@ -40,7 +40,7 @@ const LobbyPage: React.FC<LobbyPageProps> = (props) => {
       props.connectFormStore.password,
       function (errorMessage: string) {
         toast.error("Could not start game:\n" + errorMessage);
-      }
+      },
     );
   };
 

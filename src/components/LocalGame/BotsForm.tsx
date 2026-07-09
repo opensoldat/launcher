@@ -29,7 +29,7 @@ const BotsForm: React.FC<BotsFormProps> = (props) => {
 
   const handleBotsCountChange = (
     newBotsCount: number,
-    inputFieldName: string
+    inputFieldName: string,
   ): void => {
     switch (inputFieldName) {
       case "alpha-bots":

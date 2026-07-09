@@ -16,7 +16,7 @@ test("Clears out all duplicate keys when setting new key", () => {
       id: "test2",
       command: CommonGameCommands.Fire,
       key: newKey,
-    }
+    },
   );
   controlsWrapper.customBindings.bindings.push(
     {
@@ -33,7 +33,7 @@ test("Clears out all duplicate keys when setting new key", () => {
       id: "test5",
       command: "test cmd",
       key: "CTRL+Y",
-    }
+    },
   );
 
   controlsWrapper.setBindingKey("test5", newKey);

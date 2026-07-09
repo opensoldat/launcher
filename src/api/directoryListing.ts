@@ -6,21 +6,21 @@ function listSubdirectoriesNames(directoryPath: string): Promise<string[]> {
   return fs.promises
     .readdir(directoryPath, { withFileTypes: true })
     .then((entries) =>
-      entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name)
+      entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name),
     )
     .catch((): string[] => []);
 }
 
 function listFilesNames(
   directoryPath: string,
-  fileExtension: SoldatFileExtensions
+  fileExtension: SoldatFileExtensions,
 ): Promise<string[]> {
   return fs.promises
     .readdir(directoryPath, { withFileTypes: true })
     .then((entries) =>
       entries
         .filter((entry) => entry.isFile() && entry.name.endsWith(fileExtension))
-        .map((entry) => entry.name.slice(0, -fileExtension.length))
+        .map((entry) => entry.name.slice(0, -fileExtension.length)),
     )
     .catch((): string[] => []);
 }

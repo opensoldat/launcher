@@ -22,7 +22,7 @@ const start = (
   launchArguments: string,
   onReady: () => void,
   onFailed: (error: Error) => void,
-  onTerminated: (exitCode: number, stderr: string) => void
+  onTerminated: (exitCode: number, stderr: string) => void,
 ): void => {
   serverProcess = spawn(soldatPaths.serverExecutable, [launchArguments]);
 

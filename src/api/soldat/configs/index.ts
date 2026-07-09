@@ -11,7 +11,7 @@ import {
 import { configToFileData, parseConfigFileData, SoldatConfig } from "./parser";
 
 const loadConfig = <T extends SoldatConfig>(
-  configFilePath: string
+  configFilePath: string,
 ): Promise<T | null> => {
   return fs.promises
     .readFile(configFilePath, { encoding: "utf8" })
@@ -36,28 +36,28 @@ const makeConfigsFolders = (): Promise<void> => {
   return Promise.all([checkClientExe, checkServerExe])
     .catch(() => {
       return Promise.reject(
-        Error("OpenSoldat was not found in expected directory.")
+        Error("OpenSoldat was not found in expected directory."),
       );
     })
     .then(() => {
       const makeClientConfigFolder = fs.promises.mkdir(
         soldatPaths.clientConfigsDirectory,
-        { recursive: true }
+        { recursive: true },
       );
       const makeServerConfigFolder = fs.promises.mkdir(
         soldatPaths.serverConfigsDirectory,
-        { recursive: true }
+        { recursive: true },
       );
 
       return Promise.all([makeClientConfigFolder, makeServerConfigFolder]).then(
-        () => Promise.resolve()
+        () => Promise.resolve(),
       );
     });
 };
 
 const saveConfig = (
   configFilePath: string,
-  config: SoldatConfig
+  config: SoldatConfig,
 ): Promise<void> => {
   return makeConfigsFolders()
     .then(() => fs.promises.writeFile(configFilePath, configToFileData(config)))
@@ -121,7 +121,7 @@ const loadServerMapsList = (): Promise<string[] | null> => {
     .catch((error): null => {
       console.warn(
         "An error occurred when reading server's maps list file: ",
-        error
+        error,
       );
       return null;
     });

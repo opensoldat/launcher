@@ -34,7 +34,7 @@ enum SoldatColorFormats {
 // Returns undefined if color is not in the correct format.
 const toHexColor = (
   color: SoldatColor,
-  format = SoldatColorFormats.ARGB
+  format = SoldatColorFormats.ARGB,
 ): HexColor => {
   if (!color || color.length !== 9) {
     return undefined;
@@ -63,7 +63,7 @@ const toHexColor = (
 // #RRGGBB => $AARRGGBB or $AABBGGRR
 const toSoldatColor = (
   color: HexColor,
-  format: SoldatColorFormats = SoldatColorFormats.ARGB
+  format: SoldatColorFormats = SoldatColorFormats.ARGB,
 ): SoldatColor => {
   if (!color || color.length !== 7) {
     return undefined;
@@ -93,7 +93,7 @@ const toSoldatColor = (
 // The type of "value" argument determines the output.
 const toString = (
   value: string | boolean | number,
-  defaultValue = ""
+  defaultValue = "",
 ): string => {
   if (value == null) {
     return defaultValue;

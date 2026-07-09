@@ -10,7 +10,7 @@ type CheckboxLabelWithImageProps = {
 };
 
 const CheckboxLabelWithImage: React.FC<CheckboxLabelWithImageProps> = (
-  props
+  props,
 ) => {
   const labelStyle = {
     minWidth: props.labelMinWidth,

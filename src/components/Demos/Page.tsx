@@ -50,7 +50,7 @@ const DemosPage: React.FC<DemosPageProps> = (props) => {
   };
 
   const filteredDemosFileNames = props.demosStore.filterDemos(
-    props.uiState.searchTerm
+    props.uiState.searchTerm,
   );
   /* Clear out selection in case the selected demo disappeared from list
    * (it got filtered out, or user refreshed the list after deleting demo file)

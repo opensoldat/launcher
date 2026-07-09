@@ -13,7 +13,7 @@ class GraphicsSettingsStore {
       action((config) => {
         this.settings = new GraphicsSettings(config);
         this.isLoading = false;
-      })
+      }),
     );
   };
 
@@ -25,7 +25,7 @@ class GraphicsSettingsStore {
       .finally(
         action(() => {
           this.isSaving = false;
-        })
+        }),
       );
   };
 

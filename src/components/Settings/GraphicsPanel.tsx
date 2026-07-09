@@ -50,7 +50,7 @@ const GraphicsPanel: React.FC<GraphicsPanelProps> = (props) => {
 
   const handleBackgroundColorChange = (
     color: string,
-    fieldName: string
+    fieldName: string,
   ): void => {
     switch (fieldName) {
       case "background-top-color":

@@ -15,7 +15,7 @@ class LocalGameStore {
 
   constructor(
     clientLaunchSettingsStore: ClientLaunchSettingsStore,
-    serverLaunchSettingsStore: ServerLaunchSettingsStore
+    serverLaunchSettingsStore: ServerLaunchSettingsStore,
   ) {
     makeObservable(this);
     this.clientLaunchSettingsStore = clientLaunchSettingsStore;
@@ -24,7 +24,7 @@ class LocalGameStore {
 
   @action startLocalGame(
     serverPort: number,
-    onError: (errorMessage: string) => void
+    onError: (errorMessage: string) => void,
   ): void {
     this.errorCallback = onError;
     this.isStarting = true;
@@ -34,7 +34,7 @@ class LocalGameStore {
       this.serverLaunchSettingsStore.launchArguments,
       this.onServerReady.bind(this),
       this.onServerFailed.bind(this),
-      this.onServerTerminated.bind(this)
+      this.onServerTerminated.bind(this),
     );
   }
 
@@ -57,7 +57,7 @@ class LocalGameStore {
         this.clientLaunchSettingsStore.launchArguments,
         this.onLocalClientFailed.bind(this),
         this.onLocalClientTerminated.bind(this),
-        false
+        false,
       );
 
       this.isStarting = false;

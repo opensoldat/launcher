@@ -83,7 +83,7 @@ declare global {
           launchArguments: string,
           onFailed: (clientId: string, error: Error) => void,
           onTerminated: (clientId: string) => void,
-          detachedProcess: boolean
+          detachedProcess: boolean,
         ) => string;
         stop: (clientId: string) => void;
       };
@@ -99,7 +99,7 @@ declare global {
           launchArguments: string,
           onReady: () => void,
           onFailed: (error: Error) => void,
-          onTerminated: (exitCode: number, stderr: string) => void
+          onTerminated: (exitCode: number, stderr: string) => void,
         ) => void;
         stop: () => void;
       };

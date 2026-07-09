@@ -13,7 +13,7 @@ class GameSettingsStore {
       action((config) => {
         this.settings = new GameSettings(config);
         this.isLoading = false;
-      })
+      }),
     );
   };
 
@@ -25,7 +25,7 @@ class GameSettingsStore {
       .finally(
         action(() => {
           this.isSaving = false;
-        })
+        }),
       );
   };
 

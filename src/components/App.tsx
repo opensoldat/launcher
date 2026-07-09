@@ -43,7 +43,7 @@ const App: React.FC = () => {
 
   const [demosStore] = React.useState(() => new DemosStore());
   const [interfacesStore] = React.useState(
-    () => new InterfacesStore(launcherDataStore.clientLaunchSettingsStore)
+    () => new InterfacesStore(launcherDataStore.clientLaunchSettingsStore),
   );
   const [mapsStore] = React.useState(() => new MapsStore());
   const [modsStore] = React.useState(() => new ModsStore());
@@ -52,11 +52,11 @@ const App: React.FC = () => {
     () =>
       new LocalGameStore(
         launcherDataStore.clientLaunchSettingsStore,
-        launcherDataStore.serverLaunchSettingsStore
-      )
+        launcherDataStore.serverLaunchSettingsStore,
+      ),
   );
   const [onlineGamesStore] = React.useState(
-    () => new OnlineGamesStore(launcherDataStore.clientLaunchSettingsStore)
+    () => new OnlineGamesStore(launcherDataStore.clientLaunchSettingsStore),
   );
 
   const [lobbyServersStore] = React.useState(() => new LobbyServersStore());
@@ -82,7 +82,7 @@ const App: React.FC = () => {
           Number(serverSettingsStore.settings.network.port),
           (errorMessage: string) => {
             toast.error("Local game failed:\n" + errorMessage);
-          }
+          },
         );
       })
       .catch((errorMessage: string) => {
@@ -126,7 +126,7 @@ const App: React.FC = () => {
           launcherDataStore.connectFormStore.password,
           function (errorMessage) {
             toast.error("Could not start game:\n" + errorMessage);
-          }
+          },
         );
 
         // Navigate to Lobby tab.

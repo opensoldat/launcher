@@ -50,7 +50,7 @@ describe("parseConfigFileData", () => {
           key: "ALT+CTRL+Keypad 8",
           command: 'say "Test"',
         }),
-      ])
+      ]),
     );
   });
 });

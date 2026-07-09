@@ -85,7 +85,7 @@ class CustomBindings {
 
   @action delete(bindingId: string): void {
     const index = this.bindings.findIndex(
-      (binding) => binding.id === bindingId
+      (binding) => binding.id === bindingId,
     );
 
     if (index !== -1) {

@@ -105,11 +105,11 @@ class GraphicsSettings implements GraphicsSettingsData {
     this.forceBackground = toBool(config?.cvars.r_forcebg);
     this.forcedBackgroundBottomColor = toHexColor(
       config?.cvars.r_forcebg_color2,
-      SoldatColorFormats.ABGR
+      SoldatColorFormats.ABGR,
     );
     this.forcedBackgroundTopColor = toHexColor(
       config?.cvars.r_forcebg_color1,
-      SoldatColorFormats.ABGR
+      SoldatColorFormats.ABGR,
     );
 
     this.limitFPS = toBool(config?.cvars.r_fpslimit);
@@ -147,11 +147,11 @@ class GraphicsSettings implements GraphicsSettingsData {
         r_forcebg: toString(this.forceBackground),
         r_forcebg_color1: toSoldatColor(
           this.forcedBackgroundTopColor,
-          SoldatColorFormats.ABGR
+          SoldatColorFormats.ABGR,
         ),
         r_forcebg_color2: toSoldatColor(
           this.forcedBackgroundBottomColor,
-          SoldatColorFormats.ABGR
+          SoldatColorFormats.ABGR,
         ),
         r_weathereffects: toString(this.weatherEffects),
         r_smoothedges: toString(this.smoothEdges),

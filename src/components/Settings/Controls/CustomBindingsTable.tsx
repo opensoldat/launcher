@@ -30,7 +30,7 @@ const CustomBindingsTable: React.FC<CustomBindingsTableProps> = (props) => {
         } else {
           justAddedBinding.current = false;
         }
-      }
+      },
     );
   }, [props.customBindings]);
 

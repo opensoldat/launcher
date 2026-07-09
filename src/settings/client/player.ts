@@ -84,17 +84,13 @@ class PlayerSettings implements PlayerSettingsData {
     this.skinColor = toHexColor(config?.cvars.cl_player_skin);
     this.pantsColor = toHexColor(config?.cvars.cl_player_pants);
     this.jetColor = toHexColor(config?.cvars.cl_player_jet);
-    this.headStyle = toNumber(
-      config?.cvars.cl_player_headstyle
-    ) as HeadStyles;
-    this.hairStyle = toNumber(
-      config?.cvars.cl_player_hairstyle
-    ) as HairStyles;
+    this.headStyle = toNumber(config?.cvars.cl_player_headstyle) as HeadStyles;
+    this.hairStyle = toNumber(config?.cvars.cl_player_hairstyle) as HairStyles;
     this.chainStyle = toNumber(
-      config?.cvars.cl_player_chainstyle
+      config?.cvars.cl_player_chainstyle,
     ) as ChainStyles;
     this.secondaryWeapon = toNumber(
-      config?.cvars.cl_player_secwep
+      config?.cvars.cl_player_secwep,
     ) as SecondaryWeapons;
 
     defaults(this, defaultPlayerSettings);

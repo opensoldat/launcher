@@ -84,7 +84,7 @@ const LocalGamePage: React.FunctionComponent<LocalGamePageProps> = (props) => {
             props.uiState.mapsSelection.searchFilter = "";
             break;
         }
-      }
+      },
     );
   }, []);
 

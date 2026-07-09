@@ -20,7 +20,7 @@ const ServerDetailsCell: React.FC<ServerDetailsCellProps> = (props) => {
   React.useEffect(() => {
     props.serversStore.fetchPlayersList(
       props.server.ip,
-      props.server.port.toString()
+      props.server.port.toString(),
     );
   }, []);
 
@@ -31,7 +31,7 @@ const ServerDetailsCell: React.FC<ServerDetailsCellProps> = (props) => {
         <span>No data to display, try refreshing.</span>
       ) : (
         props.serversStore.playersLists[serverId].map(
-          (playerNickname, index) => <span key={index}>{playerNickname}</span>
+          (playerNickname, index) => <span key={index}>{playerNickname}</span>,
         )
       )}
     </div>

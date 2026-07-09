@@ -23,7 +23,7 @@ class ModsStore {
         archivesNames.sort();
         this.modsNames = archivesNames;
         this.isLoading = false;
-      })
+      }),
     );
   }
 
@@ -34,7 +34,7 @@ class ModsStore {
           value: name,
           label: name,
         };
-      })
+      }),
     );
   }
 }

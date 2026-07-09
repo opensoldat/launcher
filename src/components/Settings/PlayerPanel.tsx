@@ -56,7 +56,7 @@ const PlayerPanel: React.FC<PlayerPanelProps> = (props) => {
   };
 
   const handleNicknameChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ): void => {
     playerSettings.nickname = event.target.value;
   };

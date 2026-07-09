@@ -18,12 +18,12 @@ const ConnectForm: React.FC<ConnectFormProps> = (props) => {
   const handleDisconnectClick = (): void => {
     props.onlineGamesStore.disconnect(
       props.connectFormStore.ip,
-      Number(props.connectFormStore.port)
+      Number(props.connectFormStore.port),
     );
   };
 
   const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ): void => {
     const target = event.target;
 
@@ -43,7 +43,7 @@ const ConnectForm: React.FC<ConnectFormProps> = (props) => {
   };
 
   const handleIpInputPaste = (
-    event: React.ClipboardEvent<HTMLInputElement>
+    event: React.ClipboardEvent<HTMLInputElement>,
   ): void => {
     const pastedString = event.clipboardData.getData("text/plain");
     props.connectFormStore.setFromSoldatLink(pastedString);
@@ -67,7 +67,7 @@ const ConnectForm: React.FC<ConnectFormProps> = (props) => {
       props.connectFormStore.password,
       function (errorMessage: string) {
         toast.error("Could not start game:\n" + errorMessage);
-      }
+      },
     );
   };
 
@@ -129,7 +129,7 @@ const ConnectForm: React.FC<ConnectFormProps> = (props) => {
         {props.connectFormStore.isValid() &&
         props.onlineGamesStore.getClient(
           props.connectFormStore.ip,
-          Number(props.connectFormStore.port)
+          Number(props.connectFormStore.port),
         ) ? (
           // We don't want to raise a submit event when clicking disconnect,
           // so this is an input field with type="button".

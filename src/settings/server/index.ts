@@ -156,7 +156,7 @@ class ServerSettings implements ServerSettingsData {
 
         survivalEnabled: toBool(config?.cvars.sv_survivalmode),
         survivalDestroyWeaponsAfterRound: toBool(
-          config?.cvars.sv_survivalmode_clearweapons
+          config?.cvars.sv_survivalmode_clearweapons,
         ),
 
         advanceEnabled: toBool(config?.cvars.sv_advancemode),
@@ -216,13 +216,13 @@ class ServerSettings implements ServerSettingsData {
 
     if (this.gameplay.minWaveRespawnTime != null) {
       this.gameplay.minWaveRespawnTime = Math.round(
-        this.gameplay.minWaveRespawnTime / 60
+        this.gameplay.minWaveRespawnTime / 60,
       );
     }
 
     if (this.gameplay.maxWaveRespawnTime != null) {
       this.gameplay.maxWaveRespawnTime = Math.round(
-        this.gameplay.maxWaveRespawnTime / 60
+        this.gameplay.maxWaveRespawnTime / 60,
       );
     }
 
@@ -243,7 +243,7 @@ class ServerSettings implements ServerSettingsData {
         sv_realisticmode: toString(this.gameplay.styles.realisticEnabled),
         sv_survivalmode: toString(this.gameplay.styles.survivalEnabled),
         sv_survivalmode_clearweapons: toString(
-          this.gameplay.styles.survivalDestroyWeaponsAfterRound
+          this.gameplay.styles.survivalDestroyWeaponsAfterRound,
         ),
 
         sv_ctf_limit: toString(this.gameplay.pointsLimits.captureTheFlag),

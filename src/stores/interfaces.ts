@@ -54,7 +54,7 @@ class InterfacesStore {
         this.interfaceArchivesNames = archivesNames;
         this.interfaceDirectoriesNames = directoriesNames;
         this.isLoading = false;
-      })
+      }),
     );
   }
 
@@ -62,7 +62,7 @@ class InterfacesStore {
     let interfacesNames = this.interfaceArchivesNames.slice();
     if (this.clientLaunchSettingsStore.localMount) {
       interfacesNames = interfacesNames.concat(
-        this.interfaceDirectoriesNames.slice()
+        this.interfaceDirectoriesNames.slice(),
       );
     } else {
       interfacesNames = interfacesNames.concat(this.defaultInterfacesNames);

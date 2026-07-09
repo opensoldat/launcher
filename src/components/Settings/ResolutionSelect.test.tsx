@@ -40,7 +40,7 @@ test("Preselects 'Custom...' option when resolution is not common", () => {
 
 test("Preselects new option when reference to resolution prop changes", () => {
   const { rerender } = render(
-    <ResolutionSelect resolution={{ width: 800, height: 600 }} />
+    <ResolutionSelect resolution={{ width: 800, height: 600 }} />,
   );
   expect(screen.queryByText("1600 x 900")).toBeNull();
   rerender(<ResolutionSelect resolution={{ width: 1600, height: 900 }} />);

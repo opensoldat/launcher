@@ -42,17 +42,17 @@ class LauncherDataStore {
       .then((launcherData) => {
         this.connectFormStore.setData(launcherData?.connectForm);
         this.clientLaunchSettingsStore.setSettings(
-          launcherData?.clientLaunchSettings
+          launcherData?.clientLaunchSettings,
         );
         this.serverLaunchSettingsStore.setSettings(
-          launcherData?.serverLaunchSettings
+          launcherData?.serverLaunchSettings,
         );
       })
       .finally(
         action(() => {
           this.isLoading = false;
           this.gotData = true;
-        })
+        }),
       );
   }
 

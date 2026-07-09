@@ -26,8 +26,8 @@ const MapsList: React.FC<MapsListProps> = (props) => {
       {props.isLoading
         ? loadingSpinner
         : React.Children.count(props.children) > 0
-        ? props.children
-        : emptyMessage}
+          ? props.children
+          : emptyMessage}
     </div>
   );
 };

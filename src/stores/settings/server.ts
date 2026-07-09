@@ -29,7 +29,7 @@ class ServerSettingsStore {
         this.mapsList = new ServerMapsList(mapsNames);
 
         this.isLoading = false;
-      })
+      }),
     );
   }
 
@@ -47,10 +47,10 @@ class ServerSettingsStore {
     this.isSaving = true;
 
     const saveServerConfig = window.soldat.server.saveConfig(
-      this.settings.toConfig()
+      this.settings.toConfig(),
     );
     const saveMapsList = window.soldat.server.saveMapsList(
-      this.mapsList.mapsNames
+      this.mapsList.mapsNames,
     );
 
     return Promise.all([saveServerConfig, saveMapsList])

@@ -48,7 +48,7 @@ class LobbyServersStore {
 
   @action fetchPlayersList(
     serverIp: string,
-    serverPort: string
+    serverPort: string,
   ): Promise<void> {
     //const apiUrl = `https://api.opensoldat.org/v0/server/${serverIp}/${serverPort}/players`;
     const apiUrl = `http://217.182.78.135:23023/v0/server/${serverIp}/${serverPort}/players`;
@@ -65,17 +65,17 @@ class LobbyServersStore {
       .then(
         action((response) => {
           this.playersLists[serverId] = response.Players;
-        })
+        }),
       )
       .catch(
         action(() => {
           this.playersLists[serverId] = null;
-        })
+        }),
       )
       .finally(
         action(() => {
           this.isFetchingPlayersList[serverId] = false;
-        })
+        }),
       );
   }
 
@@ -134,7 +134,7 @@ class LobbyServersStore {
               info: lobbyServer.Info,
               customWeapons: lobbyServer.WM,
               version: lobbyServer.Version,
-            })
+            }),
           );
           this.isFetching = false;
 

@@ -17,13 +17,13 @@ type AdvancedFormProps = {
 
 const AdvancedForm: React.FC<AdvancedFormProps> = (props) => {
   const handleCustomLaunchArgumentsChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ): void => {
     props.serverLaunchSettingsStore.customArguments = event.target.value;
   };
 
   const handlePortChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ): void => {
     props.networkSettings.port = event.target.value.trim();
   };

@@ -36,7 +36,7 @@ const GamePanel: React.FC<GamePanelProps> = (props) => {
   }
 
   const handleCustomLaunchArgumentsChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ): void => {
     props.clientLaunchSettingsStore.customArguments = event.target.value;
   };

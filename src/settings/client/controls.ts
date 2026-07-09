@@ -72,7 +72,7 @@ class ControlsSettings implements ControlsSettingsData {
     this.bindings = unionBy(
       config?.bindings,
       defaultControls.bindings,
-      "command"
+      "command",
     ).map((binding) => {
       return {
         id: shortid.generate(),

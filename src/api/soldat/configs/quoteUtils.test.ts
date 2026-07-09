@@ -7,7 +7,7 @@ describe("splitQuotedStrings", () => {
 
     expect(result.length).toBe(3);
     expect(result).toEqual(
-      expect.arrayContaining(["bind", "ALT+Keypad 8", "say test"])
+      expect.arrayContaining(["bind", "ALT+Keypad 8", "say test"]),
     );
   });
 

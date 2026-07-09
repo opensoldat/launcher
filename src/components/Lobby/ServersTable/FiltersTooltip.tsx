@@ -48,19 +48,19 @@ const FiltersTooltip: React.FC<FiltersTooltipProps> = (props) => {
     switch (fieldName) {
       case "players-filter":
         props.serverFiltersStore.players = Number(
-          newValue
+          newValue,
         ) as PlayersFilterOptions;
         break;
 
       case "game-mode-filter":
         props.serverFiltersStore.gameMode = Number(
-          newValue
+          newValue,
         ) as GameModeFilterOptions;
         break;
 
       case "game-style-filter":
         props.serverFiltersStore.gameStyle = Number(
-          newValue
+          newValue,
         ) as GameStyleFilterOptions;
         break;
     }

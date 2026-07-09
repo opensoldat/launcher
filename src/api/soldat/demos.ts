@@ -3,7 +3,7 @@ import { soldatPaths } from "./paths";
 
 const play = function (
   fileName: string,
-  onFailed: (error: Error) => void
+  onFailed: (error: Error) => void,
 ): void {
   /* Maybe consider validating fileName? Worst case I can imagine is trying to play
    * demo from parent directory, which doesn't seem to pose a real threat...

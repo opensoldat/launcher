@@ -27,7 +27,7 @@ const start = (
   launchArguments: string,
   onFailed: (clientId: string, error: Error) => void,
   onTerminated: (clientId: string) => void,
-  detachedProcess: boolean
+  detachedProcess: boolean,
 ): string => {
   if (!isIPv4(ip)) {
     throw Error("Invalid IP address passed to client launcher.");
@@ -50,7 +50,7 @@ const start = (
   const clientProcess = spawn(
     soldatPaths.clientExecutable,
     ["-fs_portable 1", joinArguments, launchArguments],
-    { detached: detachedProcess }
+    { detached: detachedProcess },
   );
 
   clientProcess.on("close", () => {
