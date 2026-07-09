@@ -58,7 +58,6 @@
     "react-color": "^2.19.3",
     "react-dom": "^19.2.7",
     "react-draggable": "4.4.6",
-    "react-flag-kit": "^1.1.1",
     "react-select": "^5.8.0",
     "react-tabs": "^6.1.1",
     "react-toastify": "^11.1.0",
@@ -70,6 +69,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "country-flag-icons": "^1.6.20",
     "electron-squirrel-startup": "^1.0.1"
   }
 }

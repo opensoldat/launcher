@@ -19,3 +19,8 @@
 .server-name-cell .server-info-icons .icon:not(:last-child) {
   margin-right: 0.5em;
 }
+
+.flag-icon-unknown {
+  display: inline-block;
+  background-color: #ccc;
+}
