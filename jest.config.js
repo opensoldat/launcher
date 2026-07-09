@@ -6,6 +6,9 @@ module.exports = {
   roots: ["<rootDir>/src"],
   setupFilesAfterEnv: ["<rootDir>/src/tests/setup.ts"],
   testEnvironment: "jsdom",
+  testEnvironmentOptions: {
+    customExportConditions: [""],
+  },
   transform: {
     "\\.(ts|tsx)$": "ts-jest",
   },
