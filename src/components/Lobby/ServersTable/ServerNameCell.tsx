@@ -14,11 +14,15 @@ type ServerNameCellProps = {
   requiredPasswordTooltipId: string;
 };
 
+export function getFlagComponent(countryCode: string) {
+  if (!hasFlag(countryCode)) return null;
+  // eslint-disable-next-line import/namespace
+  return Flags[countryCode as keyof typeof Flags];
+}
+
 const ServerNameCell: React.FC<ServerNameCellProps> = (props) => {
   const countryCode = props.server.country.toUpperCase();
-  const Flag = hasFlag(countryCode)
-    ? Flags[countryCode as keyof typeof Flags]
-    : null;
+  const Flag = getFlagComponent(countryCode);
 
   return (
     <div className="server-name-cell">
