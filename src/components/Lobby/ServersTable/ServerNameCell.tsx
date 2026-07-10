@@ -27,7 +27,12 @@ const ServerNameCell: React.FC<ServerNameCellProps> = (props) => {
   return (
     <div className="server-name-cell">
       {Flag ? (
-        <Flag title={countryCode} className="flag-icon" width={24} height={18} />
+        <Flag
+          title={countryCode}
+          className="flag-icon"
+          width={24}
+          height={18}
+        />
       ) : (
         <span
           className="flag-icon flag-icon-unknown"
